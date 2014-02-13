@@ -15,13 +15,15 @@ module Mscrm
       end
 
       # Select the right region for your CRM
+      # The region can be pulled from the Organization WSDL
+      # 
       # urn:crmna:dynamics.com - North America
       # urn:crmemea:dynamics.com - Europe, the Middle East and Africa
-      # urn:crmapac:dynamics.com - Asia Pacific  
+      # urn:crmapac:dynamics.com - Asia Pacific
       def build_ocp_request(username, password)
 
         ocp_request = <<EOF
-          <s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" 
+          <s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope"
             xmlns:a="http://www.w3.org/2005/08/addressing"
             xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
             <s:Header>

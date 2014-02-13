@@ -1,5 +1,7 @@
 require "mscrm/soap/version"
-require "mscrm/message_builder"
+require "mscrm/soap/message_builder"
+require "mscrm/soap/model/retrieve_result"
+
 require "rexml/document"
 require 'savon'
 require 'curl'
@@ -104,7 +106,8 @@ module Mscrm
           }
         end
 
-        return post(@organization_endpoint, request)
+        xml_response = post(@organization_endpoint, request)
+        return Model::RetrieveResult.new(xml_response)
       end
 
       def update
