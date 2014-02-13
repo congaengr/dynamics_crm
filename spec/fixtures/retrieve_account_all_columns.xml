@@ -1,0 +1,402 @@
+<?xml version="1.0"?>
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+<s:Header>
+    <a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/RetrieveResponse</a:Action>
+    <a:RelatesTo>urn:uuid:a31aa651-f44c-4ce7-86d7-965c873e9bc4</a:RelatesTo>
+    <ActivityId xmlns="http://schemas.microsoft.com/2004/09/ServiceModel/Diagnostics" CorrelationId="e4671c6b-47a8-4bc2-b068-973185b748a6">00000000-0000-0000-0000-000000000000</ActivityId>
+    <o:Security xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" s:mustUnderstand="1">
+    <u:Timestamp u:Id="_0">
+        <u:Created>2014-02-13T23:01:42.427Z</u:Created>
+        <u:Expires>2014-02-13T23:06:42.427Z</u:Expires>
+    </u:Timestamp>
+</o:Security>
+</s:Header>
+<s:Body>
+    <RetrieveResponse xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">
+    <RetrieveResult xmlns:b="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <b:Attributes xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
+    <b:KeyValuePairOfstringanyType>
+        <c:key>address2_addresstypecode</c:key>
+        <c:value i:type="b:OptionSetValue">
+            <b:Value>1</b:Value>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>merged</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:boolean">false</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>accountnumber</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">ABC28UU7</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>territorycode</c:key>
+        <c:value i:type="b:OptionSetValue">
+            <b:Value>1</b:Value>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>emailaddress1</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">someone3@example.com</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>exchangerate</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:decimal">1.0000000000</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>name</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">Adventure Works (sample)</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>websiteurl</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">http://www.adventure-works.com/</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>modifiedon</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:dateTime">2014-02-10T23:38:29Z</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>owninguser</c:key>
+        <c:value i:type="b:EntityReference">
+            <b:Id>1bfa3886-df7e-468c-8435-b5adfb0441ed</b:Id>
+            <b:LogicalName>systemuser</b:LogicalName>
+            <b:Name i:nil="true"/>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>primarycontactid</c:key>
+        <c:value i:type="b:EntityReference">
+            <b:Id>51f1325c-a592-e311-b7f3-6c3be5a8a0c8</b:Id>
+            <b:LogicalName>contact</b:LogicalName>
+            <b:Name>Nancy Anderson (sample)</b:Name>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>address1_composite</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">4405 Balboa Court&#xD;
+        Santa Cruz, TX 95486&#xD;
+        U.S.</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>donotpostalmail</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:boolean">false</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>accountratingcode</c:key>
+        <c:value i:type="b:OptionSetValue">
+            <b:Value>1</b:Value>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>revenue_base</c:key>
+        <c:value i:type="b:Money">
+            <b:Value>60000.0000</b:Value>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>preferredcontactmethodcode</c:key>
+        <c:value i:type="b:OptionSetValue">
+            <b:Value>1</b:Value>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>ownerid</c:key>
+        <c:value i:type="b:EntityReference">
+            <b:Id>1bfa3886-df7e-468c-8435-b5adfb0441ed</b:Id>
+            <b:LogicalName>systemuser</b:LogicalName>
+            <b:Name>Joe Heth</b:Name>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>customersizecode</c:key>
+        <c:value i:type="b:OptionSetValue">
+            <b:Value>1</b:Value>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>address2_shippingmethodcode</c:key>
+        <c:value i:type="b:OptionSetValue">
+            <b:Value>1</b:Value>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>donotemail</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:boolean">false</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>owningbusinessunit</c:key>
+        <c:value i:type="b:EntityReference">
+            <b:Id>4e87d619-838a-e311-89a7-6c3be5a80184</b:Id>
+            <b:LogicalName>businessunit</b:LogicalName>
+            <b:Name i:nil="true"/>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>revenue</c:key>
+        <c:value i:type="b:Money">
+            <b:Value>60000.0000</b:Value>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>address2_freighttermscode</c:key>
+        <c:value i:type="b:OptionSetValue">
+            <b:Value>1</b:Value>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>statuscode</c:key>
+        <c:value i:type="b:OptionSetValue">
+            <b:Value>1</b:Value>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>createdon</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:dateTime">2014-02-10T23:38:21Z</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>numberofemployees</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:int">4300</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>address1_stateorprovince</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">TX</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>donotsendmm</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:boolean">false</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>donotfax</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:boolean">false</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>donotbulkpostalmail</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:boolean">false</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>address1_country</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">U.S.</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>address1_line1</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">4405 Balboa Court</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>address1_addressid</c:key>
+        <c:value xmlns:d="http://schemas.microsoft.com/2003/10/Serialization/" i:type="d:guid">675cdbc7-8bca-4920-8a3a-ba6a698b5890</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>creditonhold</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:boolean">false</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>shippingmethodcode</c:key>
+        <c:value i:type="b:OptionSetValue">
+            <b:Value>1</b:Value>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>telephone1</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">555-0152</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>transactioncurrencyid</c:key>
+        <c:value i:type="b:EntityReference">
+            <b:Id>a6cfc561-ac92-e311-9752-6c3be5a87df0</b:Id>
+            <b:LogicalName>transactioncurrency</b:LogicalName>
+            <b:Name>US Dollar</b:Name>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>accountid</c:key>
+        <c:value xmlns:d="http://schemas.microsoft.com/2003/10/Serialization/" i:type="d:guid">93f0325c-a592-e311-b7f3-6c3be5a8a0c8</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>donotbulkemail</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:boolean">false</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>modifiedby</c:key>
+        <c:value i:type="b:EntityReference">
+            <b:Id>1bfa3886-df7e-468c-8435-b5adfb0441ed</b:Id>
+            <b:LogicalName>systemuser</b:LogicalName>
+            <b:Name>Joe Heth</b:Name>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>businesstypecode</c:key>
+        <c:value i:type="b:OptionSetValue">
+            <b:Value>1</b:Value>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>createdby</c:key>
+        <c:value i:type="b:EntityReference">
+            <b:Id>1bfa3886-df7e-468c-8435-b5adfb0441ed</b:Id>
+            <b:LogicalName>systemuser</b:LogicalName>
+            <b:Name>Joe Heth</b:Name>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>address1_city</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">Santa Cruz</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>statecode</c:key>
+        <c:value i:type="b:OptionSetValue">
+            <b:Value>0</b:Value>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>participatesinworkflow</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:boolean">false</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>accountclassificationcode</c:key>
+        <c:value i:type="b:OptionSetValue">
+            <b:Value>1</b:Value>
+        </c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>donotphone</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:boolean">false</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>address2_addressid</c:key>
+        <c:value xmlns:d="http://schemas.microsoft.com/2003/10/Serialization/" i:type="d:guid">0ca309aa-d791-4d57-8861-1be7ace60466</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>address1_postalcode</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">95486</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>importsequencenumber</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:int">1</c:value>
+    </b:KeyValuePairOfstringanyType>
+</b:Attributes>
+<b:EntityState i:nil="true"/>
+<b:FormattedValues xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
+<b:KeyValuePairOfstringstring>
+    <c:key>address2_addresstypecode</c:key>
+    <c:value>Default Value</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>merged</c:key>
+    <c:value>No</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>territorycode</c:key>
+    <c:value>Default Value</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>exchangerate</c:key>
+    <c:value>1.0000000000</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>modifiedon</c:key>
+    <c:value>2/10/2014 3:38 PM</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>donotpostalmail</c:key>
+    <c:value>Allow</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>accountratingcode</c:key>
+    <c:value>Default Value</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>revenue_base</c:key>
+    <c:value>$&#x200E;60,000.00</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>preferredcontactmethodcode</c:key>
+    <c:value>Any</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>customersizecode</c:key>
+    <c:value>Default Value</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>address2_shippingmethodcode</c:key>
+    <c:value>Default Value</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>donotemail</c:key>
+    <c:value>Allow</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>revenue</c:key>
+    <c:value>$&#x200E;60,000.00</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>address2_freighttermscode</c:key>
+    <c:value>Default Value</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>statuscode</c:key>
+    <c:value>Active</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>createdon</c:key>
+    <c:value>2/10/2014 3:38 PM</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>numberofemployees</c:key>
+    <c:value>4,300</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>donotsendmm</c:key>
+    <c:value>Send</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>donotfax</c:key>
+    <c:value>Allow</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>donotbulkpostalmail</c:key>
+    <c:value>No</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>creditonhold</c:key>
+    <c:value>No</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>shippingmethodcode</c:key>
+    <c:value>Default Value</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>donotbulkemail</c:key>
+    <c:value>Allow</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>businesstypecode</c:key>
+    <c:value>Default Value</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>statecode</c:key>
+    <c:value>Active</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>participatesinworkflow</c:key>
+    <c:value>No</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>accountclassificationcode</c:key>
+    <c:value>Default Value</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>donotphone</c:key>
+    <c:value>Allow</c:value>
+</b:KeyValuePairOfstringstring>
+<b:KeyValuePairOfstringstring>
+    <c:key>importsequencenumber</c:key>
+    <c:value>1</c:value>
+</b:KeyValuePairOfstringstring>
+</b:FormattedValues>
+<b:Id>93f0325c-a592-e311-b7f3-6c3be5a8a0c8</b:Id>
+<b:LogicalName>account</b:LogicalName>
+<b:RelatedEntities xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic"/>
+</RetrieveResult>
+</RetrieveResponse>
+</s:Body>
+</s:Envelope>

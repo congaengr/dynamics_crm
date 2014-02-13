@@ -13,14 +13,8 @@ module Mscrm
           doc = REXML::Document.new(xml)
           @result_response = doc.get_elements("//RetrieveResult").first
 
-          h = {}
-          h["type"] = @result_response.elements["b:LogicalName"].text
-          h["id"] = @result_response.elements["b:Id"].text
+          h = parse_result_response(@result_response)
 
-          @result_response.elements["b:Attributes"].each_element do |key_value_pair|
-            key = key_value_pair.elements["c:key"].text
-            h[key] = key_value_pair.elements["c:value"].text
-          end
           # Calling super causes undesired behavior so just merge.
           self.merge!(h)
         end
@@ -50,6 +44,60 @@ module Mscrm
         end
 
       protected
+
+        def parse_result_response(result)
+
+          h = {}
+          h["LogicalName"] = h["type"] = result.elements["b:LogicalName"].text
+          h["Id"] = h["id"] = result.elements["b:Id"].text
+
+          attributes = parse_key_value_pairs(result.elements["b:Attributes"])
+          h.merge(attributes)
+        end
+
+        def parse_key_value_pairs(parent_element)
+          h = {}
+          parent_element.each_element do |key_value_pair|
+            key_element = key_value_pair.elements["c:key"]
+            key = key_element.text
+            value_element = key_value_pair.elements["c:value"]
+            value = value_element.text
+
+            begin
+
+              case value_element.attributes["type"]
+              when "b:OptionSetValue"
+                # Nested value. Appears to always be an integer.
+                value = value_element.elements.first.text.to_i
+              when "d:boolean"
+                value = (value == "true")
+              when "d:decimal"
+                value = value.to_f
+              when "d:dateTime"
+                value = Time.parse(value)
+              when "b:EntityReference"
+                entity_ref = {}
+                value_element.each_element do |child|
+                  entity_ref[child.name] = child.text
+                end
+                value = entity_ref
+              when "b:Money"
+                # Nested value.
+                value = value_element.elements.first.text.to_f
+              when "d:int"
+                value = value.to_i
+              when "d:string", "d:guid"
+                # nothing
+              end
+            rescue => e
+              # In case there's an error during type conversion.
+              puts e.message
+            end
+
+            h[key] = value
+          end
+          h
+        end
 
         def underscore(str)
           str.gsub(/::/, '/').
