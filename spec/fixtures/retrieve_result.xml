@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+<s:Header>
+    <a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/RetrieveResponse</a:Action>
+    <a:RelatesTo>urn:uuid:9ef8254f-52e9-4cc8-8835-26eb87029d8a</a:RelatesTo>
+    <ActivityId xmlns="http://schemas.microsoft.com/2004/09/ServiceModel/Diagnostics" CorrelationId="d664279a-f0d9-45ad-981f-e237396eea0d">00000000-0000-0000-0000-000000000000</ActivityId>
+    <o:Security xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" s:mustUnderstand="1">
+    <u:Timestamp u:Id="_0">
+        <u:Created>2014-02-13T19:40:30.164Z</u:Created>
+        <u:Expires>2014-02-13T19:45:30.164Z</u:Expires>
+    </u:Timestamp>
+</o:Security>
+</s:Header>
+<s:Body>
+    <RetrieveResponse xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">
+    <RetrieveResult xmlns:b="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <b:Attributes xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
+    <b:KeyValuePairOfstringanyType>
+        <c:key>accountid</c:key>
+        <c:value xmlns:d="http://schemas.microsoft.com/2003/10/Serialization/" i:type="d:guid">93f0325c-a592-e311-b7f3-6c3be5a8a0c8</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>address1_city</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">Santa Cruz</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>address1_stateorprovince</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">TX</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>address1_postalcode</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">95486</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>websiteurl</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">http://www.adventure-works.com/</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>name</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">Adventure Works (sample)</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>address1_line1</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">4405 Balboa Court</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>address1_country</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">U.S.</c:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <c:key>address1_composite</c:key>
+        <c:value xmlns:d="http://www.w3.org/2001/XMLSchema" i:type="d:string">4405 Balboa Court&#xD;
+        Santa Cruz, TX 95486&#xD;
+        U.S.</c:value>
+    </b:KeyValuePairOfstringanyType>
+</b:Attributes>
+<b:EntityState i:nil="true"/>
+<b:FormattedValues xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic"/>
+<b:Id>93f0325c-a592-e311-b7f3-6c3be5a8a0c8</b:Id>
+<b:LogicalName>account</b:LogicalName>
+<b:RelatedEntities xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic"/>
+</RetrieveResult>
+</RetrieveResponse>
+</s:Body>
+</s:Envelope>
