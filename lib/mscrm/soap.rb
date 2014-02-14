@@ -1,6 +1,10 @@
 require "mscrm/soap/version"
 require "mscrm/soap/message_builder"
+require "mscrm/soap/model/attributes"
+require "mscrm/soap/model/entity"
+require "mscrm/soap/model/result"
 require "mscrm/soap/model/retrieve_result"
+require "mscrm/soap/model/create_result"
 
 require "rexml/document"
 require 'savon'
@@ -65,23 +69,19 @@ module Mscrm
       end
 
       # These are all the operations defined by the Dynamics WSDL.
+      # Tag name case MATTERS!
 
-      def create
+      def create(entity_name, attributes)
+
+        entity = Model::Entity.new('account')
+        entity.attributes = Model::Attributes.new(attributes)
+
+        xml_response = post(@organization_endpoint, create_request(entity))
+        return Model::CreateResult.new(xml_response)
       end
 
-      # <entityname><!-- ENTITY NAME GOES HERE!! --></entityname>
-      # <id><!-- RECORD GUID GOES HERE!! --></id>
-      # <columnset xmlns:b="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-      #   <b:allcolumns>false</b:allcolumns>
-      #   <b:columns xmlns:c="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-      #     <!-- COLUMN LIST GOES HERE!! -->
-      #   </b:columns>
-      # </columnset>
-      # <b:allColumns>#{false && columns.empty?}</b:allColumns>
+      # http://crmtroubleshoot.blogspot.com.au/2013/07/dynamics-crm-2011-php-and-soap-calls.html
       def retrieve(entity_name, guid, columns=[])
-        #@savon.call(:retrieve) do
-        #  message entityname: entity_name, id: guid #, columnset: {allcolumns: true}
-        #end
 
         # name, telephone1, websiteurl, address1_composite, primarycontactid
         column_set = "<b:AllColumns>true</b:AllColumns>"
@@ -110,6 +110,9 @@ module Mscrm
         return Model::RetrieveResult.new(xml_response)
       end
 
+      def retrieve_multiple
+      end
+
       def update
       end 
 
@@ -123,9 +126,6 @@ module Mscrm
       end
 
       def disassociate
-      end
-
-      def retrieve_multiple
       end
 
       def who_am_i

@@ -26,7 +26,7 @@ describe Mscrm::Soap::Client do
 
     it "should retrieve object by id" do
 
-      subject.stub(:post).and_return(fixture("retrieve_result"))
+      subject.stub(:post).and_return(fixture("retrieve_account_all_columns"))
 
       result = subject.retrieve("account", "93f0325c-a592-e311-b7f3-6c3be5a8a0c8")
 

@@ -21,8 +21,7 @@ module Mscrm
       # urn:crmemea:dynamics.com - Europe, the Middle East and Africa
       # urn:crmapac:dynamics.com - Asia Pacific
       def build_ocp_request(username, password)
-
-        ocp_request = <<EOF
+        %Q{
           <s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope"
             xmlns:a="http://www.w3.org/2005/08/addressing"
             xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
@@ -57,24 +56,24 @@ module Mscrm
               </t:RequestSecurityToken>
             </s:Body>
           </s:Envelope>
-EOF
+        }
       end
 
 
       def build_envelope(action, &block)
-        envelope = <<EOF
+        %Q{
          <s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
           #{build_header(action)}
           <s:Body>
             #{yield}
           </s:Body>
          </s:Envelope>
-EOF
+        }
       end
 
       def build_header(action)
 
-        header = <<EOF
+        %Q{
           <s:Header>
            <a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/#{action}</a:Action>
            <a:MessageID>
@@ -116,8 +115,17 @@ EOF
            </EncryptedData>
            </o:Security>
           </s:Header>
-EOF
+        }
       end
+
+      def create_request(entity)
+        build_envelope('Create') do
+          %Q{<Create xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+              #{entity}
+          </Create>}
+        end
+      end
+
     end
   end
 end
