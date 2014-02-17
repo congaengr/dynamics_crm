@@ -1,10 +1,13 @@
 require "mscrm/soap/version"
 require "mscrm/soap/message_builder"
+require "mscrm/soap/model/fault"
 require "mscrm/soap/model/attributes"
+require "mscrm/soap/model/column_set"
 require "mscrm/soap/model/entity"
 require "mscrm/soap/model/result"
 require "mscrm/soap/model/retrieve_result"
 require "mscrm/soap/model/create_result"
+require "mscrm/soap/model/delete_result"
 
 require "rexml/document"
 require 'savon'
@@ -83,28 +86,8 @@ module Mscrm
       # http://crmtroubleshoot.blogspot.com.au/2013/07/dynamics-crm-2011-php-and-soap-calls.html
       def retrieve(entity_name, guid, columns=[])
 
-        # name, telephone1, websiteurl, address1_composite, primarycontactid
-        column_set = "<b:AllColumns>true</b:AllColumns>"
-        if columns.any?
-          column_set = '<b:Columns xmlns:c="http://schemas.microsoft.com/2003/10/Serialization/Arrays">'
-          columns.each do |name|
-            column_set << "<c:string>#{name}</c:string>"
-          end
-          column_set << '</b:Columns>'
-        end
-
-        # Tag name case MATTERS!
-        request = build_envelope('Retrieve') do
-          %Q{
-            <Retrieve xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">
-              <entityName>#{entity_name}</entityName>
-              <id>#{guid}</id>
-              <columnSet xmlns:b="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-                #{column_set}
-              </columnSet>
-            </Retrieve>
-          }
-        end
+        column_set = Model::ColumnSet.new(columns)
+        request = retrieve_request(entity_name, guid, column_set)
 
         xml_response = post(@organization_endpoint, request)
         return Model::RetrieveResult.new(xml_response)
@@ -116,7 +99,11 @@ module Mscrm
       def update
       end 
 
-      def delete
+      def delete(entity_name, guid)
+        request = delete_request(entity_name, guid)
+
+        xml_response = post(@organization_endpoint, request)
+        return Model::DeleteResult.new(xml_response)
       end
 
       def execute

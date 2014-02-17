@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+<s:Header>
+    <a:Action s:mustUnderstand="1">http://schemas.microsoft.com/net/2005/12/windowscommunicationfoundation/dispatcher/fault</a:Action>
+    <a:RelatesTo>urn:uuid:b2337f1c-2d40-4d83-966d-fd326988e6c5</a:RelatesTo>
+    <ActivityId xmlns="http://schemas.microsoft.com/2004/09/ServiceModel/Diagnostics" CorrelationId="15136c52-7f5f-4c45-bf13-03b4e1f1b824">00000000-0000-0000-0000-000000000000</ActivityId>
+    <o:Security xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" s:mustUnderstand="1">
+    <u:Timestamp u:Id="_0">
+        <u:Created>2014-02-14T18:58:12.225Z</u:Created>
+        <u:Expires>2014-02-14T19:03:12.225Z</u:Expires>
+    </u:Timestamp>
+</o:Security>
+</s:Header>
+<s:Body>
+    <s:Fault>
+        <s:Code>
+            <s:Value>s:Receiver</s:Value>
+            <s:Subcode>
+                <s:Value xmlns:a="http://schemas.microsoft.com/net/2005/12/windowscommunicationfoundation/dispatcher">a:InternalServiceFault</s:Value>
+            </s:Subcode>
+        </s:Code>
+        <s:Reason>
+            <s:Text xml:lang="en-US">The server was unable to process the request due to an internal error.</s:Text>
+        </s:Reason>
+    </s:Fault>
+</s:Body>
+</s:Envelope>

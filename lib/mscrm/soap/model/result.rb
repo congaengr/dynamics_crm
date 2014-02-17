@@ -11,13 +11,24 @@ module Mscrm
         def initialize(xml)
 
           doc = REXML::Document.new(xml)
+
+          fault_xml = doc.get_elements("//[local-name() = 'Fault']")
+          raise Fault.new(fault_xml) if fault_xml.any?
+
           class_name = self.class.to_s.split("::").last
           @result_response = doc.get_elements("//#{class_name}").first
 
+          # Child classes should override this method.
           h = parse_result_response(@result_response)
 
           # Calling super causes undesired behavior so just merge.
           self.merge!(h)
+        end
+
+        # Invoked by constructor, should be implemented in sub-classes.
+        def parse_result_response(result)
+          # do nothing here
+          {}
         end
 
         # Allows method-like access to the hash using camelcase field names.

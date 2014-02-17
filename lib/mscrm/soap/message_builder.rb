@@ -126,6 +126,27 @@ module Mscrm
         end
       end
 
+      # Tag name case MATTERS!
+      def retrieve_request(entity_name, guid, columns)
+        build_envelope('Retrieve') do
+          %Q{<Retrieve xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">
+              <entityName>#{entity_name}</entityName>
+              <id>#{guid}</id>
+              #{columns}
+            </Retrieve>}
+        end
+      end
+
+      # Tag name case MATTERS!
+      def delete_request(entity_name, guid)
+        build_envelope('Delete') do
+          %Q{<Delete xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">
+              <entityName>#{entity_name}</entityName>
+              <id>#{guid}</id>
+            </Delete>}
+        end
+      end
+
     end
   end
 end
