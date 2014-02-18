@@ -126,6 +126,14 @@ module Mscrm
         end
       end
 
+      def update_request(entity)
+        build_envelope('Update') do
+          %Q{<Update xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+              #{entity}
+          </Update>}
+        end
+      end
+
       # Tag name case MATTERS!
       def retrieve_request(entity_name, guid, columns)
         build_envelope('Retrieve') do

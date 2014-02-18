@@ -110,6 +110,15 @@ module Mscrm
         end
 
       end
+
+      # There's nothing to parse in the DeleteResult
+      class UpdateResult < Result
+      end
+
+      # There's nothing to parse in the DeleteResult
+      class DeleteResult < Result
+      end
+
     end
   end
 end

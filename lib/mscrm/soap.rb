@@ -7,7 +7,6 @@ require "mscrm/soap/model/entity"
 require "mscrm/soap/model/result"
 require "mscrm/soap/model/retrieve_result"
 require "mscrm/soap/model/create_result"
-require "mscrm/soap/model/delete_result"
 
 require "rexml/document"
 require 'savon'
@@ -76,7 +75,7 @@ module Mscrm
 
       def create(entity_name, attributes)
 
-        entity = Model::Entity.new('account')
+        entity = Model::Entity.new(entity_name)
         entity.attributes = Model::Attributes.new(attributes)
 
         xml_response = post(@organization_endpoint, create_request(entity))
@@ -96,7 +95,16 @@ module Mscrm
       def retrieve_multiple
       end
 
-      def update
+      # Update entity attributes
+      def update(entity_name, guid, attributes)
+
+        entity = Model::Entity.new(entity_name)
+        entity.id = guid
+        entity.attributes = Model::Attributes.new(attributes)
+
+        request = update_request(entity)
+        xml_response = post(@organization_endpoint, request)
+        return Model::UpdateResult.new(xml_response)
       end 
 
       def delete(entity_name, guid)
