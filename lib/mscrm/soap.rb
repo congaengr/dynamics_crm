@@ -127,6 +127,13 @@ module Mscrm
       def disassociate
       end
 
+      def retrieve_all_entities
+        self.execute("RetrieveAllEntities", {
+          EntityFilters: "Entity",
+          RetrieveAsIfPublished: true
+          })
+      end
+
       def who_am_i
         self.execute('WhoAmI')
       end
