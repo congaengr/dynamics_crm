@@ -59,10 +59,13 @@ module Mscrm
 
         def parse_key_value_pairs(parent_element)
           h = {}
+          # Get namespace alias (letter) for child elements.
+          namespace_alias = parent_element.attributes.keys.first
           parent_element.each_element do |key_value_pair|
-            key_element = key_value_pair.elements["c:key"]
+
+            key_element = key_value_pair.elements["#{namespace_alias}:key"]
             key = key_element.text
-            value_element = key_value_pair.elements["c:value"]
+            value_element = key_value_pair.elements["#{namespace_alias}:value"]
             value = value_element.text
 
             begin

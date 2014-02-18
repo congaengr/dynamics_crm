@@ -155,6 +155,18 @@ module Mscrm
         end
       end
 
+      def execute_request(action, parameters={})
+        build_envelope('Execute') do
+          %Q{<Execute xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+            <request i:type="b:#{action}Request" xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:b="http://schemas.microsoft.com/crm/2011/Contracts">
+             <a:Parameters xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+             <a:RequestId i:nil="true" />
+             <a:RequestName>#{action}</a:RequestName>
+            </request>
+           </Execute>}
+         end
+      end
+
     end
   end
 end

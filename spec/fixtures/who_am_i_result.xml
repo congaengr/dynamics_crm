@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+<s:Header>
+    <a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/ExecuteResponse</a:Action>
+    <a:RelatesTo>urn:uuid:71c49726-deb9-40a4-ba6e-1696ee284004</a:RelatesTo>
+    <ActivityId xmlns="http://schemas.microsoft.com/2004/09/ServiceModel/Diagnostics" CorrelationId="fef27b87-9ea7-4906-88cb-ae88f088a138">00000000-0000-0000-0000-000000000000</ActivityId>
+    <o:Security xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" s:mustUnderstand="1">
+    <u:Timestamp u:Id="_0">
+        <u:Created>2014-02-18T00:09:32.062Z</u:Created>
+        <u:Expires>2014-02-18T00:14:32.062Z</u:Expires>
+    </u:Timestamp>
+</o:Security>
+</s:Header>
+<s:Body>
+    <ExecuteResponse xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">
+    <ExecuteResult xmlns:b="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://schemas.microsoft.com/crm/2011/Contracts" i:type="c:WhoAmIResponse">
+    <b:ResponseName>WhoAmI</b:ResponseName>
+    <b:Results xmlns:d="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
+    <b:KeyValuePairOfstringanyType>
+        <d:key>UserId</d:key>
+        <d:value xmlns:e="http://schemas.microsoft.com/2003/10/Serialization/" i:type="e:guid">1bfa3886-df7e-468c-8435-b5adfb0441ed</d:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <d:key>BusinessUnitId</d:key>
+        <d:value xmlns:e="http://schemas.microsoft.com/2003/10/Serialization/" i:type="e:guid">4e87d619-838a-e311-89a7-6c3be5a80184</d:value>
+    </b:KeyValuePairOfstringanyType>
+    <b:KeyValuePairOfstringanyType>
+        <d:key>OrganizationId</d:key>
+        <d:value xmlns:e="http://schemas.microsoft.com/2003/10/Serialization/" i:type="e:guid">0140d597-e270-494a-89e1-bd0b43774e50</d:value>
+    </b:KeyValuePairOfstringanyType>
+</b:Results>
+</ExecuteResult>
+</ExecuteResponse>
+</s:Body>
+</s:Envelope>

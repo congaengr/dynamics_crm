@@ -4,8 +4,8 @@ describe Mscrm::Soap::Model::RetrieveResult do
 
   describe 'initialization' do
     subject {
-      file = File.open(File.dirname(__FILE__) + "/../../../fixtures/retrieve_account_all_columns.xml")
-      Mscrm::Soap::Model::RetrieveResult.new(file.read)
+      file = fixture("retrieve_account_all_columns")
+      Mscrm::Soap::Model::RetrieveResult.new(file)
     }
 
     context "parse attributes according to their type" do

@@ -7,6 +7,7 @@ require "mscrm/soap/model/entity"
 require "mscrm/soap/model/result"
 require "mscrm/soap/model/retrieve_result"
 require "mscrm/soap/model/create_result"
+require "mscrm/soap/model/execute_result"
 
 require "rexml/document"
 require 'savon'
@@ -114,7 +115,10 @@ module Mscrm
         return Model::DeleteResult.new(xml_response)
       end
 
-      def execute
+      def execute(action, parameters={})
+        request = execute_request(action, parameters)
+        xml_response = post(@organization_endpoint, request)
+        return Model::ExecuteResult.new(xml_response)
       end
 
       def associate
@@ -124,23 +128,7 @@ module Mscrm
       end
 
       def who_am_i
-
-        xml = <<EOF
-         <s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
-          #{build_header('Execute')}
-          <s:Body>
-           <Execute xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-            <request i:type="b:WhoAmIRequest" xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:b="http://schemas.microsoft.com/crm/2011/Contracts">
-             <a:Parameters xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
-             <a:RequestId i:nil="true" />
-             <a:RequestName>WhoAmI</a:RequestName>
-            </request>
-           </Execute>
-          </s:Body>
-         </s:Envelope>
-EOF
-
-        return post(@organization_endpoint, xml)
+        self.execute('WhoAmI')
       end
 
       protected
