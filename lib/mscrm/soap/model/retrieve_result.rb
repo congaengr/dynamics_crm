@@ -11,7 +11,7 @@ module Mscrm
           h["LogicalName"] = h["type"] = result.elements["b:LogicalName"].text
           h["Id"] = h["id"] = result.elements["b:Id"].text
 
-          attributes = parse_key_value_pairs(result.elements["b:Attributes"])
+          attributes = MessageParser.parse_key_value_pairs(result.elements["b:Attributes"])
           h.merge(attributes)
         end
 

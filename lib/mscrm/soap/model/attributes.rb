@@ -1,43 +1,49 @@
 module Mscrm
   module Soap
     module Model
-      class Attributes < Array
 
-        def initialize(hash)
+      class Attributes < Hash
 
-          hash.each do |key,value|
-            type = "string"
+        def initialize(attrs)
+          super
+          self.merge!(attrs)
+        end
 
-            case value
-              when Fixnum
-                type = "int"
-              when Float
-                type = "decimal"
-              when TrueClass, FalseClass
-                type = "boolean"
-              when Time, DateTime
-                type = "dateTime"
-              when Hash
-                type = "EntityReference"
-              else
-                if key.to_s == "EntityFilters"
-                  type = "EntityFilters"
-                end
-            end
-            # Not sure how to handle OptionSetValue or Money
-            if type == "string" && value =~ /\w+{8}-\w+{4}-\w+{4}-\w+{4}-\w+{12}/
-              type = "guid"
-            end
-
-            self << build_xml(key, value, type)
+        def get_type(key, value)
+          type = "string"
+          case value
+            when Fixnum
+              type = "int"
+            when Float
+              type = "decimal"
+            when TrueClass, FalseClass
+              type = "boolean"
+            when Time, DateTime
+              type = "dateTime"
+            when Hash
+              type = "EntityReference"
+            else
+              if key.to_s == "EntityFilters"
+                type = "EntityFilters"
+              end
           end
+
+          # Not sure how to handle OptionSetValue or Money
+          if type == "string" && value =~ /\w+{8}-\w+{4}-\w+{4}-\w+{4}-\w+{12}/
+            type = "guid"
+          end
+
+          type
         end
 
         def to_xml
           xml = %Q{<a:#{self.class_name} xmlns:b="http://schemas.datacontract.org/2004/07/System.Collections.Generic">}
-          self.each do |el|
-            xml << el
+
+          self.each do |key,value|
+            type = get_type(key, value)
+            xml << build_xml(key, value, type)
           end
+
           xml << %Q{\n</a:#{self.class_name}>}
         end
 
@@ -84,6 +90,11 @@ module Mscrm
 
         def class_name
           self.class.to_s.split("::").last
+        end
+
+        def self.from_xml(xml_document)
+          hash = MessageParser.parse_key_value_pairs(xml_document)
+          attributes = Attributes.new(hash)
         end
       end
 

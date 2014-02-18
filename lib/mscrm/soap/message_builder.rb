@@ -121,7 +121,7 @@ module Mscrm
       def create_request(entity)
         build_envelope('Create') do
           %Q{<Create xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-              #{entity}
+              #{entity.to_xml}
           </Create>}
         end
       end
@@ -129,7 +129,7 @@ module Mscrm
       def update_request(entity)
         build_envelope('Update') do
           %Q{<Update xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-              #{entity}
+              #{entity.to_xml}
           </Update>}
         end
       end

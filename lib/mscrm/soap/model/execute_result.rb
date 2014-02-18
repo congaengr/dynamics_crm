@@ -10,7 +10,7 @@ module Mscrm
           h = {}
           h["ResponseName"] = result.elements["b:ResponseName"].text
 
-          attributes = parse_key_value_pairs(result.elements["b:Results"])
+          attributes = MessageParser.parse_key_value_pairs(result.elements["b:Results"])
           h.merge(attributes)
         end
 

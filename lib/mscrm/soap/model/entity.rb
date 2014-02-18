@@ -25,9 +25,37 @@ module Mscrm
           }
         end
 
-        def to_s
-          self.to_xml
+        def to_hash
+          {
+            :attributes => attributes,
+            :entity_state => entity_state,
+            :formatted_values => formatted_values,
+            :id => @id,
+            :logical_name => @logical_name,
+            :related_entities => related_entities
+          }
         end
+
+        def self.from_xml(xml_document)
+          entity = Entity.new('')
+
+          if xml_document
+            xml_document.elements.each do |node|
+
+              attr_name = StringUtil.underscore(node.name).to_sym
+              if entity.respond_to?(attr_name)
+                if node.name == "Attributes"
+                  entity.attributes = Model::Attributes.from_xml(node)
+                else
+                  entity.send("#{attr_name}=", node.text ? node.text.strip : nil)
+                end
+              end
+            end
+          end
+
+          return entity
+        end
+
       end
     end
   end

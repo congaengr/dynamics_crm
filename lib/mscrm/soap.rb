@@ -1,11 +1,14 @@
 require "mscrm/soap/version"
 require "mscrm/soap/message_builder"
+require 'mscrm/soap/model/message_parser'
 require "mscrm/soap/model/fault"
 require "mscrm/soap/model/attributes"
 require "mscrm/soap/model/column_set"
+require "mscrm/soap/model/criteria"
 require "mscrm/soap/model/entity"
 require "mscrm/soap/model/result"
 require "mscrm/soap/model/retrieve_result"
+require "mscrm/soap/model/retrieve_multiple_result"
 require "mscrm/soap/model/create_result"
 require "mscrm/soap/model/execute_result"
 
@@ -93,7 +96,28 @@ module Mscrm
         return Model::RetrieveResult.new(xml_response)
       end
 
-      def retrieve_multiple
+      def retrieve_multiple(entity_name, criteria, columns=[])
+
+        column_set = Model::ColumnSet.new(columns)
+        criteria_xml = Model::Criteria.new(criteria)
+
+        request = build_envelope('RetrieveMultiple') do
+          %Q{
+          <RetrieveMultiple xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">
+            <query i:type="b:QueryExpression" xmlns:b="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+              #{column_set}
+              #{criteria_xml}
+              <b:Distinct>false</b:Distinct>
+              <b:EntityName>#{entity_name}</b:EntityName>
+              <b:LinkEntities />
+              <b:Orders />
+            </query>
+          </RetrieveMultiple>
+          }
+        end
+
+        xml_response = post(@organization_endpoint, request)
+        return Model::RetrieveMultipleResult.new(xml_response)
       end
 
       # Update entity attributes
@@ -174,5 +198,16 @@ module Mscrm
       end
 
     end
+
+    class StringUtil
+      def self.underscore(str)
+        str.gsub(/::/, '/').
+          gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+          gsub(/([a-z\d])([A-Z])/,'\1_\2').
+          tr("-", "_").
+          downcase
+      end
+    end
+
   end
 end

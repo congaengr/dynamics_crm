@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+<s:Header>
+    <a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/RetrieveMultipleResponse</a:Action>
+    <a:RelatesTo>urn:uuid:5a111cc5-6db9-4b9d-8f90-9479732fbac4</a:RelatesTo>
+    <ActivityId xmlns="http://schemas.microsoft.com/2004/09/ServiceModel/Diagnostics" CorrelationId="bbb2e7e2-7bc1-453a-b08c-1fa7a52aac7b">00000000-0000-0000-0000-000000000000</ActivityId>
+    <o:Security xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" s:mustUnderstand="1">
+    <u:Timestamp u:Id="_0">
+        <u:Created>2014-02-18T07:23:45.031Z</u:Created>
+        <u:Expires>2014-02-18T07:28:45.031Z</u:Expires>
+    </u:Timestamp>
+</o:Security>
+</s:Header>
+<s:Body>
+  <RetrieveMultipleResponse xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">
+    <RetrieveMultipleResult xmlns:b="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+      <b:Entities>
+        <b:Entity>
+            <b:Attributes xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
+            <b:KeyValuePairOfstringanyType>
+                <c:key>accountid</c:key>
+                <c:value xmlns:d="http://schemas.microsoft.com/2003/10/Serialization/" i:type="d:guid">7bf2e032-ad92-e311-9752-6c3be5a87df0</c:value>
+            </b:KeyValuePairOfstringanyType>
+            </b:Attributes>
+            <b:EntityState i:nil="true"/>
+            <b:FormattedValues xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic"/>
+            <b:Id>7bf2e032-ad92-e311-9752-6c3be5a87df0</b:Id>
+            <b:LogicalName>account</b:LogicalName>
+            <b:RelatedEntities xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic"/>
+        </b:Entity>
+        <b:Entity>
+            <b:Attributes xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
+                <b:KeyValuePairOfstringanyType>
+                    <c:key>accountid</c:key>
+                    <c:value xmlns:d="http://schemas.microsoft.com/2003/10/Serialization/" i:type="d:guid">dbe9d7c9-2c98-e311-9752-6c3be5a87df0</c:value>
+                </b:KeyValuePairOfstringanyType>
+            </b:Attributes>
+            <b:EntityState i:nil="true"/>
+            <b:FormattedValues xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic"/>
+            <b:Id>dbe9d7c9-2c98-e311-9752-6c3be5a87df0</b:Id>
+            <b:LogicalName>account</b:LogicalName>
+            <b:RelatedEntities xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic"/>
+        </b:Entity>
+        <b:Entity>
+            <b:Attributes xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
+                <b:KeyValuePairOfstringanyType>
+                    <c:key>accountid</c:key>
+                    <c:value xmlns:d="http://schemas.microsoft.com/2003/10/Serialization/" i:type="d:guid">8ff0325c-a592-e311-b7f3-6c3be5a8a0c8</c:value>
+                </b:KeyValuePairOfstringanyType>
+            </b:Attributes>
+            <b:EntityState i:nil="true"/>
+            <b:FormattedValues xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic"/>
+            <b:Id>8ff0325c-a592-e311-b7f3-6c3be5a8a0c8</b:Id>
+            <b:LogicalName>account</b:LogicalName>
+            <b:RelatedEntities xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic"/>
+        </b:Entity>
+      </b:Entities>
+      <b:EntityName>account</b:EntityName>
+      <b:MinActiveRowVersion>-1</b:MinActiveRowVersion>
+      <b:MoreRecords>false</b:MoreRecords>
+      <b:PagingCookie>&lt;cookie page="1"&gt;&lt;accountid last="{BC73E579-2D98-E311-AD92-6C3BE5A8AD70}" first="{7BF2E032-AD92-E311-9752-6C3BE5A87DF0}" /&gt;&lt;/cookie&gt;</b:PagingCookie>
+      <b:TotalRecordCount>-1</b:TotalRecordCount>
+      <b:TotalRecordCountLimitExceeded>false</b:TotalRecordCountLimitExceeded>
+    </RetrieveMultipleResult>
+  </RetrieveMultipleResponse>
+</s:Body>
+</s:Envelope>
