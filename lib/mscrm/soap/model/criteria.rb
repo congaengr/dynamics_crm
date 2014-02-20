@@ -5,13 +5,9 @@ module Mscrm
       class Criteria < Array
 
         attr_accessor :filter_operator
-        def initialize(tuples)
+        def initialize(tuples=[])
           super
-          @filter_operator = 'and'
-        end
-
-        def to_s
-          self.to_xml
+          @filter_operator = 'And'
         end
 
         # ConditionExpression can be repeated multiple times
@@ -19,35 +15,36 @@ module Mscrm
         #           get the values from a fetch xml query
         # Values -> Value can be repeated multiple times
         # FilterOperator: and OR or depending on the filter requirements
-        def to_xml
+        def to_xml(options={})
+          ns = options[:namespace] ? options[:namespace] : "a"
 
           expressions = ""
           self.each do |tuple|
-ap tuple
             attr_name = tuple[0]
             operator = tuple[1]
             values = tuple[2].is_a?(Array) ? tuple[2] : [tuple[2]]
             type = (tuple[3] || values.first.class).to_s.downcase
-            expressions << %Q{<a:ConditionExpression>
-                <a:AttributeName>#{attr_name}</a:AttributeName>
-                <a:Operator>#{operator}</a:Operator>
-                <a:Values xmlns:b="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+            type = "int" if type == "fixnum"
+            expressions << %Q{<#{ns}:ConditionExpression>
+                <#{ns}:AttributeName>#{attr_name}</#{ns}:AttributeName>
+                <#{ns}:Operator>#{operator}</#{ns}:Operator>
+                <#{ns}:Values xmlns:d="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
               }
                 values.each do |v|
-                    expressions << %Q{<b:anyType i:type="c:#{type}" xmlns:c="http://www.w3.org/2001/XMLSchema">#{v}</b:anyType>}
+                    expressions << %Q{<d:anyType i:type="s:#{type}" xmlns:s="http://www.w3.org/2001/XMLSchema">#{v}</d:anyType>}
                 end
                 
             expressions << %Q{
-                 </a:Values>
-            </a:ConditionExpression>}
+                 </#{ns}:Values>
+            </#{ns}:ConditionExpression>}
           end
 
-          %Q{<a:Criteria>
-              <a:Conditions>
+          %Q{<#{ns}:Criteria>
+              <#{ns}:Conditions>
                 #{expressions}
-              </a:Conditions>
-              <a:FilterOperator></a:FilterOperator>
-          </a:Criteria>}
+              </#{ns}:Conditions>
+              <#{ns}:FilterOperator>#{@filter_operator}</#{ns}:FilterOperator>
+          </#{ns}:Criteria>}
         end
       end
       # ColumnSet

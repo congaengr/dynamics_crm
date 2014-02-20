@@ -11,16 +11,21 @@ module Mscrm
           @id = id || "00000000-0000-0000-0000-000000000000"
         end
 
-        def to_xml(namespace = nil)
-          namespace = namespace ? "#{namespace}:" : ''
+        def to_xml(options={})
+          namespace = options[:namespace] ? "#{options[:namespace]}:" : ''
 
-          %Q{
-          <#{namespace}entityReference>
+          xml = %Q{
             <#{namespace}LogicalName>#{@logical_name}</#{namespace}LogicalName>
             <#{namespace}Id>#{@id}</#{namespace}Id>
             <#{namespace}Name #{@name ? '' : 'nil="true"'}>#{@name}</#{namespace}Name>
-          </#{namespace}entityReference>
           }
+
+          if options[:exclude_root].nil?
+          xml = %Q{
+          <#{namespace}entityReference>#{xml}</#{namespace}entityReference>
+          }
+          end
+          return xml
         end
 
         def to_hash

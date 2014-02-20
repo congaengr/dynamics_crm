@@ -20,15 +20,18 @@ module Mscrm
               type = "boolean"
             when Time, DateTime
               type = "dateTime"
-            when Hash
+            when Hash, EntityReference
               type = "EntityReference"
+            when Query
+              type = "QueryExpression"
             else
               if key.to_s == "EntityFilters"
                 type = "EntityFilters"
+              elsif key.to_s == "RollupType"
+                type = "RollupType"
               end
           end
 
-          # Not sure how to handle OptionSetValue or Money
           if type == "string" && value =~ /\w+{8}-\w+{4}-\w+{4}-\w+{4}-\w+{12}/
             type = "guid"
           end
@@ -37,10 +40,18 @@ module Mscrm
         end
 
         def to_xml
-          xml = %Q{<a:#{self.class_name} xmlns:b="http://schemas.datacontract.org/2004/07/System.Collections.Generic">}
+          xml = %Q{<a:#{self.class_name} xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic">}
 
           self.each do |key,value|
-            type = get_type(key, value)
+
+            # Temporary hack to handle types I cannot infer (OptionSetValue or Money).
+            if value.is_a?(Hash) && !value[:type].nil?
+              type = value[:type]
+              value = value[:value]
+            else
+              type = get_type(key, value)
+            end
+
             xml << build_xml(key, value, type)
           end
 
@@ -55,41 +66,62 @@ module Mscrm
 
           xml = %Q{
             <a:KeyValuePairOfstringanyType>
-              <b:key>#{key}</b:key>}
+              <c:key>#{key}</c:key>
+            }
 
+          # If we have an object that can convert itself, use it.
+          if (value.respond_to?(:to_xml) && value.class.to_s.include?("Soap::Model"))
+            xml <<  "<c:value i:type=\"a:#{type}\">\n" << value.to_xml({exclude_root: true, namespace: 'a'}) << "</c:value>"
+          else
+            xml << render_value_xml(type, value)
+          end
+
+          xml << "\n</a:KeyValuePairOfstringanyType>"
+
+          xml
+        end
+
+        def render_value_xml(type, value)
+          xml = ""
           case type
           when "EntityReference"
             xml << %Q{
-              <b:value i:type="a:EntityReference">
+              <c:value i:type="a:EntityReference">
                   <a:Id>#{value[:guid]}</a:Id>
                   <a:LogicalName>#{value[:entity_name]}</a:LogicalName>
                   <a:Name #{value[:name] ? '' : 'i:nil="true"'}>#{value[:name]}</a:Name>
-              </b:value>
+              </c:value>
             }
           when "OptionSetValue", "Money"
             xml << %Q{
-                <b:value i:type="a:#{type}">
+                <c:value i:type="a:#{type}">
                   <a:Value>#{value}</a:Value>
-                </b:value>
+                </c:value>
             }
           else
+            s_namespace = "http://www.w3.org/2001/XMLSchema"
             if ["EntityFilters"].include?(type)
-              c_namespace = "http://schemas.microsoft.com/xrm/2011/Metadata"
-            else
-              c_namespace = "http://www.w3.org/2001/XMLSchema"
+              s_namespace = "http://schemas.microsoft.com/xrm/2011/Metadata"
             end
 
             if type == "guid"
               xml << %Q{
-                <b:value xmlns:d="http://schemas.microsoft.com/2003/10/Serialization/" i:type="d:guid">#{value}</b:value>
+                <c:value xmlns:d="http://schemas.microsoft.com/2003/10/Serialization/" i:type="d:guid">#{value}</c:value>
+              }
+            elsif type == "RollupType"
+              xml << %Q{
+                <c:value i:type="a:RollupType">#{value}</c:value>
+              }
+            elsif type == "dateTime"
+              xml << %Q{
+                <c:value i:type="s:#{type}" xmlns:s="http://www.w3.org/2001/XMLSchema">#{value.utc.strftime('%Y-%m-%dT%H:%M:%SZ')}</c:value>
               }
             else
               xml << %Q{
-                <b:value i:type="c:#{type}" xmlns:c="#{c_namespace}">#{value}</b:value>
+                <c:value i:type="s:#{type}" xmlns:s="#{s_namespace}">#{value}</c:value>
               }
             end
           end
-          xml << "</a:KeyValuePairOfstringanyType>"
 
           xml
         end

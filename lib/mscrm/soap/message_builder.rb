@@ -140,7 +140,7 @@ module Mscrm
           %Q{<Retrieve xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">
               <entityName>#{entity_name}</entityName>
               <id>#{guid}</id>
-              #{columns}
+              #{columns.to_xml}
             </Retrieve>}
         end
       end
@@ -166,7 +166,7 @@ module Mscrm
       def modify_association(action, entity_name, id, relationship, relationship_entities=[])
         entities_xml = ""
         relationship_entities.each do |ref|
-          entities_xml << ref.to_xml("b")
+          entities_xml << ref.to_xml(namespace: "b")
         end
 
         build_envelope(action) do

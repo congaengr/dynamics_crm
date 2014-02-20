@@ -21,9 +21,9 @@ describe Mscrm::Soap::Model::Attributes do
     end
 
     context "parse attributes according to their type" do
-      it { subject.to_xml.should include("<b:key>telephone1</b:key>") }
-      it { subject.to_xml.should include("<b:key>donotemail</b:key>") }
-      it { subject.to_xml.should include("<b:key>modifiedon</b:key>") }
+      it { subject.to_xml.should include("<c:key>telephone1</c:key>") }
+      it { subject.to_xml.should include("<c:key>donotemail</c:key>") }
+      it { subject.to_xml.should include("<c:key>modifiedon</c:key>") }
     end
 
   end

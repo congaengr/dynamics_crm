@@ -77,22 +77,24 @@ module Mscrm
         return Model::RetrieveResult.new(xml_response)
       end
 
+      def rollup(target_entity, query, rollup_type="Related")
+          self.execute("Rollup", {
+            Target: target_entity,
+            Query: query,
+            RollupType: rollup_type
+          })
+      end
+
       def retrieve_multiple(entity_name, criteria, columns=[])
 
-        column_set = Model::ColumnSet.new(columns)
-        criteria_xml = Model::Criteria.new(criteria)
+        query = Model::Query.new(entity_name)
+        query.columns = columns
+        query.criteria = Model::Criteria.new(criteria)
 
         request = build_envelope('RetrieveMultiple') do
           %Q{
           <RetrieveMultiple xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">
-            <query i:type="b:QueryExpression" xmlns:b="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-              #{column_set}
-              #{criteria_xml}
-              <b:Distinct>false</b:Distinct>
-              <b:EntityName>#{entity_name}</b:EntityName>
-              <b:LinkEntities />
-              <b:Orders />
-            </query>
+            #{query.to_xml}
           </RetrieveMultiple>
           }
         end

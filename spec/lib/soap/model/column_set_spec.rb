@@ -8,10 +8,10 @@ describe Mscrm::Soap::Model::ColumnSet do
     }
 
     context "generate ColumnSet XML" do
-      it { subject.to_s.should include("<b:AllColumns>false</b:AllColumns>") }
-      it { subject.to_s.should include("<c:string>accountid</c:string>") }
-      it { subject.to_xml.should include("<c:string>donotemail</c:string>") }
-      it { subject.to_xml.should include("<c:string>telephone1</c:string>") }
+      it { subject.to_xml.should include("<b:AllColumns>false</b:AllColumns>") }
+      it { subject.to_xml.should include("<d:string>accountid</d:string>") }
+      it { subject.to_xml.should include("<d:string>donotemail</d:string>") }
+      it { subject.to_xml.should include("<d:string>telephone1</d:string>") }
     end
 
   end
