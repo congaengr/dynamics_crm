@@ -14,7 +14,7 @@ module Mscrm
           case value
             when Fixnum
               type = "int"
-            when Float
+            when BigDecimal, Float
               type = "decimal"
             when TrueClass, FalseClass
               type = "boolean"
@@ -79,9 +79,15 @@ module Mscrm
               c_namespace = "http://www.w3.org/2001/XMLSchema"
             end
 
-            xml << %Q{
+            if type == "guid"
+              xml << %Q{
+                <b:value xmlns:d="http://schemas.microsoft.com/2003/10/Serialization/" i:type="d:guid">#{value}</b:value>
+              }
+            else
+              xml << %Q{
                 <b:value i:type="c:#{type}" xmlns:c="#{c_namespace}">#{value}</b:value>
-            }
+              }
+            end
           end
           xml << "</a:KeyValuePairOfstringanyType>"
 
