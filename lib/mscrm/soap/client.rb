@@ -126,10 +126,14 @@ module Mscrm
         return Model::ExecuteResult.new(xml_response)
       end
 
-      def associate
+      def associate(entity_name, guid, relationship, related_entities)
+        request = associate_request(entity_name, guid, relationship, related_entities)
+        xml_response = post(@organization_endpoint, request)
       end
 
-      def disassociate
+      def disassociate(entity_name, guid, relationship, related_entities)
+        request = disassociate_request(entity_name, guid, relationship, related_entities)
+        xml_response = post(@organization_endpoint, request)
       end
 
       def retrieve_all_entities

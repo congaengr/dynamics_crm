@@ -155,8 +155,36 @@ module Mscrm
         end
       end
 
+      def associate_request(entity_name, id, relationship, relationship_entities=[])
+        modify_association("Associate", entity_name, id, relationship, relationship_entities)
+      end
+
+      def disassociate_request(entity_name, id, relationship, relationship_entities=[])
+        modify_association("Disassociate", entity_name, id, relationship, relationship_entities)
+      end
+
+      def modify_association(action, entity_name, id, relationship, relationship_entities=[])
+        entities_xml = ""
+        relationship_entities.each do |ref|
+          entities_xml << ref.to_xml("b")
+        end
+
+        build_envelope(action) do
+          %Q{<#{action} xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:b="http://schemas.microsoft.com/xrm/2011/Contracts">
+                <entityName i:type="string">#{entity_name}</entityName>
+                <entityId xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/" i:type="q10:guid">#{id}</entityId>
+                <relationship i:type="b:Relationship">
+                  <b:PrimaryEntityRole>Referenced</b:PrimaryEntityRole>
+                  <b:SchemaName i:type="string">#{relationship}</b:SchemaName>
+                </relationship>
+                <relatedEntities i:type="b:EntityReferenceCollection">#{entities_xml}</relatedEntities>
+             </#{action}>}
+        end
+      end
+
       def execute_request(action, parameters={})
 
+        ns_alias = "b"
         if ["RetrieveAllEntities"].include?(action)
           ns_alias = 'a'
         elsif ["WhoAmI"].include?(action)
