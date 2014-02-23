@@ -27,7 +27,7 @@ module Mscrm
 
         def to_hash
           {
-            :attributes => attributes,
+            :attributes => attributes.to_hash,
             :entity_state => entity_state,
             :formatted_values => formatted_values,
             :id => @id,

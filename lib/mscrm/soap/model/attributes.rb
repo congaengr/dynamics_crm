@@ -39,6 +39,15 @@ module Mscrm
           type
         end
 
+        # Removes Attributes class wrapper.
+        def to_hash
+          raw_hash = {}
+          self.each do |key, value|
+            raw_hash[key] = value
+          end
+          raw_hash
+        end
+
         def to_xml
           xml = %Q{<a:#{self.class_name} xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic">}
 
