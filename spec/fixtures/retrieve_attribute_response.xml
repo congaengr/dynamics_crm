@@ -1,0 +1,126 @@
+<s:Envelope xmlns:s='http://www.w3.org/2003/05/soap-envelope' xmlns:a='http://www.w3.org/2005/08/addressing' xmlns:u='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'>
+  <s:Header>
+    <a:Action s:mustUnderstand='1'>
+      http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/ExecuteResponse
+    </a:Action>
+    <a:RelatesTo>urn:uuid:c78e0fb0-3ef4-444f-bde6-bdd82b1b209e</a:RelatesTo>
+    <ActivityId CorrelationId='bad73f2c-ef49-4a3f-8d1d-6f28132572fd' xmlns='http://schemas.microsoft.com/2004/09/ServiceModel/Diagnostics'>00000000-0000-0000-0000-000000000000</ActivityId>
+    <o:Security s:mustUnderstand='1' xmlns:o='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'>
+      <u:Timestamp u:Id='_0'>
+        <u:Created>2014-02-24T18:47:09.029Z</u:Created>
+        <u:Expires>2014-02-24T18:52:09.029Z</u:Expires>
+      </u:Timestamp>
+    </o:Security>
+  </s:Header>
+  <s:Body>
+    <ExecuteResponse xmlns='http://schemas.microsoft.com/xrm/2011/Contracts/Services'>
+      <ExecuteResult i:type='b:RetrieveAttributeResponse' xmlns:b='http://schemas.microsoft.com/xrm/2011/Contracts' xmlns:i='http://www.w3.org/2001/XMLSchema-instance'>
+        <b:ResponseName>RetrieveAttribute</b:ResponseName>
+        <b:Results xmlns:c='http://schemas.datacontract.org/2004/07/System.Collections.Generic'>
+          <b:KeyValuePairOfstringanyType>
+            <c:key>AttributeMetadata</c:key>
+            <c:value i:type='d:MoneyAttributeMetadata' xmlns:d='http://schemas.microsoft.com/xrm/2011/Metadata'>
+              <d:MetadataId>79194881-c699-e311-9752-6c3be5a87df0</d:MetadataId>
+              <d:HasChanged i:nil='true'/>
+              <d:AttributeOf i:nil='true'/>
+              <d:AttributeType>Money</d:AttributeType>
+              <d:CanBeSecuredForCreate>true</d:CanBeSecuredForCreate>
+              <d:CanBeSecuredForRead>true</d:CanBeSecuredForRead>
+              <d:CanBeSecuredForUpdate>true</d:CanBeSecuredForUpdate>
+              <d:CanModifyAdditionalSettings>
+                <b:CanBeChanged>true</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>canmodifyadditionalsettings</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:CanModifyAdditionalSettings>
+              <d:ColumnNumber>32</d:ColumnNumber>
+              <d:DeprecatedVersion i:nil='true'/>
+              <d:Description>
+                <b:LocalizedLabels>
+                  <b:LocalizedLabel>
+                    <d:MetadataId i:nil='true'/>
+                    <d:HasChanged i:nil='true'/>
+                    <b:IsManaged>false</b:IsManaged>
+                    <b:Label/>
+                    <b:LanguageCode>1033</b:LanguageCode>
+                  </b:LocalizedLabel>
+                </b:LocalizedLabels>
+                <b:UserLocalizedLabel>
+                  <d:MetadataId i:nil='true'/>
+                  <d:HasChanged i:nil='true'/>
+                  <b:IsManaged>false</b:IsManaged>
+                  <b:Label/>
+                  <b:LanguageCode>1033</b:LanguageCode>
+                </b:UserLocalizedLabel>
+              </d:Description>
+              <d:DisplayName>
+                <b:LocalizedLabels>
+                  <b:LocalizedLabel>
+                    <d:MetadataId i:nil='true'/>
+                    <d:HasChanged i:nil='true'/>
+                    <b:IsManaged>false</b:IsManaged>
+                    <b:Label>Value</b:Label>
+                    <b:LanguageCode>1033</b:LanguageCode>
+                  </b:LocalizedLabel>
+                </b:LocalizedLabels>
+                <b:UserLocalizedLabel>
+                  <d:MetadataId i:nil='true'/>
+                  <d:HasChanged i:nil='true'/>
+                  <b:IsManaged>false</b:IsManaged>
+                  <b:Label>Value</b:Label>
+                  <b:LanguageCode>1033</b:LanguageCode>
+                </b:UserLocalizedLabel>
+              </d:DisplayName>
+              <d:EntityLogicalName>new_tinderboxdocument</d:EntityLogicalName>
+              <d:IsAuditEnabled>
+                <b:CanBeChanged>true</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>canmodifyauditsettings</b:ManagedPropertyLogicalName>
+                <b:Value>false</b:Value>
+              </d:IsAuditEnabled>
+              <d:IsCustomAttribute>true</d:IsCustomAttribute>
+              <d:IsCustomizable>
+                <b:CanBeChanged>true</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>iscustomizable</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:IsCustomizable>
+              <d:IsManaged>false</d:IsManaged>
+              <d:IsPrimaryId>false</d:IsPrimaryId>
+              <d:IsPrimaryName>false</d:IsPrimaryName>
+              <d:IsRenameable>
+                <b:CanBeChanged>true</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>isrenameable</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:IsRenameable>
+              <d:IsSecured>false</d:IsSecured>
+              <d:IsValidForAdvancedFind>
+                <b:CanBeChanged>true</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>canmodifysearchsettings</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:IsValidForAdvancedFind>
+              <d:IsValidForCreate>true</d:IsValidForCreate>
+              <d:IsValidForRead>true</d:IsValidForRead>
+              <d:IsValidForUpdate>true</d:IsValidForUpdate>
+              <d:LinkedAttributeId i:nil='true'/>
+              <d:LogicalName>new_value</d:LogicalName>
+              <d:RequiredLevel>
+                <b:CanBeChanged>true</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>canmodifyrequirementlevelsettings</b:ManagedPropertyLogicalName>
+                <b:Value>None</b:Value>
+              </d:RequiredLevel>
+              <d:SchemaName>new_value</d:SchemaName>
+              <d:AttributeTypeName xmlns:e='http://schemas.microsoft.com/xrm/2013/Metadata'>
+                <e:Value>MoneyType</e:Value>
+              </d:AttributeTypeName>
+              <d:IntroducedVersion>1.0</d:IntroducedVersion>
+              <d:CalculationOf i:nil='true'/>
+              <d:ImeMode>Auto</d:ImeMode>
+              <d:MaxValue>1000000000</d:MaxValue>
+              <d:MinValue>0</d:MinValue>
+              <d:Precision>2</d:Precision>
+              <d:PrecisionSource>0</d:PrecisionSource>
+            </c:value>
+          </b:KeyValuePairOfstringanyType>
+        </b:Results>
+      </ExecuteResult>
+    </ExecuteResponse>
+  </s:Body>
+</s:Envelope>

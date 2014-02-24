@@ -122,10 +122,12 @@ module Mscrm
         return Model::DeleteResult.new(xml_response)
       end
 
-      def execute(action, parameters={})
+      def execute(action, parameters={}, response_class=nil)
         request = execute_request(action, parameters)
         xml_response = post(@organization_endpoint, request)
-        return Model::ExecuteResult.new(xml_response)
+
+        response_class ||= Model::ExecuteResult
+        return response_class.new(xml_response)
       end
 
       def associate(entity_name, guid, relationship, related_entities)
@@ -139,26 +141,24 @@ module Mscrm
       end
 
       # Metadata Calls
+      # EntityFilters Enum: Default, Entity, Attributes, Privileges, Relationships, All
       def retrieve_all_entities
-        self.execute("RetrieveAllEntities", {
+        response = self.execute("RetrieveAllEntities", {
           EntityFilters: "Entity",
           RetrieveAsIfPublished: true
-          })
+          },
+          Metadata::RetrieveAllEntitiesResponse)
       end
 
-      def retrieve_entity_metadata(entity_name)
-        self.execute("RetrieveEntityMetadata", {
-          LogicalName: entity_name
-          })
-      end
-
+      # EntityFilters Enum: Default, Entity, Attributes, Privileges, Relationships, All
       def retrieve_entity(logical_name, entity_filter="Attributes")
         self.execute("RetrieveEntity", {
           LogicalName: logical_name,
           MetadataId: "00000000-0000-0000-0000-000000000000",
           EntityFilters: entity_filter,
           RetrieveAsIfPublished: true
-          })
+          },
+          Metadata::RetrieveEntityResponse)
       end
 
       def retrieve_attribute(entity_logical_name, logical_name)
@@ -167,7 +167,8 @@ module Mscrm
           LogicalName: logical_name,
           MetadataId: "00000000-0000-0000-0000-000000000000",
           RetrieveAsIfPublished: true
-          })
+          },
+          Metadata::RetrieveAttributeResponse)
       end
 
       def who_am_i

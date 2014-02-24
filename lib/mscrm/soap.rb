@@ -16,9 +16,12 @@ require "mscrm/soap/model/retrieve_multiple_result"
 require "mscrm/soap/model/create_result"
 require "mscrm/soap/model/execute_result"
 # Metadata
+require "mscrm/soap/metadata/xml_document"
 require "mscrm/soap/metadata/entity_metadata"
+require "mscrm/soap/metadata/attribute_metadata"
 require "mscrm/soap/metadata/retrieve_all_entities_response"
 require "mscrm/soap/metadata/retrieve_entity_response"
+require "mscrm/soap/metadata/retrieve_attribute_response"
 
 
 require "rexml/document"
