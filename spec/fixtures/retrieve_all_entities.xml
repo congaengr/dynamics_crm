@@ -1,0 +1,614 @@
+<s:Envelope xmlns:s='http://www.w3.org/2003/05/soap-envelope' xmlns:a='http://www.w3.org/2005/08/addressing' xmlns:u='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'>
+  <s:Header>
+    <a:Action s:mustUnderstand='1'>
+      http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/ExecuteResponse
+    </a:Action>
+    <a:RelatesTo>urn:uuid:44440083-163d-4cae-9987-ab41ecd970d4</a:RelatesTo>
+    <ActivityId CorrelationId='b5abf321-3109-4d2a-be57-c8338c5091cd' xmlns='http://schemas.microsoft.com/2004/09/ServiceModel/Diagnostics'>00000000-0000-0000-0000-000000000000</ActivityId>
+    <o:Security s:mustUnderstand='1' xmlns:o='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'>
+      <u:Timestamp u:Id='_0'>
+        <u:Created>2014-02-24T18:27:04.624Z</u:Created>
+        <u:Expires>2014-02-24T18:32:04.624Z</u:Expires>
+      </u:Timestamp>
+    </o:Security>
+  </s:Header>
+  <s:Body>
+    <ExecuteResponse xmlns='http://schemas.microsoft.com/xrm/2011/Contracts/Services'>
+      <ExecuteResult i:type='b:RetrieveAllEntitiesResponse' xmlns:b='http://schemas.microsoft.com/xrm/2011/Contracts' xmlns:i='http://www.w3.org/2001/XMLSchema-instance'>
+        <b:ResponseName>RetrieveAllEntities</b:ResponseName>
+        <b:Results xmlns:c='http://schemas.datacontract.org/2004/07/System.Collections.Generic'>
+          <b:KeyValuePairOfstringanyType>
+            <c:key>EntityMetadata</c:key>
+            <c:value i:type='d:ArrayOfEntityMetadata' xmlns:d='http://schemas.microsoft.com/xrm/2011/Metadata'>
+              <d:EntityMetadata>
+                <d:MetadataId>30b0cd7e-0081-42e1-9a48-688442277fae</d:MetadataId>
+                <d:HasChanged i:nil='true'/>
+                <d:ActivityTypeMask>0</d:ActivityTypeMask>
+                <d:Attributes i:nil='true'/>
+                <d:AutoCreateAccessTeams i:nil='true'/>
+                <d:AutoRouteToOwnerQueue>false</d:AutoRouteToOwnerQueue>
+                <d:CanBeInManyToMany>
+                  <b:CanBeChanged>false</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canbeinmanytomany</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanBeInManyToMany>
+                <d:CanBePrimaryEntityInRelationship>
+                  <b:CanBeChanged>false</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canbeprimaryentityinrelationship</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanBePrimaryEntityInRelationship>
+                <d:CanBeRelatedEntityInRelationship>
+                  <b:CanBeChanged>false</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canberelatedentityinrelationship</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanBeRelatedEntityInRelationship>
+                <d:CanCreateAttributes>
+                  <b:CanBeChanged>false</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>cancreateattributes</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanCreateAttributes>
+                <d:CanCreateCharts>
+                  <b:CanBeChanged>false</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>cancreatecharts</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanCreateCharts>
+                <d:CanCreateForms>
+                  <b:CanBeChanged>false</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>cancreateforms</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanCreateForms>
+                <d:CanCreateViews>
+                  <b:CanBeChanged>false</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>cancreateviews</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanCreateViews>
+                <d:CanModifyAdditionalSettings>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifyadditionalsettings</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanModifyAdditionalSettings>
+                <d:CanTriggerWorkflow>true</d:CanTriggerWorkflow>
+                <d:Description>
+                  <b:LocalizedLabels>
+                    <b:LocalizedLabel>
+                      <d:MetadataId i:nil='true'/>
+                      <d:HasChanged i:nil='true'/>
+                      <b:IsManaged>true</b:IsManaged>
+                      <b:Label>
+                        Potential revenue-generating event, or sale to an
+                        account, which needs to be tracked through a sales
+                        process to completion.
+                      </b:Label>
+                      <b:LanguageCode>1033</b:LanguageCode>
+                    </b:LocalizedLabel>
+                  </b:LocalizedLabels>
+                  <b:UserLocalizedLabel>
+                    <d:MetadataId i:nil='true'/>
+                    <d:HasChanged i:nil='true'/>
+                    <b:IsManaged>true</b:IsManaged>
+                    <b:Label>
+                      Potential revenue-generating event, or sale to an account,
+                      which needs to be tracked through a sales process to
+                      completion.
+                    </b:Label>
+                    <b:LanguageCode>1033</b:LanguageCode>
+                  </b:UserLocalizedLabel>
+                </d:Description>
+                <d:DisplayCollectionName>
+                  <b:LocalizedLabels>
+                    <b:LocalizedLabel>
+                      <d:MetadataId i:nil='true'/>
+                      <d:HasChanged i:nil='true'/>
+                      <b:IsManaged>true</b:IsManaged>
+                      <b:Label>Opportunities</b:Label>
+                      <b:LanguageCode>1033</b:LanguageCode>
+                    </b:LocalizedLabel>
+                  </b:LocalizedLabels>
+                  <b:UserLocalizedLabel>
+                    <d:MetadataId i:nil='true'/>
+                    <d:HasChanged i:nil='true'/>
+                    <b:IsManaged>true</b:IsManaged>
+                    <b:Label>Opportunities</b:Label>
+                    <b:LanguageCode>1033</b:LanguageCode>
+                  </b:UserLocalizedLabel>
+                </d:DisplayCollectionName>
+                <d:DisplayName>
+                  <b:LocalizedLabels>
+                    <b:LocalizedLabel>
+                      <d:MetadataId i:nil='true'/>
+                      <d:HasChanged i:nil='true'/>
+                      <b:IsManaged>true</b:IsManaged>
+                      <b:Label>Opportunity</b:Label>
+                      <b:LanguageCode>1033</b:LanguageCode>
+                    </b:LocalizedLabel>
+                  </b:LocalizedLabels>
+                  <b:UserLocalizedLabel>
+                    <d:MetadataId i:nil='true'/>
+                    <d:HasChanged i:nil='true'/>
+                    <b:IsManaged>true</b:IsManaged>
+                    <b:Label>Opportunity</b:Label>
+                    <b:LanguageCode>1033</b:LanguageCode>
+                  </b:UserLocalizedLabel>
+                </d:DisplayName>
+                <d:IconLargeName i:nil='true'/>
+                <d:IconMediumName i:nil='true'/>
+                <d:IconSmallName i:nil='true'/>
+                <d:IsAIRUpdated>true</d:IsAIRUpdated>
+                <d:IsActivity>false</d:IsActivity>
+                <d:IsActivityParty>true</d:IsActivityParty>
+                <d:IsAuditEnabled>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifyauditsettings</b:ManagedPropertyLogicalName>
+                  <b:Value>false</b:Value>
+                </d:IsAuditEnabled>
+                <d:IsAvailableOffline>true</d:IsAvailableOffline>
+                <d:IsBusinessProcessEnabled>true</d:IsBusinessProcessEnabled>
+                <d:IsChildEntity>false</d:IsChildEntity>
+                <d:IsConnectionsEnabled>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifyconnectionsettings</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:IsConnectionsEnabled>
+                <d:IsCustomEntity>false</d:IsCustomEntity>
+                <d:IsCustomizable>
+                  <b:CanBeChanged>false</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>iscustomizable</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:IsCustomizable>
+                <d:IsDocumentManagementEnabled>true</d:IsDocumentManagementEnabled>
+                <d:IsDuplicateDetectionEnabled>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifyduplicatedetectionsettings</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:IsDuplicateDetectionEnabled>
+                <d:IsEnabledForCharts>true</d:IsEnabledForCharts>
+                <d:IsEnabledForTrace>false</d:IsEnabledForTrace>
+                <d:IsImportable>true</d:IsImportable>
+                <d:IsIntersect>false</d:IsIntersect>
+                <d:IsMailMergeEnabled>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifymailmergesettings</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:IsMailMergeEnabled>
+                <d:IsManaged>true</d:IsManaged>
+                <d:IsMappable>
+                  <b:CanBeChanged>false</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>ismappable</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:IsMappable>
+                <d:IsQuickCreateEnabled>true</d:IsQuickCreateEnabled>
+                <d:IsReadOnlyInMobileClient>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifymobileclientreadonly</b:ManagedPropertyLogicalName>
+                  <b:Value>false</b:Value>
+                </d:IsReadOnlyInMobileClient>
+                <d:IsReadingPaneEnabled>true</d:IsReadingPaneEnabled>
+                <d:IsRenameable>
+                  <b:CanBeChanged>false</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>isrenameable</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:IsRenameable>
+                <d:IsValidForAdvancedFind>true</d:IsValidForAdvancedFind>
+                <d:IsValidForQueue>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifyqueuesettings</b:ManagedPropertyLogicalName>
+                  <b:Value>false</b:Value>
+                </d:IsValidForQueue>
+                <d:IsVisibleInMobile>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifymobilevisibility</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:IsVisibleInMobile>
+                <d:IsVisibleInMobileClient>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifymobileclientvisibility</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:IsVisibleInMobileClient>
+                <d:LogicalName>opportunity</d:LogicalName>
+                <d:ManyToManyRelationships i:nil='true'/>
+                <d:ManyToOneRelationships i:nil='true'/>
+                <d:ObjectTypeCode>3</d:ObjectTypeCode>
+                <d:OneToManyRelationships i:nil='true'/>
+                <d:OwnershipType>UserOwned</d:OwnershipType>
+                <d:PrimaryIdAttribute>opportunityid</d:PrimaryIdAttribute>
+                <d:PrimaryNameAttribute>name</d:PrimaryNameAttribute>
+                <d:Privileges i:nil='true'/>
+                <d:RecurrenceBaseEntityLogicalName i:nil='true'/>
+                <d:ReportViewName>FilteredOpportunity</d:ReportViewName>
+                <d:SchemaName>Opportunity</d:SchemaName>
+                <d:IntroducedVersion>5.0.0.0</d:IntroducedVersion>
+                <d:PrimaryImageAttribute i:nil='true'/>
+              </d:EntityMetadata>
+              <d:EntityMetadata>
+                <d:MetadataId>00c01398-1c99-e311-9752-6c3be5a87df0</d:MetadataId>
+                <d:HasChanged i:nil='true'/>
+                <d:ActivityTypeMask>0</d:ActivityTypeMask>
+                <d:Attributes i:nil='true'/>
+                <d:AutoCreateAccessTeams i:nil='true'/>
+                <d:AutoRouteToOwnerQueue>false</d:AutoRouteToOwnerQueue>
+                <d:CanBeInManyToMany>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canbeinmanytomany</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanBeInManyToMany>
+                <d:CanBePrimaryEntityInRelationship>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canbeprimaryentityinrelationship</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanBePrimaryEntityInRelationship>
+                <d:CanBeRelatedEntityInRelationship>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canberelatedentityinrelationship</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanBeRelatedEntityInRelationship>
+                <d:CanCreateAttributes>
+                  <b:CanBeChanged>false</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>cancreateattributes</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanCreateAttributes>
+                <d:CanCreateCharts>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>cancreatecharts</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanCreateCharts>
+                <d:CanCreateForms>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>cancreateforms</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanCreateForms>
+                <d:CanCreateViews>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>cancreateviews</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanCreateViews>
+                <d:CanModifyAdditionalSettings>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifyadditionalsettings</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanModifyAdditionalSettings>
+                <d:CanTriggerWorkflow>true</d:CanTriggerWorkflow>
+                <d:Description>
+                  <b:LocalizedLabels>
+                    <b:LocalizedLabel>
+                      <d:MetadataId i:nil='true'/>
+                      <d:HasChanged i:nil='true'/>
+                      <b:IsManaged>false</b:IsManaged>
+                      <b:Label>Stores metadata about TinderBox Documents.</b:Label>
+                      <b:LanguageCode>1033</b:LanguageCode>
+                    </b:LocalizedLabel>
+                  </b:LocalizedLabels>
+                  <b:UserLocalizedLabel>
+                    <d:MetadataId i:nil='true'/>
+                    <d:HasChanged i:nil='true'/>
+                    <b:IsManaged>false</b:IsManaged>
+                    <b:Label>Stores metadata about TinderBox Documents.</b:Label>
+                    <b:LanguageCode>1033</b:LanguageCode>
+                  </b:UserLocalizedLabel>
+                </d:Description>
+                <d:DisplayCollectionName>
+                  <b:LocalizedLabels>
+                    <b:LocalizedLabel>
+                      <d:MetadataId i:nil='true'/>
+                      <d:HasChanged i:nil='true'/>
+                      <b:IsManaged>false</b:IsManaged>
+                      <b:Label>TinderBox Documents</b:Label>
+                      <b:LanguageCode>1033</b:LanguageCode>
+                    </b:LocalizedLabel>
+                  </b:LocalizedLabels>
+                  <b:UserLocalizedLabel>
+                    <d:MetadataId i:nil='true'/>
+                    <d:HasChanged i:nil='true'/>
+                    <b:IsManaged>false</b:IsManaged>
+                    <b:Label>TinderBox Documents</b:Label>
+                    <b:LanguageCode>1033</b:LanguageCode>
+                  </b:UserLocalizedLabel>
+                </d:DisplayCollectionName>
+                <d:DisplayName>
+                  <b:LocalizedLabels>
+                    <b:LocalizedLabel>
+                      <d:MetadataId i:nil='true'/>
+                      <d:HasChanged i:nil='true'/>
+                      <b:IsManaged>false</b:IsManaged>
+                      <b:Label>TinderBox Document</b:Label>
+                      <b:LanguageCode>1033</b:LanguageCode>
+                    </b:LocalizedLabel>
+                  </b:LocalizedLabels>
+                  <b:UserLocalizedLabel>
+                    <d:MetadataId i:nil='true'/>
+                    <d:HasChanged i:nil='true'/>
+                    <b:IsManaged>false</b:IsManaged>
+                    <b:Label>TinderBox Document</b:Label>
+                    <b:LanguageCode>1033</b:LanguageCode>
+                  </b:UserLocalizedLabel>
+                </d:DisplayName>
+                <d:IconLargeName i:nil='true'/>
+                <d:IconMediumName i:nil='true'/>
+                <d:IconSmallName i:nil='true'/>
+                <d:IsAIRUpdated>false</d:IsAIRUpdated>
+                <d:IsActivity>false</d:IsActivity>
+                <d:IsActivityParty>false</d:IsActivityParty>
+                <d:IsAuditEnabled>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifyauditsettings</b:ManagedPropertyLogicalName>
+                  <b:Value>false</b:Value>
+                </d:IsAuditEnabled>
+                <d:IsAvailableOffline>false</d:IsAvailableOffline>
+                <d:IsBusinessProcessEnabled>false</d:IsBusinessProcessEnabled>
+                <d:IsChildEntity>false</d:IsChildEntity>
+                <d:IsConnectionsEnabled>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifyconnectionsettings</b:ManagedPropertyLogicalName>
+                  <b:Value>false</b:Value>
+                </d:IsConnectionsEnabled>
+                <d:IsCustomEntity>true</d:IsCustomEntity>
+                <d:IsCustomizable>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>iscustomizable</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:IsCustomizable>
+                <d:IsDocumentManagementEnabled>false</d:IsDocumentManagementEnabled>
+                <d:IsDuplicateDetectionEnabled>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifyduplicatedetectionsettings</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:IsDuplicateDetectionEnabled>
+                <d:IsEnabledForCharts>true</d:IsEnabledForCharts>
+                <d:IsEnabledForTrace>false</d:IsEnabledForTrace>
+                <d:IsImportable>true</d:IsImportable>
+                <d:IsIntersect>false</d:IsIntersect>
+                <d:IsMailMergeEnabled>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifymailmergesettings</b:ManagedPropertyLogicalName>
+                  <b:Value>false</b:Value>
+                </d:IsMailMergeEnabled>
+                <d:IsManaged>false</d:IsManaged>
+                <d:IsMappable>
+                  <b:CanBeChanged>false</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>ismappable</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:IsMappable>
+                <d:IsQuickCreateEnabled>false</d:IsQuickCreateEnabled>
+                <d:IsReadOnlyInMobileClient>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifymobileclientreadonly</b:ManagedPropertyLogicalName>
+                  <b:Value>false</b:Value>
+                </d:IsReadOnlyInMobileClient>
+                <d:IsReadingPaneEnabled>true</d:IsReadingPaneEnabled>
+                <d:IsRenameable>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>isrenameable</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:IsRenameable>
+                <d:IsValidForAdvancedFind>true</d:IsValidForAdvancedFind>
+                <d:IsValidForQueue>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifyqueuesettings</b:ManagedPropertyLogicalName>
+                  <b:Value>false</b:Value>
+                </d:IsValidForQueue>
+                <d:IsVisibleInMobile>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifymobilevisibility</b:ManagedPropertyLogicalName>
+                  <b:Value>false</b:Value>
+                </d:IsVisibleInMobile>
+                <d:IsVisibleInMobileClient>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifymobileclientvisibility</b:ManagedPropertyLogicalName>
+                  <b:Value>false</b:Value>
+                </d:IsVisibleInMobileClient>
+                <d:LogicalName>new_tinderboxdocument</d:LogicalName>
+                <d:ManyToManyRelationships i:nil='true'/>
+                <d:ManyToOneRelationships i:nil='true'/>
+                <d:ObjectTypeCode>10005</d:ObjectTypeCode>
+                <d:OneToManyRelationships i:nil='true'/>
+                <d:OwnershipType>OrganizationOwned</d:OwnershipType>
+                <d:PrimaryIdAttribute>new_tinderboxdocumentid</d:PrimaryIdAttribute>
+                <d:PrimaryNameAttribute>new_name</d:PrimaryNameAttribute>
+                <d:Privileges i:nil='true'/>
+                <d:RecurrenceBaseEntityLogicalName i:nil='true'/>
+                <d:ReportViewName>Filterednew_tinderboxdocument</d:ReportViewName>
+                <d:SchemaName>new_tinderboxdocument</d:SchemaName>
+                <d:IntroducedVersion>1.0</d:IntroducedVersion>
+                <d:PrimaryImageAttribute i:nil='true'/>
+              </d:EntityMetadata>
+              <d:EntityMetadata>
+                <d:MetadataId>780803bf-d899-e311-9752-6c3be5a87df0</d:MetadataId>
+                <d:HasChanged i:nil='true'/>
+                <d:ActivityTypeMask>0</d:ActivityTypeMask>
+                <d:Attributes i:nil='true'/>
+                <d:AutoCreateAccessTeams i:nil='true'/>
+                <d:AutoRouteToOwnerQueue>false</d:AutoRouteToOwnerQueue>
+                <d:CanBeInManyToMany>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canbeinmanytomany</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanBeInManyToMany>
+                <d:CanBePrimaryEntityInRelationship>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canbeprimaryentityinrelationship</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanBePrimaryEntityInRelationship>
+                <d:CanBeRelatedEntityInRelationship>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canberelatedentityinrelationship</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanBeRelatedEntityInRelationship>
+                <d:CanCreateAttributes>
+                  <b:CanBeChanged>false</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>cancreateattributes</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanCreateAttributes>
+                <d:CanCreateCharts>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>cancreatecharts</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanCreateCharts>
+                <d:CanCreateForms>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>cancreateforms</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanCreateForms>
+                <d:CanCreateViews>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>cancreateviews</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanCreateViews>
+                <d:CanModifyAdditionalSettings>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifyadditionalsettings</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:CanModifyAdditionalSettings>
+                <d:CanTriggerWorkflow>true</d:CanTriggerWorkflow>
+                <d:Description>
+                  <b:LocalizedLabels>
+                    <b:LocalizedLabel>
+                      <d:MetadataId i:nil='true'/>
+                      <d:HasChanged i:nil='true'/>
+                      <b:IsManaged>false</b:IsManaged>
+                      <b:Label>Associates TinderBox Content with Products</b:Label>
+                      <b:LanguageCode>1033</b:LanguageCode>
+                    </b:LocalizedLabel>
+                  </b:LocalizedLabels>
+                  <b:UserLocalizedLabel>
+                    <d:MetadataId i:nil='true'/>
+                    <d:HasChanged i:nil='true'/>
+                    <b:IsManaged>false</b:IsManaged>
+                    <b:Label>Associates TinderBox Content with Products</b:Label>
+                    <b:LanguageCode>1033</b:LanguageCode>
+                  </b:UserLocalizedLabel>
+                </d:Description>
+                <d:DisplayCollectionName>
+                  <b:LocalizedLabels>
+                    <b:LocalizedLabel>
+                      <d:MetadataId i:nil='true'/>
+                      <d:HasChanged i:nil='true'/>
+                      <b:IsManaged>false</b:IsManaged>
+                      <b:Label>TinderBox Contents</b:Label>
+                      <b:LanguageCode>1033</b:LanguageCode>
+                    </b:LocalizedLabel>
+                  </b:LocalizedLabels>
+                  <b:UserLocalizedLabel>
+                    <d:MetadataId i:nil='true'/>
+                    <d:HasChanged i:nil='true'/>
+                    <b:IsManaged>false</b:IsManaged>
+                    <b:Label>TinderBox Contents</b:Label>
+                    <b:LanguageCode>1033</b:LanguageCode>
+                  </b:UserLocalizedLabel>
+                </d:DisplayCollectionName>
+                <d:DisplayName>
+                  <b:LocalizedLabels>
+                    <b:LocalizedLabel>
+                      <d:MetadataId i:nil='true'/>
+                      <d:HasChanged i:nil='true'/>
+                      <b:IsManaged>false</b:IsManaged>
+                      <b:Label>TinderBox Content</b:Label>
+                      <b:LanguageCode>1033</b:LanguageCode>
+                    </b:LocalizedLabel>
+                  </b:LocalizedLabels>
+                  <b:UserLocalizedLabel>
+                    <d:MetadataId i:nil='true'/>
+                    <d:HasChanged i:nil='true'/>
+                    <b:IsManaged>false</b:IsManaged>
+                    <b:Label>TinderBox Content</b:Label>
+                    <b:LanguageCode>1033</b:LanguageCode>
+                  </b:UserLocalizedLabel>
+                </d:DisplayName>
+                <d:IconLargeName i:nil='true'/>
+                <d:IconMediumName i:nil='true'/>
+                <d:IconSmallName i:nil='true'/>
+                <d:IsAIRUpdated>false</d:IsAIRUpdated>
+                <d:IsActivity>false</d:IsActivity>
+                <d:IsActivityParty>false</d:IsActivityParty>
+                <d:IsAuditEnabled>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifyauditsettings</b:ManagedPropertyLogicalName>
+                  <b:Value>false</b:Value>
+                </d:IsAuditEnabled>
+                <d:IsAvailableOffline>false</d:IsAvailableOffline>
+                <d:IsBusinessProcessEnabled>false</d:IsBusinessProcessEnabled>
+                <d:IsChildEntity>false</d:IsChildEntity>
+                <d:IsConnectionsEnabled>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifyconnectionsettings</b:ManagedPropertyLogicalName>
+                  <b:Value>false</b:Value>
+                </d:IsConnectionsEnabled>
+                <d:IsCustomEntity>true</d:IsCustomEntity>
+                <d:IsCustomizable>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>iscustomizable</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:IsCustomizable>
+                <d:IsDocumentManagementEnabled>false</d:IsDocumentManagementEnabled>
+                <d:IsDuplicateDetectionEnabled>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifyduplicatedetectionsettings</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:IsDuplicateDetectionEnabled>
+                <d:IsEnabledForCharts>true</d:IsEnabledForCharts>
+                <d:IsEnabledForTrace>false</d:IsEnabledForTrace>
+                <d:IsImportable>true</d:IsImportable>
+                <d:IsIntersect>false</d:IsIntersect>
+                <d:IsMailMergeEnabled>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifymailmergesettings</b:ManagedPropertyLogicalName>
+                  <b:Value>false</b:Value>
+                </d:IsMailMergeEnabled>
+                <d:IsManaged>false</d:IsManaged>
+                <d:IsMappable>
+                  <b:CanBeChanged>false</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>ismappable</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:IsMappable>
+                <d:IsQuickCreateEnabled>false</d:IsQuickCreateEnabled>
+                <d:IsReadOnlyInMobileClient>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifymobileclientreadonly</b:ManagedPropertyLogicalName>
+                  <b:Value>false</b:Value>
+                </d:IsReadOnlyInMobileClient>
+                <d:IsReadingPaneEnabled>true</d:IsReadingPaneEnabled>
+                <d:IsRenameable>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>isrenameable</b:ManagedPropertyLogicalName>
+                  <b:Value>true</b:Value>
+                </d:IsRenameable>
+                <d:IsValidForAdvancedFind>true</d:IsValidForAdvancedFind>
+                <d:IsValidForQueue>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifyqueuesettings</b:ManagedPropertyLogicalName>
+                  <b:Value>false</b:Value>
+                </d:IsValidForQueue>
+                <d:IsVisibleInMobile>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifymobilevisibility</b:ManagedPropertyLogicalName>
+                  <b:Value>false</b:Value>
+                </d:IsVisibleInMobile>
+                <d:IsVisibleInMobileClient>
+                  <b:CanBeChanged>true</b:CanBeChanged>
+                  <b:ManagedPropertyLogicalName>canmodifymobileclientvisibility</b:ManagedPropertyLogicalName>
+                  <b:Value>false</b:Value>
+                </d:IsVisibleInMobileClient>
+                <d:LogicalName>new_tinderboxcontent</d:LogicalName>
+                <d:ManyToManyRelationships i:nil='true'/>
+                <d:ManyToOneRelationships i:nil='true'/>
+                <d:ObjectTypeCode>10006</d:ObjectTypeCode>
+                <d:OneToManyRelationships i:nil='true'/>
+                <d:OwnershipType>OrganizationOwned</d:OwnershipType>
+                <d:PrimaryIdAttribute>new_tinderboxcontentid</d:PrimaryIdAttribute>
+                <d:PrimaryNameAttribute>new_name</d:PrimaryNameAttribute>
+                <d:Privileges i:nil='true'/>
+                <d:RecurrenceBaseEntityLogicalName i:nil='true'/>
+                <d:ReportViewName>Filterednew_tinderboxcontent</d:ReportViewName>
+                <d:SchemaName>new_tinderboxcontent</d:SchemaName>
+                <d:IntroducedVersion>1.0</d:IntroducedVersion>
+                <d:PrimaryImageAttribute i:nil='true'/>
+              </d:EntityMetadata>
+            </c:value>
+          </b:KeyValuePairOfstringanyType>
+          <b:KeyValuePairOfstringanyType>
+            <c:key>Timestamp</c:key>
+            <c:value i:type='d:string' xmlns:d='http://www.w3.org/2001/XMLSchema'>1503740126</c:value>
+          </b:KeyValuePairOfstringanyType>
+        </b:Results>
+      </ExecuteResult>
+    </ExecuteResponse>
+  </s:Body>
+</s:Envelope>

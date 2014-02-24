@@ -1,6 +1,7 @@
 require "mscrm/soap/version"
 require "mscrm/soap/message_builder"
 require "mscrm/soap/client"
+# CRM
 require 'mscrm/soap/model/message_parser'
 require "mscrm/soap/model/fault"
 require "mscrm/soap/model/attributes"
@@ -14,6 +15,11 @@ require "mscrm/soap/model/retrieve_result"
 require "mscrm/soap/model/retrieve_multiple_result"
 require "mscrm/soap/model/create_result"
 require "mscrm/soap/model/execute_result"
+# Metadata
+require "mscrm/soap/metadata/entity_metadata"
+require "mscrm/soap/metadata/retrieve_all_entities_response"
+require "mscrm/soap/metadata/retrieve_entity_response"
+
 
 require "rexml/document"
 require 'savon'

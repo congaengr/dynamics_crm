@@ -1,0 +1,671 @@
+<s:Envelope xmlns:s='http://www.w3.org/2003/05/soap-envelope' xmlns:a='http://www.w3.org/2005/08/addressing' xmlns:u='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'>
+  <s:Header>
+    <a:Action s:mustUnderstand='1'>
+      http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/ExecuteResponse
+    </a:Action>
+    <a:RelatesTo>urn:uuid:fdb43a9e-3cbb-4461-98a3-122dc3fcdcf7</a:RelatesTo>
+    <ActivityId CorrelationId='2f648e7d-503a-4250-9e2f-5bae7ba2d6c4' xmlns='http://schemas.microsoft.com/2004/09/ServiceModel/Diagnostics'>00000000-0000-0000-0000-000000000000</ActivityId>
+    <o:Security s:mustUnderstand='1' xmlns:o='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'>
+      <u:Timestamp u:Id='_0'>
+        <u:Created>2014-02-24T20:32:22.867Z</u:Created>
+        <u:Expires>2014-02-24T20:37:22.867Z</u:Expires>
+      </u:Timestamp>
+    </o:Security>
+  </s:Header>
+  <s:Body>
+    <ExecuteResponse xmlns='http://schemas.microsoft.com/xrm/2011/Contracts/Services'>
+      <ExecuteResult i:type='b:RetrieveEntityResponse' xmlns:b='http://schemas.microsoft.com/xrm/2011/Contracts' xmlns:i='http://www.w3.org/2001/XMLSchema-instance'>
+        <b:ResponseName>RetrieveEntity</b:ResponseName>
+        <b:Results xmlns:c='http://schemas.datacontract.org/2004/07/System.Collections.Generic'>
+          <b:KeyValuePairOfstringanyType>
+            <c:key>EntityMetadata</c:key>
+            <c:value i:type='d:EntityMetadata' xmlns:d='http://schemas.microsoft.com/xrm/2011/Metadata'>
+              <d:MetadataId>30b0cd7e-0081-42e1-9a48-688442277fae</d:MetadataId>
+              <d:HasChanged i:nil='true'/>
+              <d:ActivityTypeMask>0</d:ActivityTypeMask>
+              <d:Attributes>
+                <d:AttributeMetadata i:type='d:LookupAttributeMetadata'>
+                  <d:MetadataId>036b8586-4e5c-49a7-8694-9c6c8cb5d780</d:MetadataId>
+                  <d:HasChanged i:nil='true'/>
+                  <d:AttributeOf i:nil='true'/>
+                  <d:AttributeType>Lookup</d:AttributeType>
+                  <d:CanBeSecuredForCreate>false</d:CanBeSecuredForCreate>
+                  <d:CanBeSecuredForRead>false</d:CanBeSecuredForRead>
+                  <d:CanBeSecuredForUpdate>false</d:CanBeSecuredForUpdate>
+                  <d:CanModifyAdditionalSettings>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifyadditionalsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>false</b:Value>
+                  </d:CanModifyAdditionalSettings>
+                  <d:ColumnNumber>7</d:ColumnNumber>
+                  <d:DeprecatedVersion i:nil='true'/>
+                  <d:Description>
+                    <b:LocalizedLabels>
+                      <b:LocalizedLabel>
+                        <d:MetadataId i:nil='true'/>
+                        <d:HasChanged i:nil='true'/>
+                        <b:IsManaged>true</b:IsManaged>
+                        <b:Label>Unique identifier of the account with which the opportunity is associated.</b:Label>
+                        <b:LanguageCode>1033</b:LanguageCode>
+                      </b:LocalizedLabel>
+                    </b:LocalizedLabels>
+                    <b:UserLocalizedLabel>
+                      <d:MetadataId i:nil='true'/>
+                      <d:HasChanged i:nil='true'/>
+                      <b:IsManaged>true</b:IsManaged>
+                      <b:Label>Unique identifier of the account with which the opportunity is associated.</b:Label>
+                      <b:LanguageCode>1033</b:LanguageCode>
+                    </b:UserLocalizedLabel>
+                  </d:Description>
+                  <d:DisplayName>
+                    <b:LocalizedLabels>
+                      <b:LocalizedLabel>
+                        <d:MetadataId i:nil='true'/>
+                        <d:HasChanged i:nil='true'/>
+                        <b:IsManaged>true</b:IsManaged>
+                        <b:Label>Account</b:Label>
+                        <b:LanguageCode>1033</b:LanguageCode>
+                      </b:LocalizedLabel>
+                    </b:LocalizedLabels>
+                    <b:UserLocalizedLabel>
+                      <d:MetadataId i:nil='true'/>
+                      <d:HasChanged i:nil='true'/>
+                      <b:IsManaged>true</b:IsManaged>
+                      <b:Label>Account</b:Label>
+                      <b:LanguageCode>1033</b:LanguageCode>
+                    </b:UserLocalizedLabel>
+                  </d:DisplayName>
+                  <d:EntityLogicalName>opportunity</d:EntityLogicalName>
+                  <d:IsAuditEnabled>
+                    <b:CanBeChanged>true</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifyauditsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>true</b:Value>
+                  </d:IsAuditEnabled>
+                  <d:IsCustomAttribute>false</d:IsCustomAttribute>
+                  <d:IsCustomizable>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>iscustomizable</b:ManagedPropertyLogicalName>
+                    <b:Value>true</b:Value>
+                  </d:IsCustomizable>
+                  <d:IsManaged>true</d:IsManaged>
+                  <d:IsPrimaryId>false</d:IsPrimaryId>
+                  <d:IsPrimaryName>false</d:IsPrimaryName>
+                  <d:IsRenameable>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>isrenameable</b:ManagedPropertyLogicalName>
+                    <b:Value>false</b:Value>
+                  </d:IsRenameable>
+                  <d:IsSecured>false</d:IsSecured>
+                  <d:IsValidForAdvancedFind>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifysearchsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>false</b:Value>
+                  </d:IsValidForAdvancedFind>
+                  <d:IsValidForCreate>false</d:IsValidForCreate>
+                  <d:IsValidForRead>true</d:IsValidForRead>
+                  <d:IsValidForUpdate>false</d:IsValidForUpdate>
+                  <d:LinkedAttributeId i:nil='true'/>
+                  <d:LogicalName>accountid</d:LogicalName>
+                  <d:RequiredLevel>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifyrequirementlevelsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>None</b:Value>
+                  </d:RequiredLevel>
+                  <d:SchemaName>AccountId</d:SchemaName>
+                  <d:AttributeTypeName xmlns:e='http://schemas.microsoft.com/xrm/2013/Metadata'>
+                    <e:Value>LookupType</e:Value>
+                  </d:AttributeTypeName>
+                  <d:IntroducedVersion>5.0.0.0</d:IntroducedVersion>
+                  <d:Targets xmlns:e='http://schemas.microsoft.com/2003/10/Serialization/Arrays'>
+                    <e:string>account</e:string>
+                  </d:Targets>
+                </d:AttributeMetadata>
+                <d:AttributeMetadata i:type='d:StringAttributeMetadata'>
+                  <d:MetadataId>81aebeb2-d9a3-4bd7-a3af-2754862ec576</d:MetadataId>
+                  <d:HasChanged i:nil='true'/>
+                  <d:AttributeOf>accountid</d:AttributeOf>
+                  <d:AttributeType>String</d:AttributeType>
+                  <d:CanBeSecuredForCreate>false</d:CanBeSecuredForCreate>
+                  <d:CanBeSecuredForRead>false</d:CanBeSecuredForRead>
+                  <d:CanBeSecuredForUpdate>false</d:CanBeSecuredForUpdate>
+                  <d:CanModifyAdditionalSettings>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifyadditionalsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>false</b:Value>
+                  </d:CanModifyAdditionalSettings>
+                  <d:ColumnNumber>38</d:ColumnNumber>
+                  <d:DeprecatedVersion i:nil='true'/>
+                  <d:Description>
+                    <b:LocalizedLabels/>
+                    <b:UserLocalizedLabel i:nil='true'/>
+                  </d:Description>
+                  <d:DisplayName>
+                    <b:LocalizedLabels/>
+                    <b:UserLocalizedLabel i:nil='true'/>
+                  </d:DisplayName>
+                  <d:EntityLogicalName>opportunity</d:EntityLogicalName>
+                  <d:IsAuditEnabled>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifyauditsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>false</b:Value>
+                  </d:IsAuditEnabled>
+                  <d:IsCustomAttribute>false</d:IsCustomAttribute>
+                  <d:IsCustomizable>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>iscustomizable</b:ManagedPropertyLogicalName>
+                    <b:Value>false</b:Value>
+                  </d:IsCustomizable>
+                  <d:IsManaged>true</d:IsManaged>
+                  <d:IsPrimaryId>false</d:IsPrimaryId>
+                  <d:IsPrimaryName>false</d:IsPrimaryName>
+                  <d:IsRenameable>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>isrenameable</b:ManagedPropertyLogicalName>
+                    <b:Value>false</b:Value>
+                  </d:IsRenameable>
+                  <d:IsSecured>false</d:IsSecured>
+                  <d:IsValidForAdvancedFind>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifysearchsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>false</b:Value>
+                  </d:IsValidForAdvancedFind>
+                  <d:IsValidForCreate>false</d:IsValidForCreate>
+                  <d:IsValidForRead>true</d:IsValidForRead>
+                  <d:IsValidForUpdate>false</d:IsValidForUpdate>
+                  <d:LinkedAttributeId i:nil='true'/>
+                  <d:LogicalName>accountidname</d:LogicalName>
+                  <d:RequiredLevel>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifyrequirementlevelsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>None</b:Value>
+                  </d:RequiredLevel>
+                  <d:SchemaName>AccountIdName</d:SchemaName>
+                  <d:AttributeTypeName xmlns:e='http://schemas.microsoft.com/xrm/2013/Metadata'>
+                    <e:Value>StringType</e:Value>
+                  </d:AttributeTypeName>
+                  <d:IntroducedVersion>5.0.0.0</d:IntroducedVersion>
+                  <d:Format>Text</d:Format>
+                  <d:ImeMode>Auto</d:ImeMode>
+                  <d:MaxLength>100</d:MaxLength>
+                  <d:YomiOf i:nil='true'/>
+                  <d:FormatName xmlns:e='http://schemas.microsoft.com/xrm/2013/Metadata'>
+                    <e:Value>Text</e:Value>
+                  </d:FormatName>
+                </d:AttributeMetadata>
+                <d:AttributeMetadata i:type='d:StringAttributeMetadata'>
+                  <d:MetadataId>40ec93f8-5de1-4d82-94cf-e65f3b5a9fc7</d:MetadataId>
+                  <d:HasChanged i:nil='true'/>
+                  <d:AttributeOf>accountid</d:AttributeOf>
+                  <d:AttributeType>String</d:AttributeType>
+                  <d:CanBeSecuredForCreate>false</d:CanBeSecuredForCreate>
+                  <d:CanBeSecuredForRead>false</d:CanBeSecuredForRead>
+                  <d:CanBeSecuredForUpdate>false</d:CanBeSecuredForUpdate>
+                  <d:CanModifyAdditionalSettings>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifyadditionalsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>false</b:Value>
+                  </d:CanModifyAdditionalSettings>
+                  <d:ColumnNumber>77</d:ColumnNumber>
+                  <d:DeprecatedVersion i:nil='true'/>
+                  <d:Description>
+                    <b:LocalizedLabels/>
+                    <b:UserLocalizedLabel i:nil='true'/>
+                  </d:Description>
+                  <d:DisplayName>
+                    <b:LocalizedLabels/>
+                    <b:UserLocalizedLabel i:nil='true'/>
+                  </d:DisplayName>
+                  <d:EntityLogicalName>opportunity</d:EntityLogicalName>
+                  <d:IsAuditEnabled>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifyauditsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>false</b:Value>
+                  </d:IsAuditEnabled>
+                  <d:IsCustomAttribute>false</d:IsCustomAttribute>
+                  <d:IsCustomizable>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>iscustomizable</b:ManagedPropertyLogicalName>
+                    <b:Value>false</b:Value>
+                  </d:IsCustomizable>
+                  <d:IsManaged>true</d:IsManaged>
+                  <d:IsPrimaryId>false</d:IsPrimaryId>
+                  <d:IsPrimaryName>false</d:IsPrimaryName>
+                  <d:IsRenameable>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>isrenameable</b:ManagedPropertyLogicalName>
+                    <b:Value>false</b:Value>
+                  </d:IsRenameable>
+                  <d:IsSecured>false</d:IsSecured>
+                  <d:IsValidForAdvancedFind>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifysearchsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>false</b:Value>
+                  </d:IsValidForAdvancedFind>
+                  <d:IsValidForCreate>false</d:IsValidForCreate>
+                  <d:IsValidForRead>true</d:IsValidForRead>
+                  <d:IsValidForUpdate>false</d:IsValidForUpdate>
+                  <d:LinkedAttributeId i:nil='true'/>
+                  <d:LogicalName>accountidyominame</d:LogicalName>
+                  <d:RequiredLevel>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifyrequirementlevelsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>None</b:Value>
+                  </d:RequiredLevel>
+                  <d:SchemaName>AccountIdYomiName</d:SchemaName>
+                  <d:AttributeTypeName xmlns:e='http://schemas.microsoft.com/xrm/2013/Metadata'>
+                    <e:Value>StringType</e:Value>
+                  </d:AttributeTypeName>
+                  <d:IntroducedVersion>5.0.0.0</d:IntroducedVersion>
+                  <d:Format>Text</d:Format>
+                  <d:ImeMode>Auto</d:ImeMode>
+                  <d:MaxLength>100</d:MaxLength>
+                  <d:YomiOf>accountidname</d:YomiOf>
+                  <d:FormatName xmlns:e='http://schemas.microsoft.com/xrm/2013/Metadata'>
+                    <e:Value>Text</e:Value>
+                  </d:FormatName>
+                </d:AttributeMetadata>
+                <d:AttributeMetadata i:type='d:DateTimeAttributeMetadata'>
+                  <d:MetadataId>e18fd2c7-93b9-4329-a391-15aa13289f62</d:MetadataId>
+                  <d:HasChanged i:nil='true'/>
+                  <d:AttributeOf i:nil='true'/>
+                  <d:AttributeType>DateTime</d:AttributeType>
+                  <d:CanBeSecuredForCreate>false</d:CanBeSecuredForCreate>
+                  <d:CanBeSecuredForRead>false</d:CanBeSecuredForRead>
+                  <d:CanBeSecuredForUpdate>false</d:CanBeSecuredForUpdate>
+                  <d:CanModifyAdditionalSettings>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifyadditionalsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>true</b:Value>
+                  </d:CanModifyAdditionalSettings>
+                  <d:ColumnNumber>19</d:ColumnNumber>
+                  <d:DeprecatedVersion i:nil='true'/>
+                  <d:Description>
+                    <b:LocalizedLabels>
+                      <b:LocalizedLabel>
+                        <d:MetadataId i:nil='true'/>
+                        <d:HasChanged i:nil='true'/>
+                        <b:IsManaged>true</b:IsManaged>
+                        <b:Label>Shows the date and time when the opportunity was closed or canceled.</b:Label>
+                        <b:LanguageCode>1033</b:LanguageCode>
+                      </b:LocalizedLabel>
+                    </b:LocalizedLabels>
+                    <b:UserLocalizedLabel>
+                      <d:MetadataId i:nil='true'/>
+                      <d:HasChanged i:nil='true'/>
+                      <b:IsManaged>true</b:IsManaged>
+                      <b:Label>Shows the date and time when the opportunity was closed or canceled.</b:Label>
+                      <b:LanguageCode>1033</b:LanguageCode>
+                    </b:UserLocalizedLabel>
+                  </d:Description>
+                  <d:DisplayName>
+                    <b:LocalizedLabels>
+                      <b:LocalizedLabel>
+                        <d:MetadataId i:nil='true'/>
+                        <d:HasChanged i:nil='true'/>
+                        <b:IsManaged>true</b:IsManaged>
+                        <b:Label>Actual Close Date</b:Label>
+                        <b:LanguageCode>1033</b:LanguageCode>
+                      </b:LocalizedLabel>
+                    </b:LocalizedLabels>
+                    <b:UserLocalizedLabel>
+                      <d:MetadataId i:nil='true'/>
+                      <d:HasChanged i:nil='true'/>
+                      <b:IsManaged>true</b:IsManaged>
+                      <b:Label>Actual Close Date</b:Label>
+                      <b:LanguageCode>1033</b:LanguageCode>
+                    </b:UserLocalizedLabel>
+                  </d:DisplayName>
+                  <d:EntityLogicalName>opportunity</d:EntityLogicalName>
+                  <d:IsAuditEnabled>
+                    <b:CanBeChanged>true</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifyauditsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>true</b:Value>
+                  </d:IsAuditEnabled>
+                  <d:IsCustomAttribute>false</d:IsCustomAttribute>
+                  <d:IsCustomizable>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>iscustomizable</b:ManagedPropertyLogicalName>
+                    <b:Value>true</b:Value>
+                  </d:IsCustomizable>
+                  <d:IsManaged>true</d:IsManaged>
+                  <d:IsPrimaryId>false</d:IsPrimaryId>
+                  <d:IsPrimaryName>false</d:IsPrimaryName>
+                  <d:IsRenameable>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>isrenameable</b:ManagedPropertyLogicalName>
+                    <b:Value>true</b:Value>
+                  </d:IsRenameable>
+                  <d:IsSecured>false</d:IsSecured>
+                  <d:IsValidForAdvancedFind>
+                    <b:CanBeChanged>true</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifysearchsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>true</b:Value>
+                  </d:IsValidForAdvancedFind>
+                  <d:IsValidForCreate>true</d:IsValidForCreate>
+                  <d:IsValidForRead>true</d:IsValidForRead>
+                  <d:IsValidForUpdate>true</d:IsValidForUpdate>
+                  <d:LinkedAttributeId i:nil='true'/>
+                  <d:LogicalName>actualclosedate</d:LogicalName>
+                  <d:RequiredLevel>
+                    <b:CanBeChanged>true</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifyrequirementlevelsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>None</b:Value>
+                  </d:RequiredLevel>
+                  <d:SchemaName>ActualCloseDate</d:SchemaName>
+                  <d:AttributeTypeName xmlns:e='http://schemas.microsoft.com/xrm/2013/Metadata'>
+                    <e:Value>DateTimeType</e:Value>
+                  </d:AttributeTypeName>
+                  <d:IntroducedVersion>5.0.0.0</d:IntroducedVersion>
+                  <d:Format>DateOnly</d:Format>
+                  <d:ImeMode>Inactive</d:ImeMode>
+                </d:AttributeMetadata>
+                <d:AttributeMetadata i:type='d:MoneyAttributeMetadata'>
+                  <d:MetadataId>be9c6928-2dd9-4970-823b-3c4e9e021778</d:MetadataId>
+                  <d:HasChanged i:nil='true'/>
+                  <d:AttributeOf i:nil='true'/>
+                  <d:AttributeType>Money</d:AttributeType>
+                  <d:CanBeSecuredForCreate>false</d:CanBeSecuredForCreate>
+                  <d:CanBeSecuredForRead>false</d:CanBeSecuredForRead>
+                  <d:CanBeSecuredForUpdate>false</d:CanBeSecuredForUpdate>
+                  <d:CanModifyAdditionalSettings>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifyadditionalsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>true</b:Value>
+                  </d:CanModifyAdditionalSettings>
+                  <d:ColumnNumber>18</d:ColumnNumber>
+                  <d:DeprecatedVersion i:nil='true'/>
+                  <d:Description>
+                    <b:LocalizedLabels>
+                      <b:LocalizedLabel>
+                        <d:MetadataId i:nil='true'/>
+                        <d:HasChanged i:nil='true'/>
+                        <b:IsManaged>true</b:IsManaged>
+                        <b:Label>
+                          Type the actual revenue amount for the opportunity for
+                          reporting and analysis of estimated versus actual
+                          sales. Field defaults to the Est. Revenue value when
+                          an opportunity is won.
+                        </b:Label>
+                        <b:LanguageCode>1033</b:LanguageCode>
+                      </b:LocalizedLabel>
+                    </b:LocalizedLabels>
+                    <b:UserLocalizedLabel>
+                      <d:MetadataId i:nil='true'/>
+                      <d:HasChanged i:nil='true'/>
+                      <b:IsManaged>true</b:IsManaged>
+                      <b:Label>
+                        Type the actual revenue amount for the opportunity for
+                        reporting and analysis of estimated versus actual sales.
+                        Field defaults to the Est. Revenue value when an
+                        opportunity is won.
+                      </b:Label>
+                      <b:LanguageCode>1033</b:LanguageCode>
+                    </b:UserLocalizedLabel>
+                  </d:Description>
+                  <d:DisplayName>
+                    <b:LocalizedLabels>
+                      <b:LocalizedLabel>
+                        <d:MetadataId i:nil='true'/>
+                        <d:HasChanged i:nil='true'/>
+                        <b:IsManaged>true</b:IsManaged>
+                        <b:Label>Actual Revenue</b:Label>
+                        <b:LanguageCode>1033</b:LanguageCode>
+                      </b:LocalizedLabel>
+                    </b:LocalizedLabels>
+                    <b:UserLocalizedLabel>
+                      <d:MetadataId i:nil='true'/>
+                      <d:HasChanged i:nil='true'/>
+                      <b:IsManaged>true</b:IsManaged>
+                      <b:Label>Actual Revenue</b:Label>
+                      <b:LanguageCode>1033</b:LanguageCode>
+                    </b:UserLocalizedLabel>
+                  </d:DisplayName>
+                  <d:EntityLogicalName>opportunity</d:EntityLogicalName>
+                  <d:IsAuditEnabled>
+                    <b:CanBeChanged>true</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifyauditsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>true</b:Value>
+                  </d:IsAuditEnabled>
+                  <d:IsCustomAttribute>false</d:IsCustomAttribute>
+                  <d:IsCustomizable>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>iscustomizable</b:ManagedPropertyLogicalName>
+                    <b:Value>true</b:Value>
+                  </d:IsCustomizable>
+                  <d:IsManaged>true</d:IsManaged>
+                  <d:IsPrimaryId>false</d:IsPrimaryId>
+                  <d:IsPrimaryName>false</d:IsPrimaryName>
+                  <d:IsRenameable>
+                    <b:CanBeChanged>false</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>isrenameable</b:ManagedPropertyLogicalName>
+                    <b:Value>true</b:Value>
+                  </d:IsRenameable>
+                  <d:IsSecured>false</d:IsSecured>
+                  <d:IsValidForAdvancedFind>
+                    <b:CanBeChanged>true</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifysearchsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>true</b:Value>
+                  </d:IsValidForAdvancedFind>
+                  <d:IsValidForCreate>true</d:IsValidForCreate>
+                  <d:IsValidForRead>true</d:IsValidForRead>
+                  <d:IsValidForUpdate>true</d:IsValidForUpdate>
+                  <d:LinkedAttributeId i:nil='true'/>
+                  <d:LogicalName>actualvalue</d:LogicalName>
+                  <d:RequiredLevel>
+                    <b:CanBeChanged>true</b:CanBeChanged>
+                    <b:ManagedPropertyLogicalName>canmodifyrequirementlevelsettings</b:ManagedPropertyLogicalName>
+                    <b:Value>None</b:Value>
+                  </d:RequiredLevel>
+                  <d:SchemaName>ActualValue</d:SchemaName>
+                  <d:AttributeTypeName xmlns:e='http://schemas.microsoft.com/xrm/2013/Metadata'>
+                    <e:Value>MoneyType</e:Value>
+                  </d:AttributeTypeName>
+                  <d:IntroducedVersion>5.0.0.0</d:IntroducedVersion>
+                  <d:CalculationOf i:nil='true'/>
+                  <d:ImeMode>Disabled</d:ImeMode>
+                  <d:MaxValue>1000000000000</d:MaxValue>
+                  <d:MinValue>-1000000000000</d:MinValue>
+                  <d:Precision>2</d:Precision>
+                  <d:PrecisionSource>2</d:PrecisionSource>
+                </d:AttributeMetadata>
+              </d:Attributes>
+              <d:AutoCreateAccessTeams i:nil='true'/>
+              <d:AutoRouteToOwnerQueue>false</d:AutoRouteToOwnerQueue>
+              <d:CanBeInManyToMany>
+                <b:CanBeChanged>false</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>canbeinmanytomany</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:CanBeInManyToMany>
+              <d:CanBePrimaryEntityInRelationship>
+                <b:CanBeChanged>false</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>canbeprimaryentityinrelationship</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:CanBePrimaryEntityInRelationship>
+              <d:CanBeRelatedEntityInRelationship>
+                <b:CanBeChanged>false</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>canberelatedentityinrelationship</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:CanBeRelatedEntityInRelationship>
+              <d:CanCreateAttributes>
+                <b:CanBeChanged>false</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>cancreateattributes</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:CanCreateAttributes>
+              <d:CanCreateCharts>
+                <b:CanBeChanged>false</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>cancreatecharts</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:CanCreateCharts>
+              <d:CanCreateForms>
+                <b:CanBeChanged>false</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>cancreateforms</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:CanCreateForms>
+              <d:CanCreateViews>
+                <b:CanBeChanged>false</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>cancreateviews</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:CanCreateViews>
+              <d:CanModifyAdditionalSettings>
+                <b:CanBeChanged>true</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>canmodifyadditionalsettings</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:CanModifyAdditionalSettings>
+              <d:CanTriggerWorkflow>true</d:CanTriggerWorkflow>
+              <d:Description>
+                <b:LocalizedLabels>
+                  <b:LocalizedLabel>
+                    <d:MetadataId i:nil='true'/>
+                    <d:HasChanged i:nil='true'/>
+                    <b:IsManaged>true</b:IsManaged>
+                    <b:Label>
+                      Potential revenue-generating event, or sale to an account,
+                      which needs to be tracked through a sales process to
+                      completion.
+                    </b:Label>
+                    <b:LanguageCode>1033</b:LanguageCode>
+                  </b:LocalizedLabel>
+                </b:LocalizedLabels>
+                <b:UserLocalizedLabel>
+                  <d:MetadataId i:nil='true'/>
+                  <d:HasChanged i:nil='true'/>
+                  <b:IsManaged>true</b:IsManaged>
+                  <b:Label>
+                    Potential revenue-generating event, or sale to an account,
+                    which needs to be tracked through a sales process to
+                    completion.
+                  </b:Label>
+                  <b:LanguageCode>1033</b:LanguageCode>
+                </b:UserLocalizedLabel>
+              </d:Description>
+              <d:DisplayCollectionName>
+                <b:LocalizedLabels>
+                  <b:LocalizedLabel>
+                    <d:MetadataId i:nil='true'/>
+                    <d:HasChanged i:nil='true'/>
+                    <b:IsManaged>true</b:IsManaged>
+                    <b:Label>Opportunities</b:Label>
+                    <b:LanguageCode>1033</b:LanguageCode>
+                  </b:LocalizedLabel>
+                </b:LocalizedLabels>
+                <b:UserLocalizedLabel>
+                  <d:MetadataId i:nil='true'/>
+                  <d:HasChanged i:nil='true'/>
+                  <b:IsManaged>true</b:IsManaged>
+                  <b:Label>Opportunities</b:Label>
+                  <b:LanguageCode>1033</b:LanguageCode>
+                </b:UserLocalizedLabel>
+              </d:DisplayCollectionName>
+              <d:DisplayName>
+                <b:LocalizedLabels>
+                  <b:LocalizedLabel>
+                    <d:MetadataId i:nil='true'/>
+                    <d:HasChanged i:nil='true'/>
+                    <b:IsManaged>true</b:IsManaged>
+                    <b:Label>Opportunity</b:Label>
+                    <b:LanguageCode>1033</b:LanguageCode>
+                  </b:LocalizedLabel>
+                </b:LocalizedLabels>
+                <b:UserLocalizedLabel>
+                  <d:MetadataId i:nil='true'/>
+                  <d:HasChanged i:nil='true'/>
+                  <b:IsManaged>true</b:IsManaged>
+                  <b:Label>Opportunity</b:Label>
+                  <b:LanguageCode>1033</b:LanguageCode>
+                </b:UserLocalizedLabel>
+              </d:DisplayName>
+              <d:IconLargeName i:nil='true'/>
+              <d:IconMediumName i:nil='true'/>
+              <d:IconSmallName i:nil='true'/>
+              <d:IsAIRUpdated>true</d:IsAIRUpdated>
+              <d:IsActivity>false</d:IsActivity>
+              <d:IsActivityParty>true</d:IsActivityParty>
+              <d:IsAuditEnabled>
+                <b:CanBeChanged>true</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>canmodifyauditsettings</b:ManagedPropertyLogicalName>
+                <b:Value>false</b:Value>
+              </d:IsAuditEnabled>
+              <d:IsAvailableOffline>true</d:IsAvailableOffline>
+              <d:IsBusinessProcessEnabled>true</d:IsBusinessProcessEnabled>
+              <d:IsChildEntity>false</d:IsChildEntity>
+              <d:IsConnectionsEnabled>
+                <b:CanBeChanged>true</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>canmodifyconnectionsettings</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:IsConnectionsEnabled>
+              <d:IsCustomEntity>false</d:IsCustomEntity>
+              <d:IsCustomizable>
+                <b:CanBeChanged>false</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>iscustomizable</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:IsCustomizable>
+              <d:IsDocumentManagementEnabled>true</d:IsDocumentManagementEnabled>
+              <d:IsDuplicateDetectionEnabled>
+                <b:CanBeChanged>true</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>canmodifyduplicatedetectionsettings</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:IsDuplicateDetectionEnabled>
+              <d:IsEnabledForCharts>true</d:IsEnabledForCharts>
+              <d:IsEnabledForTrace>false</d:IsEnabledForTrace>
+              <d:IsImportable>true</d:IsImportable>
+              <d:IsIntersect>false</d:IsIntersect>
+              <d:IsMailMergeEnabled>
+                <b:CanBeChanged>true</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>canmodifymailmergesettings</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:IsMailMergeEnabled>
+              <d:IsManaged>true</d:IsManaged>
+              <d:IsMappable>
+                <b:CanBeChanged>false</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>ismappable</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:IsMappable>
+              <d:IsQuickCreateEnabled>true</d:IsQuickCreateEnabled>
+              <d:IsReadOnlyInMobileClient>
+                <b:CanBeChanged>true</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>canmodifymobileclientreadonly</b:ManagedPropertyLogicalName>
+                <b:Value>false</b:Value>
+              </d:IsReadOnlyInMobileClient>
+              <d:IsReadingPaneEnabled>true</d:IsReadingPaneEnabled>
+              <d:IsRenameable>
+                <b:CanBeChanged>false</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>isrenameable</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:IsRenameable>
+              <d:IsValidForAdvancedFind>true</d:IsValidForAdvancedFind>
+              <d:IsValidForQueue>
+                <b:CanBeChanged>true</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>canmodifyqueuesettings</b:ManagedPropertyLogicalName>
+                <b:Value>false</b:Value>
+              </d:IsValidForQueue>
+              <d:IsVisibleInMobile>
+                <b:CanBeChanged>true</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>canmodifymobilevisibility</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:IsVisibleInMobile>
+              <d:IsVisibleInMobileClient>
+                <b:CanBeChanged>true</b:CanBeChanged>
+                <b:ManagedPropertyLogicalName>canmodifymobileclientvisibility</b:ManagedPropertyLogicalName>
+                <b:Value>true</b:Value>
+              </d:IsVisibleInMobileClient>
+              <d:LogicalName>opportunity</d:LogicalName>
+              <d:ManyToManyRelationships i:nil='true'/>
+              <d:ManyToOneRelationships i:nil='true'/>
+              <d:ObjectTypeCode>3</d:ObjectTypeCode>
+              <d:OneToManyRelationships i:nil='true'/>
+              <d:OwnershipType>UserOwned</d:OwnershipType>
+              <d:PrimaryIdAttribute>opportunityid</d:PrimaryIdAttribute>
+              <d:PrimaryNameAttribute>name</d:PrimaryNameAttribute>
+              <d:Privileges i:nil='true'/>
+              <d:RecurrenceBaseEntityLogicalName i:nil='true'/>
+              <d:ReportViewName>FilteredOpportunity</d:ReportViewName>
+              <d:SchemaName>Opportunity</d:SchemaName>
+              <d:IntroducedVersion>5.0.0.0</d:IntroducedVersion>
+              <d:PrimaryImageAttribute i:nil='true'/>
+            </c:value>
+          </b:KeyValuePairOfstringanyType>
+        </b:Results>
+      </ExecuteResult>
+    </ExecuteResponse>
+  </s:Body>
+</s:Envelope>

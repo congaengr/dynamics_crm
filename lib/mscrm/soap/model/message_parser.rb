@@ -36,6 +36,10 @@ module Mscrm
                   entity_ref[child.name] = child.text
                 end
                 value = entity_ref
+              when "d:EntityMetadata"
+                value = value_element
+              when "d:ArrayOfEntityMetadata"
+                value = value_element.get_elements("d:EntityMetadata")
               when "b:Money"
                 # Nested value.
                 value = value_element.elements.first.text.to_f

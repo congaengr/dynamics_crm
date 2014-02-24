@@ -5,6 +5,11 @@ module Mscrm
 
         protected
 
+        # Returns base element of the response document to parse.
+        def response_element
+          class_name = 'ExecuteResult' if self.is_a?(ExecuteResult)
+        end
+
         # Invoked by Result constructor
         def parse_result_response(result)
           h = {}

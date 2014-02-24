@@ -4,23 +4,28 @@ module Mscrm
 
       class Result < Hash
 
+        attr_reader :document
         attr_reader :result_response
 
         def initialize(xml)
 
-          doc = REXML::Document.new(xml)
+          @document = REXML::Document.new(xml)
 
-          fault_xml = doc.get_elements("//[local-name() = 'Fault']")
+          fault_xml = @document.get_elements("//[local-name() = 'Fault']")
           raise Fault.new(fault_xml) if fault_xml.any?
 
-          class_name = self.class.to_s.split("::").last
-          @result_response = doc.get_elements("//#{class_name}").first
+          @result_response = @document.get_elements("//#{response_element}").first
 
           # Child classes should override this method.
           h = parse_result_response(@result_response)
 
           # Calling super causes undesired behavior so just merge.
           self.merge!(h)
+        end
+
+        # Returns base element of the response document to parse.
+        def response_element
+          class_name = self.class.to_s.split("::").last
         end
 
         # Invoked by constructor, should be implemented in sub-classes.

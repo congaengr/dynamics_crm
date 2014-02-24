@@ -184,11 +184,11 @@ module Mscrm
 
       def execute_request(action, parameters={})
 
+        # Default namespace is /crm/2011/Contracts
         ns_alias = "b"
-        if ["RetrieveAllEntities"].include?(action)
+        # Metadata Service calls are under the /xrm/2011/Contracts schema.
+        if ["RetrieveAllEntities", "RetrieveEntityMetadata", "RetrieveEntity", "RetrieveAttribute"].include?(action)
           ns_alias = 'a'
-        elsif ["WhoAmI"].include?(action)
-          ns_alias = "b"
         end
 
         parameters_xml = Model::Parameters.new(parameters)

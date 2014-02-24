@@ -138,9 +138,34 @@ module Mscrm
         xml_response = post(@organization_endpoint, request)
       end
 
+      # Metadata Calls
       def retrieve_all_entities
         self.execute("RetrieveAllEntities", {
           EntityFilters: "Entity",
+          RetrieveAsIfPublished: true
+          })
+      end
+
+      def retrieve_entity_metadata(entity_name)
+        self.execute("RetrieveEntityMetadata", {
+          LogicalName: entity_name
+          })
+      end
+
+      def retrieve_entity(logical_name, entity_filter="Attributes")
+        self.execute("RetrieveEntity", {
+          LogicalName: logical_name,
+          MetadataId: "00000000-0000-0000-0000-000000000000",
+          EntityFilters: entity_filter,
+          RetrieveAsIfPublished: true
+          })
+      end
+
+      def retrieve_attribute(entity_logical_name, logical_name)
+        self.execute("RetrieveAttribute", {
+          EntityLogicalName: entity_logical_name,
+          LogicalName: logical_name,
+          MetadataId: "00000000-0000-0000-0000-000000000000",
           RetrieveAsIfPublished: true
           })
       end
