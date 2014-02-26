@@ -143,6 +143,17 @@ module Mscrm
           hash = MessageParser.parse_key_value_pairs(xml_document)
           attributes = Attributes.new(hash)
         end
+
+        # Allows method-like access to the hash (OpenStruct)
+        def method_missing(method_name, *args, &block)
+          # Return local hash entry if any.
+          return self[method_name.to_s]
+        end
+
+        def respond_to_missing?(method_name, include_private = false)
+          self.has_key?(method_name.to_s) || super
+        end
+
       end
 
       class Parameters < Attributes; end
