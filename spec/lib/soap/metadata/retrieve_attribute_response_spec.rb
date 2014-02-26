@@ -38,5 +38,21 @@ describe Mscrm::Soap::Metadata::RetrieveAttributeResponse do
 
   end
 
+  describe '#identifier_attribute_metadata' do
+    subject {
+      file = fixture("retrieve_attribute_identifier_response")
+      Mscrm::Soap::Metadata::RetrieveAttributeResponse.new(file)
+    }
+
+    context "parse execute result" do
+      it { subject.ResponseName.should == "RetrieveAttribute" }
+      it { subject.attributes.MetadataId.should == "f8cd5db9-cee8-4845-8cdd-cd4f504957e7" }
+      it { subject.attributes.AttributeType.should == "Uniqueidentifier" }
+      it { subject.attributes.LogicalName.should == "accountid" }
+      it { subject.attributes.EntityLogicalName.should == "account" }
+    end
+
+  end
+
 
 end

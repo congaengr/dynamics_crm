@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<s:Envelope xmlns:a="http://www.w3.org/2005/08/addressing" xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+    <s:Header>
+        <a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/ExecuteResponse</a:Action>
+        <a:RelatesTo>urn:uuid:ad125f8e-b10a-4639-96a9-4b9d6094ec8a</a:RelatesTo>
+        <ActivityId CorrelationId="b49628f7-1343-478c-9683-dc642ac96dfa" xmlns="http://schemas.microsoft.com/2004/09/ServiceModel/Diagnostics">00000000-0000-0000-0000-000000000000</ActivityId>
+        <o:Security s:mustUnderstand="1" xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+            <u:Timestamp u:Id="_0">
+                <u:Created>2014-02-26T06:10:17.418Z</u:Created>
+                <u:Expires>2014-02-26T06:15:17.418Z</u:Expires>
+            </u:Timestamp>
+        </o:Security>
+    </s:Header>
+    <s:Body>
+        <ExecuteResponse xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">
+            <ExecuteResult i:type="b:RetrieveAttributeResponse" xmlns:b="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                <b:ResponseName>RetrieveAttribute</b:ResponseName>
+                <b:Results xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
+                    <b:KeyValuePairOfstringanyType>
+                        <c:key>AttributeMetadata</c:key>
+                        <c:value i:type="d:AttributeMetadata" xmlns:d="http://schemas.microsoft.com/xrm/2011/Metadata">
+                            <d:MetadataId>f8cd5db9-cee8-4845-8cdd-cd4f504957e7</d:MetadataId>
+                            <d:HasChanged i:nil="true"/>
+                            <d:AttributeOf i:nil="true"/>
+                            <d:AttributeType>Uniqueidentifier</d:AttributeType>
+                            <d:CanBeSecuredForCreate>false</d:CanBeSecuredForCreate>
+                            <d:CanBeSecuredForRead>false</d:CanBeSecuredForRead>
+                            <d:CanBeSecuredForUpdate>false</d:CanBeSecuredForUpdate>
+                            <d:CanModifyAdditionalSettings>
+                                <b:CanBeChanged>false</b:CanBeChanged>
+                                <b:ManagedPropertyLogicalName>canmodifyadditionalsettings</b:ManagedPropertyLogicalName>
+                                <b:Value>true</b:Value>
+                            </d:CanModifyAdditionalSettings>
+                            <d:ColumnNumber>1</d:ColumnNumber>
+                            <d:DeprecatedVersion i:nil="true"/>
+                            <d:Description>
+                                <b:LocalizedLabels>
+                                    <b:LocalizedLabel>
+                                        <d:MetadataId i:nil="true"/>
+                                        <d:HasChanged i:nil="true"/>
+                                        <b:IsManaged>true</b:IsManaged>
+                                        <b:Label>Unique identifier of the account.</b:Label>
+                                        <b:LanguageCode>1033</b:LanguageCode>
+                                    </b:LocalizedLabel>
+                                </b:LocalizedLabels>
+                                <b:UserLocalizedLabel>
+                                    <d:MetadataId i:nil="true"/>
+                                    <d:HasChanged i:nil="true"/>
+                                    <b:IsManaged>true</b:IsManaged>
+                                    <b:Label>Unique identifier of the account.</b:Label>
+                                    <b:LanguageCode>1033</b:LanguageCode>
+                                </b:UserLocalizedLabel>
+                            </d:Description>
+                            <d:DisplayName>
+                                <b:LocalizedLabels>
+                                    <b:LocalizedLabel>
+                                        <d:MetadataId i:nil="true"/>
+                                        <d:HasChanged i:nil="true"/>
+                                        <b:IsManaged>true</b:IsManaged>
+                                        <b:Label>Account</b:Label>
+                                        <b:LanguageCode>1033</b:LanguageCode>
+                                    </b:LocalizedLabel>
+                                </b:LocalizedLabels>
+                                <b:UserLocalizedLabel>
+                                    <d:MetadataId i:nil="true"/>
+                                    <d:HasChanged i:nil="true"/>
+                                    <b:IsManaged>true</b:IsManaged>
+                                    <b:Label>Account</b:Label>
+                                    <b:LanguageCode>1033</b:LanguageCode>
+                                </b:UserLocalizedLabel>
+                            </d:DisplayName>
+                            <d:EntityLogicalName>account</d:EntityLogicalName>
+                            <d:IsAuditEnabled>
+                                <b:CanBeChanged>false</b:CanBeChanged>
+                                <b:ManagedPropertyLogicalName>canmodifyauditsettings</b:ManagedPropertyLogicalName>
+                                <b:Value>false</b:Value>
+                            </d:IsAuditEnabled>
+                            <d:IsCustomAttribute>false</d:IsCustomAttribute>
+                            <d:IsCustomizable>
+                                <b:CanBeChanged>false</b:CanBeChanged>
+                                <b:ManagedPropertyLogicalName>iscustomizable</b:ManagedPropertyLogicalName>
+                                <b:Value>true</b:Value>
+                            </d:IsCustomizable>
+                            <d:IsManaged>true</d:IsManaged>
+                            <d:IsPrimaryId>true</d:IsPrimaryId>
+                            <d:IsPrimaryName>false</d:IsPrimaryName>
+                            <d:IsRenameable>
+                                <b:CanBeChanged>false</b:CanBeChanged>
+                                <b:ManagedPropertyLogicalName>isrenameable</b:ManagedPropertyLogicalName>
+                                <b:Value>true</b:Value>
+                            </d:IsRenameable>
+                            <d:IsSecured>false</d:IsSecured>
+                            <d:IsValidForAdvancedFind>
+                                <b:CanBeChanged>true</b:CanBeChanged>
+                                <b:ManagedPropertyLogicalName>canmodifysearchsettings</b:ManagedPropertyLogicalName>
+                                <b:Value>true</b:Value>
+                            </d:IsValidForAdvancedFind>
+                            <d:IsValidForCreate>true</d:IsValidForCreate>
+                            <d:IsValidForRead>true</d:IsValidForRead>
+                            <d:IsValidForUpdate>false</d:IsValidForUpdate>
+                            <d:LinkedAttributeId i:nil="true"/>
+                            <d:LogicalName>accountid</d:LogicalName>
+                            <d:RequiredLevel>
+                                <b:CanBeChanged>false</b:CanBeChanged>
+                                <b:ManagedPropertyLogicalName>canmodifyrequirementlevelsettings</b:ManagedPropertyLogicalName>
+                                <b:Value>SystemRequired</b:Value>
+                            </d:RequiredLevel>
+                            <d:SchemaName>AccountId</d:SchemaName>
+                            <d:AttributeTypeName i:nil="true" xmlns:e="http://schemas.microsoft.com/xrm/2013/Metadata"/>
+                            <d:IntroducedVersion>5.0.0.0</d:IntroducedVersion>
+                        </c:value>
+                    </b:KeyValuePairOfstringanyType>
+                </b:Results>
+            </ExecuteResult>
+        </ExecuteResponse>
+    </s:Body>
+</s:Envelope>
