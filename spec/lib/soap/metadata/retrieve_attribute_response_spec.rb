@@ -20,4 +20,23 @@ describe Mscrm::Soap::Metadata::RetrieveAttributeResponse do
 
   end
 
+  describe '#picklist_attribute_metadata' do
+    subject {
+      file = fixture("retrieve_attribute_picklist_response")
+      Mscrm::Soap::Metadata::RetrieveAttributeResponse.new(file)
+    }
+
+    context "parse execute result" do
+      it { subject.ResponseName.should == "RetrieveAttribute" }
+      it { subject.attributes.MetadataId.should == "ae00233e-70c0-4a1f-803f-03ff723e5440" }
+      it { subject.attributes.AttributeType.should == "Picklist" }
+      it { subject.attributes.LogicalName.should == "industrycode" }
+      it { subject.attributes.EntityLogicalName.should == "account" }
+      it { subject.attributes.AttributeTypeName.Value.should == "PicklistType" }
+      it { subject.attributes.picklist_options.should include("Accounting", "Business Services") }
+    end
+
+  end
+
+
 end

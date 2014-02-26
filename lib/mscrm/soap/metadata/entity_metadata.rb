@@ -7,11 +7,16 @@ module Mscrm
 
         def initialize(document)
           super
+        end
 
-          @attributes = []
-          document.get_elements("//d:Attributes/d:AttributeMetadata").each do |attr_metadata|
-            @attributes << AttributeMetadata.new(attr_metadata)
+        def attributes
+          return if @attributes.is_a?(Array)
+
+          @attributes = document.get_elements("//d:Attributes/d:AttributeMetadata").collect do |attr_metadata|
+            AttributeMetadata.new(attr_metadata)
           end
+
+          return @attributes
         end
 
       end
