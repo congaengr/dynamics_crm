@@ -1,6 +1,6 @@
 # DynamicsCRM
 
-TODO: Write a gem description
+Ruby library for accessing Microsoft Dynamics CRM Online 2011/2013 via their SOAP API.
 
 ## Installation
 
