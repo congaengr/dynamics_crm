@@ -22,7 +22,10 @@ module DynamicsCRM
 
     attr_accessor :logger
 
-    def initialize(config={organization_name: nil, endpoint: nil, hostname: nil})
+    # Initializes Client instance.
+    # Requires: organization_name
+    # Optional: hostname
+    def initialize(config={organization_name: nil, hostname: nil})
       raise RuntimeError.new("organization_name is required") if config[:organization_name].nil?
 
       @organization_name = config[:organization_name]
@@ -30,6 +33,14 @@ module DynamicsCRM
       @organization_endpoint = "https://#{@hostname}/XRMServices/2011/Organization.svc"
     end
 
+    # Public: Authenticate User
+    #
+    # Examples
+    #
+    #   client.authenticate_user('test@orgnam.onmicrosoft.com', 'password')
+    #   # => true || raised Fault
+    #
+    # Returns true on success or raises Fault
     def authenticate_user(username, password)
 
       @username = username
@@ -52,11 +63,12 @@ module DynamicsCRM
       else
         raise RuntimeError.new(soap_response)
       end
+
+      true
     end
 
     # These are all the operations defined by the Dynamics WSDL.
-    # Tag name case MATTERS!
-
+    # Tag names are case-sensitive.
     def create(entity_name, attributes)
 
       entity = XML::Entity.new(entity_name)

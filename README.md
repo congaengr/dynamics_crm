@@ -18,7 +18,80 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+
+#### Username/Password authentication
+
+```ruby
+client = DynamicsCRM::Client.new
+client.authenticate_user('user@orgname.onmicrosoft.com', 'password')
+```
+
+### retrieve
+
+```ruby
+client.retrieve('account', '53291AAB-4A9A-E311-B097-6C3BE5A8DD60')
+# => #<DynamicsCRM::XML::Entity ... >
+```
+
+### retrieve_multiple
+
+```ruby
+client.retrieve_multiple('account', ["name", "Equal", "Test Account"])
+# => [#<DynamicsCRM::XML::Entity ... >]
+
+client.retrieve_multiple('account', ["name", "Equal", "Test Account"], ["Name, "CreatedBy"])
+# => [#<DynamicsCRM::XML::Entity ... >]
+```
+
+
+### create
+
+```ruby
+# Add a new account
+client.create('Account', name: 'Foobar Inc.')
+# => {id: '53291AAB-4A9A-E311-B097-6C3BE5A8DD60'}
+```
+
+### update
+
+```ruby
+# Update the Account with id '53291AAB-4A9A-E311-B097-6C3BE5A8DD60'
+client.update('account', '53291AAB-4A9A-E311-B097-6C3BE5A8DD60', name: 'Whizbang Corp')
+# => {}
+```
+
+### delete
+
+```ruby
+# Delete the Account with id '53291AAB-4A9A-E311-B097-6C3BE5A8DD60'
+client.delete('account', '53291AAB-4A9A-E311-B097-6C3BE5A8DD60')
+# => {}
+```
+
+### retrieve_all_entities
+
+```ruby
+# get the list of organization entities
+client.retrieve_all_entities
+# => [#<DynamicsCRM::Metadata::EntityMetadata>, ...]
+```
+
+### retrieve_entity
+
+```ruby
+# get the entity metadata for the account object
+client.retrieve_entity('account')
+# => DynamicsCRM::Metadata::EntityMetadata
+```
+
+### retrieve_attribute
+
+```ruby
+# get AttributeMetadata for 'name' field on the account object
+client.retrieve_attribute('account', 'name')
+# => [#<DynamicsCRM::Metadata::AttributeMetadata>, ...]
+```
+
 
 ## Contributing
 
