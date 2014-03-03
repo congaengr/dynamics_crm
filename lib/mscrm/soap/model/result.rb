@@ -46,7 +46,7 @@ module Mscrm
           value = nil
           # Then check if string converted to underscore finds a match.
           if string_method =~ /[A-Z+]/
-            string_method = StringUtil.underscore(string_method)
+            string_method = ::Mscrm::Soap::StringUtil.underscore(string_method)
             value = self[string_method] || self[string_method.to_sym]
           end
 

@@ -10,12 +10,12 @@ describe Mscrm::Soap::Metadata::RetrieveAttributeResponse do
 
     context "parse execute result" do
       it { subject.ResponseName.should == "RetrieveAttribute" }
-      it { subject.attributes.MetadataId.should == "79194881-c699-e311-9752-6c3be5a87df0" }
-      it { subject.attributes.AttributeType.should == "Money" }
-      it { subject.attributes.LogicalName.should == "new_value" }
-      it { subject.attributes.IsPrimaryId.should == "false" }
-      it { subject.attributes.AttributeTypeName.Value.should == "MoneyType" }
-      it { subject.attributes.DisplayName.LocalizedLabels.LocalizedLabel.Label.should == "Value" }
+      it { subject.attribute.MetadataId.should == "79194881-c699-e311-9752-6c3be5a87df0" }
+      it { subject.attribute.AttributeType.should == "Money" }
+      it { subject.attribute.LogicalName.should == "new_value" }
+      it { subject.attribute.IsPrimaryId.should == "false" }
+      it { subject.attribute.AttributeTypeName.Value.should == "MoneyType" }
+      it { subject.attribute.DisplayName.LocalizedLabels.LocalizedLabel.Label.should == "Value" }
     end
 
   end
@@ -28,12 +28,12 @@ describe Mscrm::Soap::Metadata::RetrieveAttributeResponse do
 
     context "parse execute result" do
       it { subject.ResponseName.should == "RetrieveAttribute" }
-      it { subject.attributes.MetadataId.should == "ae00233e-70c0-4a1f-803f-03ff723e5440" }
-      it { subject.attributes.AttributeType.should == "Picklist" }
-      it { subject.attributes.LogicalName.should == "industrycode" }
-      it { subject.attributes.EntityLogicalName.should == "account" }
-      it { subject.attributes.AttributeTypeName.Value.should == "PicklistType" }
-      it { subject.attributes.picklist_options.should include("Accounting", "Business Services") }
+      it { subject.attribute.MetadataId.should == "ae00233e-70c0-4a1f-803f-03ff723e5440" }
+      it { subject.attribute.AttributeType.should == "Picklist" }
+      it { subject.attribute.LogicalName.should == "industrycode" }
+      it { subject.attribute.EntityLogicalName.should == "account" }
+      it { subject.attribute.AttributeTypeName.Value.should == "PicklistType" }
+      it { subject.attribute.picklist_options.should include("Accounting", "Business Services") }
     end
 
   end
@@ -46,13 +46,12 @@ describe Mscrm::Soap::Metadata::RetrieveAttributeResponse do
 
     context "parse execute result" do
       it { subject.ResponseName.should == "RetrieveAttribute" }
-      it { subject.attributes.MetadataId.should == "f8cd5db9-cee8-4845-8cdd-cd4f504957e7" }
-      it { subject.attributes.AttributeType.should == "Uniqueidentifier" }
-      it { subject.attributes.LogicalName.should == "accountid" }
-      it { subject.attributes.EntityLogicalName.should == "account" }
+      it { subject.attribute.MetadataId.should == "f8cd5db9-cee8-4845-8cdd-cd4f504957e7" }
+      it { subject.attribute.AttributeType.should == "Uniqueidentifier" }
+      it { subject.attribute.LogicalName.should == "accountid" }
+      it { subject.attribute.EntityLogicalName.should == "account" }
     end
 
   end
-
 
 end

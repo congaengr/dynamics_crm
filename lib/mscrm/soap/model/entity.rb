@@ -42,7 +42,7 @@ module Mscrm
           if xml_document
             xml_document.elements.each do |node|
 
-              attr_name = StringUtil.underscore(node.name).to_sym
+              attr_name = Mscrm::Soap::StringUtil.underscore(node.name).to_sym
               if entity.respond_to?(attr_name)
                 if node.name == "Attributes"
                   entity.attributes = Model::Attributes.from_xml(node)

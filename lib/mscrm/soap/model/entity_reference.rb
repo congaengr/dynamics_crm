@@ -40,9 +40,8 @@ module Mscrm
           entity_ref = EntityReference.new('unknown', nil)
 
           if xml_document
-            xml_document.elements.each do |node|
-
-              attr_name = StringUtil.underscore(node.name).to_sym
+            xml_document.each_element do |node|
+              attr_name = ::Mscrm::Soap::StringUtil.underscore(node.name).to_sym
               if entity_ref.respond_to?(attr_name)
                 entity_ref.send("#{attr_name}=", node.text ? node.text.strip : nil)
               end

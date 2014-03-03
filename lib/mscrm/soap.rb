@@ -23,9 +23,9 @@ require "mscrm/soap/metadata/retrieve_all_entities_response"
 require "mscrm/soap/metadata/retrieve_entity_response"
 require "mscrm/soap/metadata/retrieve_attribute_response"
 
-
+require 'bigdecimal'
+require 'nokogiri'
 require "rexml/document"
-require 'savon'
 require 'curl'
 
 module Mscrm

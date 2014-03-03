@@ -6,10 +6,6 @@ end
 require 'bundler/setup'
 Bundler.require :default, :test
 
-require 'webmock/rspec'
-
-WebMock.disable_net_connect!
-
 RSpec.configure do |config|
   config.order = 'random'
   config.filter_run :focus => true

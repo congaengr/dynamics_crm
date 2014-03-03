@@ -12,15 +12,15 @@ module Mscrm
         def get_type(key, value)
           type = "string"
           case value
-            when Fixnum
+            when ::Fixnum
               type = "int"
-            when BigDecimal, Float
+            when ::BigDecimal, ::Float
               type = "decimal"
-            when TrueClass, FalseClass
+            when ::TrueClass, ::FalseClass
               type = "boolean"
-            when Time, DateTime
+            when ::Time, ::DateTime
               type = "dateTime"
-            when Hash, EntityReference
+            when ::Hash, EntityReference
               type = "EntityReference"
             when Query
               type = "QueryExpression"

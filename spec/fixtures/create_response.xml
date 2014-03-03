@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<s:Envelope xmlns:a="http://www.w3.org/2005/08/addressing" xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+    <s:Header>
+        <a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/CreateResponse</a:Action>
+        <a:RelatesTo>urn:uuid:db950b07-cc15-4da9-ba78-807295cda52d</a:RelatesTo>
+        <ActivityId CorrelationId="93787a70-d770-4cb0-9a08-526b4543f5bc" xmlns="http://schemas.microsoft.com/2004/09/ServiceModel/Diagnostics">00000000-0000-0000-0000-000000000000</ActivityId>
+        <o:Security s:mustUnderstand="1" xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+            <u:Timestamp u:Id="_0">
+                <u:Created>2014-02-28T20:19:19.007Z</u:Created>
+                <u:Expires>2014-02-28T20:24:19.007Z</u:Expires>
+            </u:Timestamp>
+        </o:Security>
+    </s:Header>
+    <s:Body>
+        <CreateResponse xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">
+            <CreateResult>c4944f99-b5a0-e311-b64f-6c3be5a87df0</CreateResult>
+        </CreateResponse>
+    </s:Body>
+</s:Envelope>

@@ -16,6 +16,7 @@ describe Mscrm::Soap::Metadata::EntityMetadata do
       it { subject.OwnershipType.should == "UserOwned" }
       it { subject.PrimaryIdAttribute.should == "opportunityid" }
       it { subject.PrimaryNameAttribute.should == "name" }
+      it { subject.attributes.should == [] }
     end
 
   end

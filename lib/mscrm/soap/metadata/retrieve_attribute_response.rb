@@ -3,13 +3,13 @@ module Mscrm
     module Metadata
 
       class RetrieveAttributeResponse < Mscrm::Soap::Model::ExecuteResult
-        attr_reader :attributes
+        attr_reader :attribute
 
         def initialize(xml)
           super
 
-          # Single KeyValuePair containing 1 value type of EntityMetadata
-          @attributes = AttributeMetadata.new(self.delete("AttributeMetadata"))
+          # Single KeyValuePair containing 1 value type of AttributeMetadata
+          @attribute = AttributeMetadata.new(self.delete("AttributeMetadata"))
         end
 
       end

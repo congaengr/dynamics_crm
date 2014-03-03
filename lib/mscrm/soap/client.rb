@@ -19,18 +19,15 @@ module Mscrm
       # Login URL: Policy -> Issuer -> Address
       # Region: SecureTokenService -> AppliesTo
       LOGIN_URL = "https://login.microsoftonline.com/RST2.srf"
-      REGION = 'urn:crmna:dynamics.com';
+      REGION = 'urn:crmna:dynamics.com'
 
-      def_delegators :@savon, :operations, :call
+      attr_accessor :logger
 
       def initialize(config={organization_name: nil, endpoint: nil, hostname: nil})
-        service = "/XRMServices/2011/Organization.svc"
-        @savon = Savon.client(
-          endpoint: "https://#{config[:organization_name]}.api.crm.dynamics.com#{service}",
-          wsdl: "https://#{config[:organization_name]}.api.crm.dynamics.com#{service}?wsdl=wsdl0"
-        )
+        raise RuntimeError.new("organization_name is required") if config[:organization_name].nil?
 
-        @hostname = config[:hostname] || "tinderboxdev.api.crm.dynamics.com"
+        @organization_name = config[:organization_name]
+        @hostname = config[:hostname] || "#{@organization_name}.api.crm.dynamics.com"
         @organization_endpoint = "https://#{@hostname}/XRMServices/2011/Organization.svc"
       end
 
@@ -179,11 +176,7 @@ module Mscrm
 
       def post(url, request)
 
-        puts "REQUEST"
-        puts request
-
-        #"POST " . "/Organization.svc" . " HTTP/1.1",
-        #"Host: tinderboxdev.api.crm.dynamics.com",
+        log_xml("REQUEST", request)
 
         c = Curl::Easy.new(url) do |http|
           # Set up headers.
@@ -204,10 +197,26 @@ module Mscrm
 
         end
 
-        puts "RESPONSE"
-        puts response
+        log_xml("RESPONSE", response)
 
         response
+      end
+
+      def log_xml(title, xml)
+        return unless logger
+
+        logger.puts(title)
+        doc = REXML::Document.new(xml)
+        formatter.write(doc.root, logger)
+        logger.puts
+      end
+
+      def formatter
+        unless @formatter
+          @formatter = REXML::Formatters::Pretty.new(2)
+          @formatter.compact = true # This is the magic line that does what you need!
+        end
+        @formatter
       end
 
     end

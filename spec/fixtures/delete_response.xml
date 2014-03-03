@@ -1,0 +1,16 @@
+<s:Envelope xmlns:a="http://www.w3.org/2005/08/addressing" xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+	<s:Header>
+		<a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/DeleteResponse</a:Action>
+		<a:RelatesTo>urn:uuid:c92ec99b-3093-4856-85dc-c46d6aad5bcc</a:RelatesTo>
+		<ActivityId CorrelationId="700b5b17-bbdb-4769-bba0-bb76513e1695" xmlns="http://schemas.microsoft.com/2004/09/ServiceModel/Diagnostics">00000000-0000-0000-0000-000000000000</ActivityId>
+		<o:Security s:mustUnderstand="1" xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+			<u:Timestamp u:Id="_0">
+				<u:Created>2014-02-28T20:24:33.196Z</u:Created>
+				<u:Expires>2014-02-28T20:29:33.196Z</u:Expires>
+			</u:Timestamp>
+		</o:Security>
+	</s:Header>
+	<s:Body>
+		<DeleteResponse xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services"/>
+	</s:Body>
+</s:Envelope>
