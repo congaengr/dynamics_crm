@@ -1,5 +1,5 @@
 module DynamicsCRM
-  module Model
+  module XML
 
     # Represents a SOAP Fault
     # Resposible for parsing each element

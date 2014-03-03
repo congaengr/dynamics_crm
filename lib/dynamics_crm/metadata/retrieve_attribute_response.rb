@@ -1,7 +1,7 @@
 module DynamicsCRM
   module Metadata
     # Retrieve Attribute returns a single AttributeMetadata.
-    class RetrieveAttributeResponse < DynamicsCRM::Model::ExecuteResult
+    class RetrieveAttributeResponse < DynamicsCRM::Response::ExecuteResult
       attr_reader :attribute
 
       def initialize(xml)

@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe DynamicsCRM::Model::RetrieveResult do
+describe DynamicsCRM::Response::RetrieveResult do
 
   describe 'initialization' do
     subject {
       file = fixture("retrieve_account_all_columns")
-      DynamicsCRM::Model::RetrieveResult.new(file)
+      DynamicsCRM::Response::RetrieveResult.new(file)
     }
 
     context "parse attributes according to their type" do

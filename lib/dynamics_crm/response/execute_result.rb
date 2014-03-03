@@ -1,5 +1,5 @@
 module DynamicsCRM
-  module Model
+  module Response
     # Base response class for all Execute requests.
     # Pulls out the ResponseName and parses the Results element of key/value pairs.
     class ExecuteResult < Result
@@ -16,7 +16,7 @@ module DynamicsCRM
         h = {}
         h["ResponseName"] = result.elements["b:ResponseName"].text
 
-        attributes = MessageParser.parse_key_value_pairs(result.elements["b:Results"])
+        attributes = XML::MessageParser.parse_key_value_pairs(result.elements["b:Results"])
         h.merge(attributes)
       end
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DynamicsCRM::Model::Fault do
+describe DynamicsCRM::XML::Fault do
 
   describe 'initialization' do
 
@@ -8,7 +8,7 @@ describe DynamicsCRM::Model::Fault do
       subject {
         document = REXML::Document.new(fixture('receiver_fault'))
         fault = document.get_elements("//[local-name() = 'Fault']")
-        DynamicsCRM::Model::Fault.new(fault)
+        DynamicsCRM::XML::Fault.new(fault)
       }
 
       context "generate ColumnSet XML" do
@@ -24,7 +24,7 @@ describe DynamicsCRM::Model::Fault do
       subject {
         document = REXML::Document.new(fixture('sender_fault'))
         fault = document.get_elements("//[local-name() = 'Fault']")
-        DynamicsCRM::Model::Fault.new(fault)
+        DynamicsCRM::XML::Fault.new(fault)
       }
 
       context "generate ColumnSet XML" do

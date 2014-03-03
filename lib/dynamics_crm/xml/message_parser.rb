@@ -2,7 +2,7 @@ require 'ostruct'
 require 'rexml/document'
 
 module DynamicsCRM
-  module Model
+  module XML
     module MessageParser
 
       def self.parse_key_value_pairs(parent_element)

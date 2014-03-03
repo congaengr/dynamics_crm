@@ -2,7 +2,7 @@ module DynamicsCRM
   module Metadata
 
     # RetrieveEntity returns a single EntityMetadata element.
-    class RetrieveEntityResponse < DynamicsCRM::Model::ExecuteResult
+    class RetrieveEntityResponse < DynamicsCRM::Response::ExecuteResult
       attr_reader :entity, :attributes
 
       def initialize(xml)

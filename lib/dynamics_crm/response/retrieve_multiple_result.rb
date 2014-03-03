@@ -1,5 +1,5 @@
 module DynamicsCRM
-  module Model
+  module Response
     # Retrieve Multiple returns a list of Entities.
     class RetrieveMultipleResult < Result
 
@@ -26,7 +26,7 @@ module DynamicsCRM
 
         h[:entities] = []
         result.elements["b:Entities"].elements.each do |entity_xml|
-          h[:entities] << Entity.from_xml(entity_xml)
+          h[:entities] << XML::Entity.from_xml(entity_xml)
         end
 
         h

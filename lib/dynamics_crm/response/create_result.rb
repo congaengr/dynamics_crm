@@ -1,5 +1,5 @@
 module DynamicsCRM
-  module Model
+  module Response
 
     class CreateResult < Result
 

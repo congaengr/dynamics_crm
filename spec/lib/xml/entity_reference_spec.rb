@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe DynamicsCRM::Model::EntityReference do
+describe DynamicsCRM::XML::EntityReference do
 
   describe 'initialization' do
     subject {
-      DynamicsCRM::Model::EntityReference.new("opportunity", "9BF1325C-A592-E311-B7F3-6C3BE5A8A0C8")
+      DynamicsCRM::XML::EntityReference.new("opportunity", "9BF1325C-A592-E311-B7F3-6C3BE5A8A0C8")
     }
 
     context "default instance" do
@@ -34,7 +34,7 @@ describe DynamicsCRM::Model::EntityReference do
             <Id>9BF1325C-A592-E311-B7F3-6C3BE5A8A0C8</Id>
             <Name>Sample Opportunity Name</Name>
           </entityReference>})
-        DynamicsCRM::Model::EntityReference.from_xml(xml.root)
+        DynamicsCRM::XML::EntityReference.from_xml(xml.root)
       }
 
       it { subject.logical_name.should == "opportunity" }

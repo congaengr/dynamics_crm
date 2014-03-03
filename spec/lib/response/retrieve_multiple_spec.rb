@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe DynamicsCRM::Model::RetrieveMultipleResult do
+describe DynamicsCRM::Response::RetrieveMultipleResult do
 
   describe 'initialization' do
     subject {
       xml = fixture("retrieve_multiple_result")
-      DynamicsCRM::Model::RetrieveMultipleResult.new(xml)
+      DynamicsCRM::Response::RetrieveMultipleResult.new(xml)
     }
 
     context "parse attributes according to their type" do

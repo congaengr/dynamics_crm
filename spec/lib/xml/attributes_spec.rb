@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DynamicsCRM::Model::Attributes do
+describe DynamicsCRM::XML::Attributes do
 
   describe 'initialization' do
     let(:attrs) {
@@ -13,7 +13,7 @@ describe DynamicsCRM::Model::Attributes do
       }
     }
     subject {
-      DynamicsCRM::Model::Attributes.new(attrs)
+      DynamicsCRM::XML::Attributes.new(attrs)
     }
 
     context "attributes extends hash" do

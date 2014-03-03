@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe DynamicsCRM::Model::ExecuteResult do
+describe DynamicsCRM::Response::ExecuteResult do
 
   describe 'who_am_i' do
     subject {
       file = fixture("who_am_i_result")
-      DynamicsCRM::Model::ExecuteResult.new(file)
+      DynamicsCRM::Response::ExecuteResult.new(file)
     }
 
     context "parse execute result" do

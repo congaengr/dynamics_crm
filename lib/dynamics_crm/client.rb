@@ -10,7 +10,7 @@ module DynamicsCRM
 
   class Client
     extend Forwardable
-    include MessageBuilder
+    include XML::MessageBuilder
 
     # The Login URL and Region are located in the client's Organization WSDL.
     # https://tinderboxdev.api.crm.dynamics.com/XRMServices/2011/Organization.svc?wsdl=wsdl0
@@ -56,21 +56,21 @@ module DynamicsCRM
 
     def create(entity_name, attributes)
 
-      entity = Model::Entity.new(entity_name)
-      entity.attributes = Model::Attributes.new(attributes)
+      entity = XML::Entity.new(entity_name)
+      entity.attributes = XML::Attributes.new(attributes)
 
       xml_response = post(@organization_endpoint, create_request(entity))
-      return Model::CreateResult.new(xml_response)
+      return Response::CreateResult.new(xml_response)
     end
 
     # http://crmtroubleshoot.blogspot.com.au/2013/07/dynamics-crm-2011-php-and-soap-calls.html
     def retrieve(entity_name, guid, columns=[])
 
-      column_set = Model::ColumnSet.new(columns)
+      column_set = XML::ColumnSet.new(columns)
       request = retrieve_request(entity_name, guid, column_set)
 
       xml_response = post(@organization_endpoint, request)
-      return Model::RetrieveResult.new(xml_response)
+      return Response::RetrieveResult.new(xml_response)
     end
 
     def rollup(target_entity, query, rollup_type="Related")
@@ -83,9 +83,9 @@ module DynamicsCRM
 
     def retrieve_multiple(entity_name, criteria, columns=[])
 
-      query = Model::Query.new(entity_name)
+      query = XML::Query.new(entity_name)
       query.columns = columns
-      query.criteria = Model::Criteria.new(criteria)
+      query.criteria = XML::Criteria.new(criteria)
 
       request = build_envelope('RetrieveMultiple') do
         %Q{
@@ -96,33 +96,33 @@ module DynamicsCRM
       end
 
       xml_response = post(@organization_endpoint, request)
-      return Model::RetrieveMultipleResult.new(xml_response)
+      return Response::RetrieveMultipleResult.new(xml_response)
     end
 
     # Update entity attributes
     def update(entity_name, guid, attributes)
 
-      entity = Model::Entity.new(entity_name)
+      entity = XML::Entity.new(entity_name)
       entity.id = guid
-      entity.attributes = Model::Attributes.new(attributes)
+      entity.attributes = XML::Attributes.new(attributes)
 
       request = update_request(entity)
       xml_response = post(@organization_endpoint, request)
-      return Model::UpdateResult.new(xml_response)
+      return Response::UpdateResult.new(xml_response)
     end 
 
     def delete(entity_name, guid)
       request = delete_request(entity_name, guid)
 
       xml_response = post(@organization_endpoint, request)
-      return Model::DeleteResult.new(xml_response)
+      return Response::DeleteResult.new(xml_response)
     end
 
     def execute(action, parameters={}, response_class=nil)
       request = execute_request(action, parameters)
       xml_response = post(@organization_endpoint, request)
 
-      response_class ||= Model::ExecuteResult
+      response_class ||= XML::ExecuteResult
       return response_class.new(xml_response)
     end
 

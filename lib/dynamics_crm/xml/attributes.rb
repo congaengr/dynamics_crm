@@ -1,5 +1,5 @@
 module DynamicsCRM
-  module Model
+  module XML
 
     class Attributes < Hash
 
@@ -78,7 +78,7 @@ module DynamicsCRM
           }
 
         # If we have an object that can convert itself, use it.
-        if (value.respond_to?(:to_xml) && value.class.to_s.include?("Soap::Model"))
+        if (value.respond_to?(:to_xml) && value.class.to_s.include?("DynamicsCRM"))
           xml <<  "<c:value i:type=\"a:#{type}\">\n" << value.to_xml({exclude_root: true, namespace: 'a'}) << "</c:value>"
         else
           xml << render_value_xml(type, value)

@@ -1,5 +1,5 @@
 module DynamicsCRM
-  module Model
+  module XML
     # Represents Query XML fragment.
     class Query
 
@@ -12,8 +12,8 @@ module DynamicsCRM
       def to_xml(options={})
         namespace = options[:namespace] ? options[:namespace] : "b"
 
-        column_set = Model::ColumnSet.new(columns)
-        @criteria ||= Model::Criteria.new
+        column_set = ColumnSet.new(columns)
+        @criteria ||= Criteria.new
 
         xml = %Q{
             #{column_set.to_xml(namespace: namespace, camel_case: true)}

@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe DynamicsCRM::Model::Query do
+describe DynamicsCRM::XML::Query do
 
   describe 'initialization' do
     subject {
-      DynamicsCRM::Model::Query.new('opportunity')
+      DynamicsCRM::XML::Query.new('opportunity')
     }
 
     context "generate empty Query fragment" do
@@ -21,8 +21,8 @@ describe DynamicsCRM::Model::Query do
 
   describe 'criteria' do
     subject {
-      query = DynamicsCRM::Model::Query.new('opportunity')
-      query.criteria = DynamicsCRM::Model::Criteria.new([["name", "Equal", "Test Opp"]])
+      query = DynamicsCRM::XML::Query.new('opportunity')
+      query.criteria = DynamicsCRM::XML::Criteria.new([["name", "Equal", "Test Opp"]])
       query
     }
 

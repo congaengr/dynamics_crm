@@ -2,7 +2,7 @@ module DynamicsCRM
   module Metadata
 
     # Retrieve All Entities returns a list of EntityMetadata
-    class RetrieveAllEntitiesResponse < DynamicsCRM::Model::ExecuteResult
+    class RetrieveAllEntitiesResponse < DynamicsCRM::Response::ExecuteResult
       attr_reader :entities
 
       def initialize(xml)

@@ -1,5 +1,5 @@
 module DynamicsCRM
-  module Model
+  module XML
 
     class Criteria < Array
 

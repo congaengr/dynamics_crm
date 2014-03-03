@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe DynamicsCRM::Model::Entity do
+describe DynamicsCRM::XML::Entity do
 
   describe 'initialization' do
     subject {
-      DynamicsCRM::Model::Entity.new("account")
+      DynamicsCRM::XML::Entity.new("account")
     }
 
     context "default instance" do
@@ -28,7 +28,7 @@ describe DynamicsCRM::Model::Entity do
     subject {
       document = REXML::Document.new(fixture("retrieve_multiple_result"))
       entity_xml = document.get_elements("//b:Entity").first
-     DynamicsCRM::Model::Entity.from_xml(entity_xml)
+     DynamicsCRM::XML::Entity.from_xml(entity_xml)
     }
 
     context "parses XML document into instance variables" do

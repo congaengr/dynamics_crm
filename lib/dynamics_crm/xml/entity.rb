@@ -1,5 +1,5 @@
 module DynamicsCRM
-  module Model
+  module XML
 
     class Entity
 
@@ -44,7 +44,7 @@ module DynamicsCRM
             attr_name = DynamicsCRM::StringUtil.underscore(node.name).to_sym
             if entity.respond_to?(attr_name)
               if node.name == "Attributes"
-                entity.attributes = Model::Attributes.from_xml(node)
+                entity.attributes = XML::Attributes.from_xml(node)
               else
                 entity.send("#{attr_name}=", node.text ? node.text.strip : nil)
               end

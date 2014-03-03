@@ -27,7 +27,7 @@ describe DynamicsCRM::Client do
 
       result = subject.retrieve("account", "93f0325c-a592-e311-b7f3-6c3be5a8a0c8")
 
-      result.should be_a(DynamicsCRM::Model::RetrieveResult)
+      result.should be_a(DynamicsCRM::Response::RetrieveResult)
       result.type.should == "account"
       result.id.should == "93f0325c-a592-e311-b7f3-6c3be5a8a0c8"
       result.name.should == "Adventure Works (sample)"
@@ -41,7 +41,7 @@ describe DynamicsCRM::Client do
 
       result = subject.retrieve_multiple("account", ["name", "Equal", "Test Account"], columns=[])
 
-      result.should be_a(DynamicsCRM::Model::RetrieveMultipleResult)
+      result.should be_a(DynamicsCRM::Response::RetrieveMultipleResult)
       result.entities.size.should == 3
       entities = result.entities
 
@@ -61,7 +61,7 @@ describe DynamicsCRM::Client do
 
       result = subject.create("account", {name: "Adventure Works"})
 
-      result.should be_a(DynamicsCRM::Model::CreateResult)
+      result.should be_a(DynamicsCRM::Response::CreateResult)
       result.id.should == "c4944f99-b5a0-e311-b64f-6c3be5a87df0"
       result.Id.should == "c4944f99-b5a0-e311-b64f-6c3be5a87df0"
     end
@@ -74,7 +74,7 @@ describe DynamicsCRM::Client do
 
       result = subject.update("account", "c4944f99-b5a0-e311-b64f-6c3be5a87df0", {name: "Adventure Park"})
 
-      result.should be_a(DynamicsCRM::Model::UpdateResult)
+      result.should be_a(DynamicsCRM::Response::UpdateResult)
     end
   end
 
@@ -85,7 +85,7 @@ describe DynamicsCRM::Client do
 
       result = subject.delete("account", "c4944f99-b5a0-e311-b64f-6c3be5a87df0")
 
-      result.should be_a(DynamicsCRM::Model::DeleteResult)
+      result.should be_a(DynamicsCRM::Response::DeleteResult)
     end
   end
 

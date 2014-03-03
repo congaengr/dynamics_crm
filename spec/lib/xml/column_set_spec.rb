@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe DynamicsCRM::Model::ColumnSet do
+describe DynamicsCRM::XML::ColumnSet do
 
   describe 'initialization' do
     subject {
-      DynamicsCRM::Model::ColumnSet.new(["telephone1","modifiedon","donotemail","accountid"])
+      DynamicsCRM::XML::ColumnSet.new(["telephone1","modifiedon","donotemail","accountid"])
     }
 
     context "generate ColumnSet XML" do
