@@ -1,4 +1,4 @@
-# Mscrm::Soap
+# DynamicsCRM
 
 TODO: Write a gem description
 
@@ -6,7 +6,7 @@ TODO: Write a gem description
 
 Add this line to your application's Gemfile:
 
-    gem 'mscrm-soap'
+    gem 'dynamics_crm'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install mscrm-soap
+    $ gem install dynamics_crm
 
 ## Usage
 
