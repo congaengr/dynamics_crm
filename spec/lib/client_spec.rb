@@ -18,6 +18,19 @@ describe DynamicsCRM::Client do
     it "should raise arugment error when no parameters are passed" do
       expect { subject.authenticate_user() }.to raise_error(ArgumentError)
     end
+
+    # This is only method in this suite that actually sends a POST message to Dynamics.
+    # This covers the post() and fault parsing logic.
+    it "should fail to authenticate with invalid credentials" do
+      begin
+        subject.authenticate_user('testuser@orgnam.onmicrosoft.com', 'qwerty')
+        fail("Expected Fault to be raised")
+      rescue DynamicsCRM::XML::Fault => f
+        f.code.should == "S:Sender"
+        f.subcode.should == "wst:FailedAuthentication"
+        f.reason.should == "Authentication Failure"
+      end
+    end
   end
 
   describe "#retrieve" do
@@ -74,7 +87,7 @@ describe DynamicsCRM::Client do
 
       result = subject.update("account", "c4944f99-b5a0-e311-b64f-6c3be5a87df0", {name: "Adventure Park"})
 
-      result.should be_a(DynamicsCRM::Response::UpdateResult)
+      result.should be_a(DynamicsCRM::Response::UpdateResponse)
     end
   end
 
@@ -85,7 +98,7 @@ describe DynamicsCRM::Client do
 
       result = subject.delete("account", "c4944f99-b5a0-e311-b64f-6c3be5a87df0")
 
-      result.should be_a(DynamicsCRM::Response::DeleteResult)
+      result.should be_a(DynamicsCRM::Response::DeleteResponse)
     end
   end
 
@@ -144,5 +157,38 @@ describe DynamicsCRM::Client do
     end
   end
 
+  context "many-to-many relationships" do
+    let(:contacts) {
+      [ DynamicsCRM::XML::EntityReference.new("contact", "53291AAB-4A9A-E311-B097-6C3BE5A8DD60"),
+        DynamicsCRM::XML::EntityReference.new("contact", "3DEDA796-4A9A-E311-B097-6C3BE5A8DD60")]
+    }
+
+    describe "#associate" do
+      it "associates contacts with account" do
+        subject.stub(:post).and_return(fixture("associate_response"))
+
+        subject.associate("account", "7BF2E032-AD92-E311-9752-6C3BE5A87DF0", "contact_customer_accounts", contacts)
+      end
+    end
+
+    describe "#disassociate" do
+      it "disassociates contacts with accounts" do
+        subject.stub(:post).and_return(fixture("disassociate_response"))
+
+        subject.disassociate("account", "7BF2E032-AD92-E311-9752-6C3BE5A87DF0", "contact_customer_accounts", contacts)
+      end
+    end
+  end
+
+  describe "#who_am_i" do
+    it "returns user information" do
+      subject.stub(:post).and_return(fixture("who_am_i_result"))
+
+      response = subject.who_am_i
+      response.UserId.should == "1bfa3886-df7e-468c-8435-b5adfb0441ed"
+      response.BusinessUnitId.should == "4e87d619-838a-e311-89a7-6c3be5a80184"
+      response.OrganizationId.should == "0140d597-e270-494a-89e1-bd0b43774e50"
+    end
+  end
 
 end

@@ -38,6 +38,9 @@ module DynamicsCRM
       soap_response = post(LOGIN_URL, build_ocp_request(username, password))
 
       document = REXML::Document.new(soap_response)
+      # Check for Fault
+      fault_xml = document.get_elements("//[local-name() = 'Fault']")
+      raise XML::Fault.new(fault_xml) if fault_xml.any?
 
       cipher_values = document.get_elements("//CipherValue")
 
@@ -108,32 +111,34 @@ module DynamicsCRM
 
       request = update_request(entity)
       xml_response = post(@organization_endpoint, request)
-      return Response::UpdateResult.new(xml_response)
+      return Response::UpdateResponse.new(xml_response)
     end 
 
     def delete(entity_name, guid)
       request = delete_request(entity_name, guid)
 
       xml_response = post(@organization_endpoint, request)
-      return Response::DeleteResult.new(xml_response)
+      return Response::DeleteResponse.new(xml_response)
     end
 
     def execute(action, parameters={}, response_class=nil)
       request = execute_request(action, parameters)
       xml_response = post(@organization_endpoint, request)
 
-      response_class ||= XML::ExecuteResult
+      response_class ||= Response::ExecuteResult
       return response_class.new(xml_response)
     end
 
     def associate(entity_name, guid, relationship, related_entities)
       request = associate_request(entity_name, guid, relationship, related_entities)
       xml_response = post(@organization_endpoint, request)
+      return Response::AssociateResponse.new(xml_response)
     end
 
     def disassociate(entity_name, guid, relationship, related_entities)
       request = disassociate_request(entity_name, guid, relationship, related_entities)
       xml_response = post(@organization_endpoint, request)
+      return Response::DisassociateResponse.new(xml_response)
     end
 
     # Metadata Calls

@@ -11,7 +11,7 @@ module DynamicsCRM
         @document = REXML::Document.new(xml)
 
         fault_xml = @document.get_elements("//[local-name() = 'Fault']")
-        raise Fault.new(fault_xml) if fault_xml.any?
+        raise XML::Fault.new(fault_xml) if fault_xml.any?
 
         @result_response = @document.get_elements("//#{response_element}").first
 
@@ -59,12 +59,19 @@ module DynamicsCRM
 
     end
 
-    # There's nothing to parse in the DeleteResult
-    class UpdateResult < Result
+    # There's nothing to parse in the UpdateResult
+    class UpdateResponse < Result
     end
 
     # There's nothing to parse in the DeleteResult
-    class DeleteResult < Result
+    class DeleteResponse < Result
+    end
+
+    # There's nothing to parse in the Associate/DisassociateResponse
+    class AssociateResponse < Result
+    end
+
+    class DisassociateResponse < Result
     end
 
   end
