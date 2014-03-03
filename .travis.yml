@@ -1,0 +1,9 @@
+language: ruby
+rvm:
+  - 1.9.3
+notifications:
+  email:
+    recipients:
+      - joeheth@gmail.com
+    on_success: never
+    on_failure: always
