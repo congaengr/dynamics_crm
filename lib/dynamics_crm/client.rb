@@ -154,22 +154,31 @@ module DynamicsCRM
       return Response::DisassociateResponse.new(xml_response)
     end
 
-    def create_attachment(entity_name, entity_id, file, subject=nil, text="")
-      if file.is_a?(String) && File.exists?(file)
-        file = File.new(file)
-      elsif file.is_a?(String) && file.start_with?("http")
+    def create_attachment(entity_name, entity_id, options={})
+      raise "options must contain a document entry" unless options[:document]
+
+      file_name = options[:filename]
+      document = options[:document]
+      subject = options[:subject]
+      text = options[:text] || ""
+
+      if document.is_a?(String) && File.exists?(document)
+        file = File.new(document)
+      elsif document.is_a?(String) && document.start_with?("http")
         require 'open-uri'
-        file = open(file)
+        file = open(document)
+      else
+        file = document
       end
 
-      if file.respond_to?(:path)
-        file_name = File.basename(file.path)
-        mime_type = MimeMagic.by_path(file.path)
-      elsif file.respond_to?(:base_uri)
-        file_name = File.basename(file.base_uri.path)
+      if file.respond_to?(:base_uri)
+        file_name ||= File.basename(file.base_uri.path)
         mime_type = MimeMagic.by_path(file.base_uri.path)
+      elsif file.respond_to?(:path)
+        file_name ||= File.basename(file.path)
+        mime_type = MimeMagic.by_path(file.path)
       else
-        raise "file must be a valid File, file path or URL"
+        raise "file must be a valid File object, file path or URL"
       end
 
       documentbody = file.read
