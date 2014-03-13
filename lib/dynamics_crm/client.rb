@@ -179,6 +179,10 @@ module DynamicsCRM
       self.create("annotation", attributes)
     end
 
+    def attachments(entity_id, columns=["filename", "documentbody", "mimetype"])
+      self.retrieve_multiple("annotation", [["objectid", "Equal", entity_id], ["isdocument", "Equal", true]], columns)
+    end
+
     # Metadata Calls
     # EntityFilters Enum: Default, Entity, Attributes, Privileges, Relationships, All
     def retrieve_all_entities

@@ -22,8 +22,11 @@ module DynamicsCRM
           attr_name = tuple[0]
           operator = tuple[1]
           values = tuple[2].is_a?(Array) ? tuple[2] : [tuple[2]]
+          # TODO: Improve type detection
           type = (tuple[3] || values.first.class).to_s.downcase
           type = "int" if type == "fixnum"
+          type = "boolean" if ["trueclass", "falseclass"].include?(type)
+
           expressions << %Q{<#{ns}:ConditionExpression>
               <#{ns}:AttributeName>#{attr_name}</#{ns}:AttributeName>
               <#{ns}:Operator>#{operator}</#{ns}:Operator>
