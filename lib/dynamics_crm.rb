@@ -25,8 +25,10 @@ require "dynamics_crm/metadata/retrieve_attribute_response"
 require "dynamics_crm/client"
 
 require 'bigdecimal'
+require 'base64'
 require 'nokogiri'
 require "rexml/document"
+require 'mimemagic'
 require 'curl'
 
 module DynamicsCRM 

@@ -154,6 +154,31 @@ module DynamicsCRM
       return Response::DisassociateResponse.new(xml_response)
     end
 
+    def upload_file(entity_name, entity_id, file, subject=nil, text="")
+      if file.is_a?(String) && File.exists?(file)
+        file = File.new(file)
+      end
+
+      raise "File must be a valid File instance" unless file.is_a?(File)
+
+      file_name = File.basename(file.path)
+      extention_name = File.extname(file_name)
+      mime_type = MimeMagic.by_path(file.path)
+
+      attributes = {
+        objectid: {id: entity_id, logical_name: entity_name},
+        subject: subject || file_name,
+        notetext: text || "",
+        filename: file_name,
+        isdocument: true,
+        documentbody: ::Base64.encode64(file.read),
+        filesize: File.size(file.path),
+        mimetype: mime_type
+      }
+
+      self.create("annotation", attributes)
+    end
+
     # Metadata Calls
     # EntityFilters Enum: Default, Entity, Attributes, Privileges, Relationships, All
     def retrieve_all_entities

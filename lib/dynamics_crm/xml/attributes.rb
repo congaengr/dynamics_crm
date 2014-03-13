@@ -95,8 +95,8 @@ module DynamicsCRM
         when "EntityReference"
           xml << %Q{
             <c:value i:type="a:EntityReference">
-                <a:Id>#{value[:guid]}</a:Id>
-                <a:LogicalName>#{value[:entity_name]}</a:LogicalName>
+                <a:Id>#{value[:id]}</a:Id>
+                <a:LogicalName>#{value[:logical_name]}</a:LogicalName>
                 <a:Name #{value[:name] ? '' : 'i:nil="true"'}>#{value[:name]}</a:Name>
             </c:value>
           }
