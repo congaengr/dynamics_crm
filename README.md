@@ -25,7 +25,7 @@ Or install it yourself as:
 
 ```ruby
 client = DynamicsCRM::Client.new
-client.authenticate_user('user@orgname.onmicrosoft.com', 'password')
+client.authenticate('user@orgname.onmicrosoft.com', 'password')
 ```
 
 ### retrieve

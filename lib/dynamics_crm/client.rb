@@ -37,11 +37,11 @@ module DynamicsCRM
     #
     # Examples
     #
-    #   client.authenticate_user('test@orgnam.onmicrosoft.com', 'password')
+    #   client.authenticate('test@orgnam.onmicrosoft.com', 'password')
     #   # => true || raised Fault
     #
     # Returns true on success or raises Fault
-    def authenticate_user(username, password)
+    def authenticate(username, password)
 
       @username = username
       @password = password

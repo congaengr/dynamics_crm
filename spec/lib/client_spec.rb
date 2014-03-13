@@ -3,12 +3,12 @@ require 'spec_helper'
 describe DynamicsCRM::Client do
   let(:subject) { DynamicsCRM::Client.new(organization_name: "tinderboxdev")}
 
-  describe "#authenticate_user" do
+  describe "#authenticate" do
     it "authenticates with username and password" do
 
       subject.stub(:post).and_return(fixture("request_security_token_response"))
 
-      subject.authenticate_user('testing', 'password')
+      subject.authenticate('testing', 'password')
 
       subject.instance_variable_get("@security_token0").should start_with("tMFpDJbJHcZnRVuby5cYmRbCJo2OgOFLEOrUHj+wz")
       subject.instance_variable_get("@security_token1").should start_with("CX7BFgRnW75tE6GiuRICjeVDV+6q4KDMKLyKmKe9A8U")
@@ -16,14 +16,14 @@ describe DynamicsCRM::Client do
     end
 
     it "should raise arugment error when no parameters are passed" do
-      expect { subject.authenticate_user() }.to raise_error(ArgumentError)
+      expect { subject.authenticate() }.to raise_error(ArgumentError)
     end
 
     # This is only method in this suite that actually sends a POST message to Dynamics.
     # This covers the post() and fault parsing logic.
     it "should fail to authenticate with invalid credentials" do
       begin
-        subject.authenticate_user('testuser@orgnam.onmicrosoft.com', 'qwerty')
+        subject.authenticate('testuser@orgnam.onmicrosoft.com', 'qwerty')
         fail("Expected Fault to be raised")
       rescue DynamicsCRM::XML::Fault => f
         f.code.should == "S:Sender"
