@@ -73,9 +73,12 @@ module DynamicsCRM
 
       def build_header(action)
 
+        caller_id = @caller_id ? %Q{<CallerId xmlns="http://schemas.microsoft.com/xrm/2011/Contracts">#{@caller_id}</CallerId>} : ""
+
         %Q{
           <s:Header>
            <a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/#{action}</a:Action>
+           #{caller_id}
            <a:MessageID>
             urn:uuid:#{uuid()}
            </a:MessageID>

@@ -20,17 +20,18 @@ module DynamicsCRM
     LOGIN_URL = "https://login.microsoftonline.com/RST2.srf"
     REGION = 'urn:crmna:dynamics.com'
 
-    attr_accessor :logger
+    attr_accessor :logger, :caller_id
 
     # Initializes Client instance.
     # Requires: organization_name
     # Optional: hostname
-    def initialize(config={organization_name: nil, hostname: nil})
+    def initialize(config={organization_name: nil, hostname: nil, caller_id: nil})
       raise RuntimeError.new("organization_name is required") if config[:organization_name].nil?
 
       @organization_name = config[:organization_name]
       @hostname = config[:hostname] || "#{@organization_name}.api.crm.dynamics.com"
       @organization_endpoint = "https://#{@hostname}/XRMServices/2011/Organization.svc"
+      @caller_id = config[:caller_id]
     end
 
     # Public: Authenticate User
@@ -96,7 +97,7 @@ module DynamicsCRM
         })
     end
 
-    def retrieve_multiple(entity_name, criteria, columns=[])
+    def retrieve_multiple(entity_name, criteria=[], columns=[])
 
       query = XML::Query.new(entity_name)
       query.columns = columns
