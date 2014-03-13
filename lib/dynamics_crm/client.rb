@@ -154,32 +154,40 @@ module DynamicsCRM
       return Response::DisassociateResponse.new(xml_response)
     end
 
-    def upload_file(entity_name, entity_id, file, subject=nil, text="")
+    def create_attachment(entity_name, entity_id, file, subject=nil, text="")
       if file.is_a?(String) && File.exists?(file)
         file = File.new(file)
+      elsif file.is_a?(String) && file.start_with?("http")
+        require 'open-uri'
+        file = open(file)
       end
 
-      raise "File must be a valid File instance" unless file.is_a?(File)
+      if file.respond_to?(:path)
+        file_name = File.basename(file.path)
+        mime_type = MimeMagic.by_path(file.path)
+      elsif file.respond_to?(:base_uri)
+        file_name = File.basename(file.base_uri.path)
+        mime_type = MimeMagic.by_path(file.base_uri.path)
+      else
+        raise "file must be a valid File, file path or URL"
+      end
 
-      file_name = File.basename(file.path)
-      extention_name = File.extname(file_name)
-      mime_type = MimeMagic.by_path(file.path)
-
+      documentbody = file.read
       attributes = {
         objectid: {id: entity_id, logical_name: entity_name},
         subject: subject || file_name,
         notetext: text || "",
         filename: file_name,
         isdocument: true,
-        documentbody: ::Base64.encode64(file.read),
-        filesize: File.size(file.path),
+        documentbody: ::Base64.encode64(documentbody),
+        filesize: documentbody.length,
         mimetype: mime_type
       }
 
       self.create("annotation", attributes)
     end
 
-    def attachments(entity_id, columns=["filename", "documentbody", "mimetype"])
+    def retrieve_attachments(entity_id, columns=["filename", "documentbody", "mimetype"])
       self.retrieve_multiple("annotation", [["objectid", "Equal", entity_id], ["isdocument", "Equal", true]], columns)
     end
 
