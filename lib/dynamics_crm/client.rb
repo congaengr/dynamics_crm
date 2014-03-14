@@ -103,16 +103,15 @@ module DynamicsCRM
       query.columns = columns
       query.criteria = XML::Criteria.new(criteria)
 
-      request = build_envelope('RetrieveMultiple') do
-        %Q{
-        <RetrieveMultiple xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">
-          #{query.to_xml}
-        </RetrieveMultiple>
-        }
-      end
-
+      request = retrieve_multiple_request(query)
       xml_response = post(@organization_endpoint, request)
       return Response::RetrieveMultipleResult.new(xml_response)
+    end
+
+    def fetch(fetchxml)
+      response = self.execute("RetrieveMultiple", {
+        Query: XML::FetchExpression.new(fetchxml)
+      })
     end
 
     # Update entity attributes

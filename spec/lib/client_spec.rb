@@ -15,13 +15,13 @@ describe DynamicsCRM::Client do
       subject.instance_variable_get("@key_identifier").should == "D3xjUG3HGaQuKyuGdTWuf6547Lo="
     end
 
-    it "should raise arugment error when no parameters are passed" do
+    it "raises arugment error when no parameters are passed" do
       expect { subject.authenticate() }.to raise_error(ArgumentError)
     end
 
     # This is only method in this suite that actually sends a POST message to Dynamics.
     # This covers the post() and fault parsing logic.
-    it "should fail to authenticate with invalid credentials" do
+    it "fails to authenticate with invalid credentials" do
       begin
         subject.authenticate('testuser@orgnam.onmicrosoft.com', 'qwerty')
         fail("Expected Fault to be raised")
@@ -34,7 +34,7 @@ describe DynamicsCRM::Client do
   end
 
   describe "#retrieve" do
-    it "should retrieve object by id" do
+    it "retrieves object by id" do
 
       subject.stub(:post).and_return(fixture("retrieve_account_all_columns"))
 
@@ -48,7 +48,7 @@ describe DynamicsCRM::Client do
   end
 
   describe "#retrieve_multiple" do
-    it "should retrieve multiple entities by criteria" do
+    it "retrieves multiple entities by criteria" do
 
       subject.stub(:post).and_return(fixture("retrieve_multiple_result"))
 
@@ -66,6 +66,42 @@ describe DynamicsCRM::Client do
       entities[2].attributes["accountid"].should == "8ff0325c-a592-e311-b7f3-6c3be5a8a0c8"
     end
   end
+
+  describe "#fetch" do
+    it "uses FetchXML to retrieve multiple" do
+
+      subject.stub(:post).and_return(fixture("fetch_xml_response"))
+
+      xml = %Q{
+        <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="true">
+          <entity name="new_tinderboxdocument">
+            <attribute name="new_tinderboxdocumentid" />
+            <attribute name="new_name" />
+            <attribute name="createdon" />
+            <order attribute="new_name" descending="false" />
+            <link-entity name="systemuser" from="systemuserid" to="createdby" alias="aa">
+              <link-entity name="account" from="createdby" to="systemuserid" alias="ab">
+                <link-entity name="transactioncurrency" from="transactioncurrencyid" to="transactioncurrencyid" alias="ac"></link-entity>
+              </link-entity>
+            </link-entity>
+          </entity>
+        </fetch>
+      }
+
+      result = subject.fetch(xml)
+
+      result.should be_a(DynamicsCRM::Response::ExecuteResult)
+
+      result["EntityCollection"].size.should == 3
+
+      entity = result["EntityCollection"].first
+      entity.id.should == "9c27cf91-ada3-e311-b64f-6c3be5a87df0"
+      entity.logical_name.should == "new_tinderboxdocument"
+      entity.attributes["new_tinderboxdocumentid"].should == entity.id
+      entity.attributes["new_name"].should == "6 orders of Product SKU JJ202"
+    end
+  end
+
 
   describe "#create" do
     it "creates new entity with parameters" do

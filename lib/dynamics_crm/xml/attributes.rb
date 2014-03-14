@@ -23,6 +23,8 @@ module DynamicsCRM
             type = "EntityReference"
           when Query
             type = "QueryExpression"
+          when FetchExpression
+            type = "FetchExpression"
           else
             if key.to_s == "EntityFilters"
               type = "EntityFilters"
@@ -140,7 +142,7 @@ module DynamicsCRM
 
       def self.from_xml(xml_document)
         hash = MessageParser.parse_key_value_pairs(xml_document)
-        attributes = Attributes.new(hash)
+        return Attributes.new(hash)
       end
 
       # Allows method-like access to the hash (OpenStruct)

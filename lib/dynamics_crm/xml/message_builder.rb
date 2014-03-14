@@ -148,6 +148,16 @@ module DynamicsCRM
         end
       end
 
+      def retrieve_multiple_request(object)
+        request = build_envelope('RetrieveMultiple') do
+          %Q{
+          <RetrieveMultiple xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">
+            #{object.to_xml}
+          </RetrieveMultiple>
+          }
+        end
+      end
+
       # Tag name case MATTERS!
       def delete_request(entity_name, guid)
         build_envelope('Delete') do
@@ -190,7 +200,7 @@ module DynamicsCRM
         # Default namespace is /crm/2011/Contracts
         ns_alias = "b"
         # Metadata Service calls are under the /xrm/2011/Contracts schema.
-        if ["RetrieveAllEntities", "RetrieveEntityMetadata", "RetrieveEntity", "RetrieveAttribute"].include?(action)
+        if ["RetrieveAllEntities", "RetrieveEntityMetadata", "RetrieveEntity", "RetrieveAttribute", "RetrieveMultiple"].include?(action)
           ns_alias = 'a'
         end
 

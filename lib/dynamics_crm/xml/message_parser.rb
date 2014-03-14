@@ -8,14 +8,13 @@ module DynamicsCRM
       def self.parse_key_value_pairs(parent_element)
         h = {}
         # Get namespace alias (letter) for child elements.
-        namespace_alias = parent_element.attributes.keys.first
+        namespace_alias = parent_element.attributes.keys.first || "c"
         parent_element.each_element do |key_value_pair|
 
           key_element = key_value_pair.elements["#{namespace_alias}:key"]
           key = key_element.text
           value_element = key_value_pair.elements["#{namespace_alias}:value"]
           value = value_element.text
-
           begin
 
             case value_element.attributes["type"]
@@ -34,6 +33,12 @@ module DynamicsCRM
                 entity_ref[child.name] = child.text
               end
               value = entity_ref
+            when "b:EntityCollection"
+              collection = []
+              value_element.elements["b:Entities"].elements.each  do |entity_xml|
+                collection << XML::Entity.from_xml(entity_xml)
+              end
+              value = collection
             when "d:EntityMetadata", /^d:\w*AttributeMetadata$/
               value = value_element
             when "d:ArrayOfEntityMetadata"
