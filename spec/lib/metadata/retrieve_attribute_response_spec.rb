@@ -33,7 +33,15 @@ describe DynamicsCRM::Metadata::RetrieveAttributeResponse do
       it { subject.attribute.LogicalName.should == "industrycode" }
       it { subject.attribute.EntityLogicalName.should == "account" }
       it { subject.attribute.AttributeTypeName.Value.should == "PicklistType" }
-      it { subject.attribute.picklist_options.should include("Accounting", "Business Services") }
+      it { subject.attribute.picklist_options.should be_a(Hash) }
+      it {
+        subject.attribute.picklist_options.should have_key(1)
+        subject.attribute.picklist_options[1].should == "Accounting"
+      }
+      it {
+        subject.attribute.picklist_options.should have_key(33)
+        subject.attribute.picklist_options[33].should == "Wholesale"
+      }
     end
 
   end

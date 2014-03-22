@@ -25,10 +25,15 @@ module DynamicsCRM
       def picklist_options
         return @picklist_options if @picklist_options
 
-        option_path = "./d:OptionSet/d:Options/d:OptionMetadata/d:Label/b:UserLocalizedLabel/b:Label"
-        @picklist_options ||= @document.get_elements(option_path).collect do |label|
-          label.text
+        @picklist_options = {}
+        option_metadata = "./d:OptionSet/d:Options/d:OptionMetadata"
+        @document.get_elements(option_metadata).each do |option|
+          numeric_value = option.elements["d:Value"].text
+          label = option.elements["d:Label/b:UserLocalizedLabel/b:Label"].text
+          @picklist_options[numeric_value.to_i] = label
         end
+
+        @picklist_options
       end
 
     end
