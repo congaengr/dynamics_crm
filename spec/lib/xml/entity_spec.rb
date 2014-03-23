@@ -23,6 +23,25 @@ describe DynamicsCRM::XML::Entity do
 
   end
 
+  describe "entity with attributes" do
+    subject {
+      entity = DynamicsCRM::XML::Entity.new("opportunity")
+      entity.attributes = DynamicsCRM::XML::Attributes.new(
+        opportunityid: DynamicsCRM::XML::EntityReference.new("opportunity", "2dc8d7bb-149f-e311-ba8d-6c3be5a8ad64")
+      )
+      entity
+    }
+
+    context "#to_xml" do
+      # Contains nested Attributes with EntityReference
+      it { subject.to_xml.should include('<c:value i:type="a:EntityReference">') }
+      it { subject.to_xml.should include("<a:Id>2dc8d7bb-149f-e311-ba8d-6c3be5a8ad64</a:Id>") }
+      it { subject.to_xml.should include("<a:LogicalName>opportunity</a:LogicalName>") }
+      it { subject.to_xml.should include("<a:Id>00000000-0000-0000-0000-000000000000</a:Id>") }
+    end
+
+  end
+
   describe '#from_xml' do
 
     subject {

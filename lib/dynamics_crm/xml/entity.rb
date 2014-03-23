@@ -11,7 +11,7 @@ module DynamicsCRM
       end
 
       # Using Entity vs entity causes the error: Value cannot be null.
-      def to_xml
+      def to_xml(options={})
         %Q{
         <entity xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts">
           #{@attributes}
