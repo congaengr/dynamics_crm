@@ -234,6 +234,15 @@ module DynamicsCRM
       self.execute('WhoAmI')
     end
 
+    def load_entity(logical_name, id)
+      case logical_name
+      when "opportunity"
+        Model::Opportunity.new(id, self)
+      else
+        Model::Entity.new(logical_name, id, self)
+      end
+    end
+
     protected
 
     def post(url, request)

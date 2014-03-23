@@ -1,0 +1,22 @@
+<s:Envelope xmlns:a="http://www.w3.org/2005/08/addressing" xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+  <s:Header>
+    <a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/ExecuteResponse
+    </a:Action>
+    <a:RelatesTo>urn:uuid:4e863a40-ee2f-43cc-8482-27d70a1d60f2</a:RelatesTo>
+    <ActivityId CorrelationId="4ecc6e14-b29c-4bcc-b403-9417e682bc8a" xmlns="http://schemas.microsoft.com/2004/09/ServiceModel/Diagnostics">00000000-0000-0000-0000-000000000000</ActivityId>
+    <o:Security s:mustUnderstand="1" xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+      <u:Timestamp u:Id="_0">
+        <u:Created>2014-03-23T08:04:55.888Z</u:Created>
+        <u:Expires>2014-03-23T08:09:55.888Z</u:Expires>
+      </u:Timestamp>
+    </o:Security>
+  </s:Header>
+  <s:Body>
+    <ExecuteResponse xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">
+      <ExecuteResult i:type="c:WinOpportunityResponse" xmlns:b="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:c="http://schemas.microsoft.com/crm/2011/Contracts" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+        <b:ResponseName>WinOpportunity</b:ResponseName>
+        <b:Results xmlns:d="http://schemas.datacontract.org/2004/07/System.Collections.Generic"/>
+      </ExecuteResult>
+    </ExecuteResponse>
+  </s:Body>
+</s:Envelope>

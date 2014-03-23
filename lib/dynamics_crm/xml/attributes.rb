@@ -21,6 +21,8 @@ module DynamicsCRM
             type = "dateTime"
           when ::Hash, EntityReference
             type = "EntityReference"
+          when Entity
+            type = "Entity"
           when Query
             type = "QueryExpression"
           when FetchExpression

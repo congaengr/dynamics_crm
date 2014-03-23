@@ -22,6 +22,9 @@ require "dynamics_crm/metadata/attribute_metadata"
 require "dynamics_crm/metadata/retrieve_all_entities_response"
 require "dynamics_crm/metadata/retrieve_entity_response"
 require "dynamics_crm/metadata/retrieve_attribute_response"
+# Model
+require "dynamics_crm/model/entity"
+require "dynamics_crm/model/opportunity"
 # Client
 require "dynamics_crm/client"
 

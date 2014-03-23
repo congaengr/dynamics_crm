@@ -47,7 +47,7 @@ describe DynamicsCRM::XML::Entity do
     subject {
       document = REXML::Document.new(fixture("retrieve_multiple_result"))
       entity_xml = document.get_elements("//b:Entity").first
-     DynamicsCRM::XML::Entity.from_xml(entity_xml)
+      DynamicsCRM::XML::Entity.from_xml(entity_xml)
     }
 
     context "parses XML document into instance variables" do
@@ -58,6 +58,6 @@ describe DynamicsCRM::XML::Entity do
       it { subject.logical_name.should == "account" }
       it { subject.related_entities.should be_nil }
     end
-  end 
+  end
 
 end
