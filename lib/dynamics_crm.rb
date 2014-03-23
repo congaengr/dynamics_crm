@@ -27,7 +27,6 @@ require "dynamics_crm/client"
 
 require 'bigdecimal'
 require 'base64'
-require 'nokogiri'
 require "rexml/document"
 require 'mimemagic'
 require 'curl'
