@@ -5,21 +5,28 @@ module DynamicsCRM
 
       attr_accessor :attributes, :entity_state, :formatted_values, :id, :logical_name, :related_entities
 
-      def initialize(logical_name)
+      def initialize(logical_name, id=nil)
         @logical_name = logical_name
-        @id = "00000000-0000-0000-0000-000000000000"
+        @id = id || "00000000-0000-0000-0000-000000000000"
       end
 
       # Using Entity vs entity causes the error: Value cannot be null.
       def to_xml(options={})
-        %Q{
-        <entity xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts">
+
+        inner_xml = %Q{
           #{@attributes}
           <a:EntityState i:nil="true" />
           <a:FormattedValues xmlns:b="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
           <a:Id>#{@id}</a:Id>
           <a:LogicalName>#{@logical_name}</a:LogicalName>
           <a:RelatedEntities xmlns:b="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+        }
+
+        return inner_xml if options[:exclude_root]
+
+        %Q{
+        <entity xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts">
+          #{inner_xml}
         </entity>
         }
       end
