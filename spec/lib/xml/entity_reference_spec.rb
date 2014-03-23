@@ -18,8 +18,8 @@ describe DynamicsCRM::XML::EntityReference do
         # Spacing here is intentional to match created string.
         expected_xml = %Q{
         <entityReference>
-          <LogicalName>opportunity</LogicalName>
           <Id>9BF1325C-A592-E311-B7F3-6C3BE5A8A0C8</Id>
+          <LogicalName>opportunity</LogicalName>
           <Name #{@name ? '' : 'nil="true"'}>#{@name}</Name>
         </entityReference>
         }

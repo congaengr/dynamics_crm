@@ -14,8 +14,8 @@ module DynamicsCRM
         namespace = options[:namespace] ? "#{options[:namespace]}:" : ''
 
         xml = %Q{
-          <#{namespace}LogicalName>#{@logical_name}</#{namespace}LogicalName>
           <#{namespace}Id>#{@id}</#{namespace}Id>
+          <#{namespace}LogicalName>#{@logical_name}</#{namespace}LogicalName>
           <#{namespace}Name #{@name ? '' : 'nil="true"'}>#{@name}</#{namespace}Name>
         }
 
