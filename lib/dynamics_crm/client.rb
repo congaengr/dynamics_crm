@@ -6,6 +6,9 @@
 # 
 # OCP: Open Commerce Platform
 # https://community.dynamics.com/crm/b/crmgirishraja/archive/2012/09/04/authentication-with-dynamics-crm-online-on-ocp-office-365.aspx
+
+require 'forwardable'
+
 module DynamicsCRM
 
   class Client
