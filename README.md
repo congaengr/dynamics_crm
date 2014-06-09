@@ -24,7 +24,7 @@ Or install it yourself as:
 #### Username/Password authentication
 
 ```ruby
-client = DynamicsCRM::Client.new
+client = DynamicsCRM::Client.new({organization_name: "orgname"})
 client.authenticate('user@orgname.onmicrosoft.com', 'password')
 ```
 
@@ -50,7 +50,7 @@ client.retrieve_multiple('account', ["name", "Equal", "Test Account"], ["Name, "
 
 ```ruby
 # Add a new account
-client.create('Account', name: 'Foobar Inc.')
+client.create('account', name: 'Foobar Inc.')
 # => {id: '53291AAB-4A9A-E311-B097-6C3BE5A8DD60'}
 ```
 
