@@ -16,7 +16,7 @@ module DynamicsCRM
 
       # Select the right region for your CRM
       # The region can be pulled from the Organization WSDL
-      # 
+      #
       # urn:crmna:dynamics.com - North America
       # urn:crmemea:dynamics.com - Europe, the Middle East and Africa
       # urn:crmapac:dynamics.com - Asia Pacific
@@ -179,7 +179,7 @@ module DynamicsCRM
       def modify_association(action, entity_name, id, relationship, relationship_entities=[])
         entities_xml = ""
         relationship_entities.each do |ref|
-          entities_xml << ref.to_xml(namespace: "b")
+          entities_xml << ref.to_xml(namespace: "b", camel_case: true)
         end
 
         build_envelope(action) do
@@ -187,7 +187,7 @@ module DynamicsCRM
                 <entityName i:type="string">#{entity_name}</entityName>
                 <entityId xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/" i:type="q10:guid">#{id}</entityId>
                 <relationship i:type="b:Relationship">
-                  <b:PrimaryEntityRole>Referenced</b:PrimaryEntityRole>
+                  <b:PrimaryEntityRole i:nil="true" />
                   <b:SchemaName i:type="string">#{relationship}</b:SchemaName>
                 </relationship>
                 <relatedEntities i:type="b:EntityReferenceCollection">#{entities_xml}</relatedEntities>

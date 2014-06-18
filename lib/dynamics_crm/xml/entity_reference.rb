@@ -18,10 +18,11 @@ module DynamicsCRM
           <#{namespace}LogicalName>#{@logical_name}</#{namespace}LogicalName>
           <#{namespace}Name #{@name ? '' : 'nil="true"'}>#{@name}</#{namespace}Name>
         }
-
+        # Associate/Disassociate request requires CamelCase while others require lowerCase
+        tag_name = options[:camel_case] ? "EntityReference" : "entityReference"
         if options[:exclude_root].nil?
         xml = %Q{
-        <#{namespace}entityReference>#{xml}</#{namespace}entityReference>
+        <#{namespace}#{tag_name}>#{xml}</#{namespace}#{tag_name}>
         }
         end
         return xml
