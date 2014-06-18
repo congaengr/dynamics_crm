@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'tempfile'
 
 describe DynamicsCRM::Client do
   let(:subject) { DynamicsCRM::Client.new(organization_name: "tinderboxdev")}
@@ -67,6 +68,15 @@ describe DynamicsCRM::Client do
     end
   end
 
+  describe "#retrieve_attachments" do
+    it "retrieves document records from annotation object" do
+      subject.stub(:post).and_return(fixture("retrieve_multiple_result"))
+
+      result = subject.retrieve_attachments("93f0325c-a592-e311-b7f3-6c3be5a8a0c8")
+      result.should be_a(DynamicsCRM::Response::RetrieveMultipleResult)
+    end
+  end
+
   describe "#fetch" do
     it "uses FetchXML to retrieve multiple" do
 
@@ -113,6 +123,33 @@ describe DynamicsCRM::Client do
       result.should be_a(DynamicsCRM::Response::CreateResult)
       result.id.should == "c4944f99-b5a0-e311-b64f-6c3be5a87df0"
       result.Id.should == "c4944f99-b5a0-e311-b64f-6c3be5a87df0"
+    end
+  end
+
+  describe "#create_attachment" do
+    it "creates new record in annotation entity" do
+
+      file = Tempfile.new(["sample-file", "pdf"])
+
+      subject.should_receive(:create).with("annotation", {
+        objectid: {id: "f4944f99-b5a0-e311-b64f-6c3be5a87df0", logical_name: "opportunity"},
+        subject: "Sample Subject",
+        notetext: "Post message",
+        filename: "testfile.pdf",
+        isdocument: true,
+        documentbody: ::Base64.encode64(""),
+        filesize: 0,
+        mimetype: nil
+      })
+
+      options = {
+        filename: "testfile.pdf",
+        document: file,
+        subject: "Sample Subject",
+        text: "Post message"
+      }
+
+      result = subject.create_attachment("opportunity", "f4944f99-b5a0-e311-b64f-6c3be5a87df0", options)
     end
   end
 
@@ -224,6 +261,18 @@ describe DynamicsCRM::Client do
       response.UserId.should == "1bfa3886-df7e-468c-8435-b5adfb0441ed"
       response.BusinessUnitId.should == "4e87d619-838a-e311-89a7-6c3be5a80184"
       response.OrganizationId.should == "0140d597-e270-494a-89e1-bd0b43774e50"
+    end
+  end
+
+  describe "#load_entity" do
+    it "returns Model::Opportunity" do
+      response = subject.load_entity("opportunity", "c4944f99-b5a0-e311-b64f-6c3be5a87df0")
+      response.should be_a(DynamicsCRM::Model::Opportunity)
+    end
+
+    it "returns Model::Entity" do
+      response = subject.load_entity("account", "c4944f99-b5a0-e311-b64f-6c3be5a87df0")
+      response.should be_a(DynamicsCRM::Model::Entity)
     end
   end
 
