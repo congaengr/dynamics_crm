@@ -52,6 +52,10 @@ client.retrieve_multiple('account', ["name", "Equal", "Test Account"], ["Name, "
 # Add a new account
 client.create('account', name: 'Foobar Inc.')
 # => {id: '53291AAB-4A9A-E311-B097-6C3BE5A8DD60'}
+
+# Add a new contact
+client.create('contact', firstname: 'John', lastname: 'Doe', emailaddress1: "johndoe@mydomain.com")
+# => {id: '71ef2416-50f7-e311-93fc-6c3be5a8c054'}
 ```
 
 ### update
