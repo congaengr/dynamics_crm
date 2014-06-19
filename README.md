@@ -98,6 +98,12 @@ client.retrieve_attribute('account', 'name')
 # => [#<DynamicsCRM::Metadata::AttributeMetadata>, ...]
 ```
 
+### associate a contact to an account
+
+```ruby
+contacts = [ DynamicsCRM::XML::EntityReference.new("contact", contact["id"])]
+client.associate("account", account["id"], "contact_customer_accounts", contacts)
+```
 
 ## Contributing
 
