@@ -34,6 +34,7 @@ require "rexml/document"
 require 'mimemagic'
 require 'curl'
 require 'securerandom'
+require 'date'
 
 module DynamicsCRM 
 
