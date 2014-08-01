@@ -1,9 +1,9 @@
 # SOAP Only Walk through
 # http://code.msdn.microsoft.com/CRM-Online-2011-WebServices-14913a16
 #
-# PHP starting point: 
+# PHP starting point:
 # http://crmtroubleshoot.blogspot.com.au/2013/07/dynamics-crm-2011-php-and-soap-using.html
-# 
+#
 # OCP: Open Commerce Platform
 # https://community.dynamics.com/crm/b/crmgirishraja/archive/2012/09/04/authentication-with-dynamics-crm-online-on-ocp-office-365.aspx
 
@@ -17,7 +17,7 @@ module DynamicsCRM
 
     # The Login URL and Region are located in the client's Organization WSDL.
     # https://tinderboxdev.api.crm.dynamics.com/XRMServices/2011/Organization.svc?wsdl=wsdl0
-    # 
+    #
     # Login URL: Policy -> Issuer -> Address
     # Region: SecureTokenService -> AppliesTo
     LOGIN_URL = "https://login.microsoftonline.com/RST2.srf"
@@ -127,7 +127,7 @@ module DynamicsCRM
       request = update_request(entity)
       xml_response = post(@organization_endpoint, request)
       return Response::UpdateResponse.new(xml_response)
-    end 
+    end
 
     def delete(entity_name, guid)
       request = delete_request(entity_name, guid)
@@ -279,10 +279,10 @@ module DynamicsCRM
     def log_xml(title, xml)
       return unless logger
 
-      logger.puts(title)
+      logger.debug(title)
       doc = REXML::Document.new(xml)
       formatter.write(doc.root, logger)
-      logger.puts
+      logger.debug
     end
 
     def formatter
