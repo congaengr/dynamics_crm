@@ -12,6 +12,7 @@ module DynamicsCRM
 
         fault_xml = @document.get_elements("//[local-name() = 'Fault']")
         raise XML::Fault.new(fault_xml) if fault_xml.any?
+        Rails.logger.debug("RESULT:\n#{@document.to_s}")
 
         @result_response = @document.get_elements("//#{response_element}").first
 

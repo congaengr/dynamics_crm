@@ -1,13 +1,15 @@
 # SOAP Only Walk through
 # http://code.msdn.microsoft.com/CRM-Online-2011-WebServices-14913a16
 #
-# PHP starting point: 
+# PHP starting point:
 # http://crmtroubleshoot.blogspot.com.au/2013/07/dynamics-crm-2011-php-and-soap-using.html
-# 
+#
 # OCP: Open Commerce Platform
 # https://community.dynamics.com/crm/b/crmgirishraja/archive/2012/09/04/authentication-with-dynamics-crm-online-on-ocp-office-365.aspx
 
 require 'forwardable'
+require 'digest/sha1'
+require 'openssl'
 
 module DynamicsCRM
 
@@ -17,10 +19,10 @@ module DynamicsCRM
 
     # The Login URL and Region are located in the client's Organization WSDL.
     # https://tinderboxdev.api.crm.dynamics.com/XRMServices/2011/Organization.svc?wsdl=wsdl0
-    # 
+    #
     # Login URL: Policy -> Issuer -> Address
     # Region: SecureTokenService -> AppliesTo
-    LOGIN_URL = "https://login.microsoftonline.com/RST2.srf"
+    OCP_LOGIN_URL = "https://login.microsoftonline.com/RST2.srf"
     REGION = 'urn:crmna:dynamics.com'
 
     attr_accessor :logger, :caller_id
@@ -28,13 +30,14 @@ module DynamicsCRM
     # Initializes Client instance.
     # Requires: organization_name
     # Optional: hostname
-    def initialize(config={organization_name: nil, hostname: nil, caller_id: nil})
+    def initialize(config={organization_name: nil, hostname: nil, caller_id: nil, region: nil})
       raise RuntimeError.new("organization_name is required") if config[:organization_name].nil?
 
       @organization_name = config[:organization_name]
       @hostname = config[:hostname] || "#{@organization_name}.api.crm.dynamics.com"
       @organization_endpoint = "https://#{@hostname}/XRMServices/2011/Organization.svc"
       @caller_id = config[:caller_id]
+      @region ||= config[:region] || determine_region
     end
 
     # Public: Authenticate User
@@ -50,23 +53,47 @@ module DynamicsCRM
       @username = username
       @password = password
 
-      soap_response = post(LOGIN_URL, build_ocp_request(username, password))
+      soap_response = post(login_url, on_premise? ? build_on_premise_request(username, password, region, login_url) : build_ocp_request(username, password, region, login_url))
 
       document = REXML::Document.new(soap_response)
       # Check for Fault
+      Rails.logger.debug document.to_s
       fault_xml = document.get_elements("//[local-name() = 'Fault']")
       raise XML::Fault.new(fault_xml) if fault_xml.any?
 
-      cipher_values = document.get_elements("//CipherValue")
+      if on_premise?
+        @security_token0 = document.get_elements("//e:CipherValue").first.text.to_s
+        @security_token1 = document.get_elements("//xenc:CipherValue").last.text.to_s
+        @key_identifier = document.get_elements("//o:KeyIdentifier").first.text
+        @cert_issuer_name = document.get_elements("//X509IssuerName").first.text
+        @cert_serial_number = document.get_elements("//X509SerialNumber").first.text
+        @server_secret = document.get_elements("//trust:BinarySecret").first.text
+        Rails.logger.debug "SECRET VALUE"
+        Rails.logger.debug @server_secret
 
-      if cipher_values && cipher_values.length > 0
-        @security_token0 = cipher_values[0].text
-        @security_token1 = cipher_values[1].text
-        # Use local-name() to ignore namespace.
-        @key_identifier = document.get_elements("//[local-name() = 'KeyIdentifier']").first.text
+        @header_current_time = get_current_time
+        @header_expires_time = get_current_time_plus_five
+        @timestamp = "<u:Timestamp u:Id=\"_0\"><u:Created>#{@header_current_time}</u:Created><u:Expires>#{@header_expires_time}</u:Expires></u:Timestamp>"
+        @digest_value = Digest::SHA1.base64digest @timestamp
+        Rails.logger.debug "DIGEST VALUE"
+        Rails.logger.debug @digest_value
+        @signature = "<SignedInfo><CanonicalizationMethod Algorithm=\"http://www.w3.org/2001/10/xml-exc-c14n#\"/><SignatureMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#hmac-sha1\"/><Reference URI=\"#_0\"><Transforms><Transform Algorithm=\"http://www.w3.org/2001/10/xml-exc-c14n#\"/></Transforms><DigestMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#sha1\"/><DigestValue>#{@digest_value}</DigestValue></Reference></SignedInfo>"
+        @signature_value = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), Base64.decode64(@server_secret), @signature)).chomp
+        Rails.logger.debug "SIGNATURE VALUE"
+        Rails.logger.debug @signature_value
       else
-        raise RuntimeError.new(soap_response)
+        cipher_values = document.get_elements("//CipherValue")
+
+        if cipher_values && cipher_values.length > 0
+          @security_token0 = cipher_values[0].text
+          @security_token1 = cipher_values[1].text
+          # Use local-name() to ignore namespace.
+          @key_identifier = document.get_elements("//[local-name() = 'KeyIdentifier']").first.text
+        else
+          raise RuntimeError.new(soap_response)
+        end
       end
+
 
       true
     end
@@ -78,7 +105,7 @@ module DynamicsCRM
       entity = XML::Entity.new(entity_name)
       entity.attributes = XML::Attributes.new(attributes)
 
-      xml_response = post(@organization_endpoint, create_request(entity))
+      xml_response = post(organization_endpoint, create_request(entity))
       return Response::CreateResult.new(xml_response)
     end
 
@@ -88,7 +115,7 @@ module DynamicsCRM
       column_set = XML::ColumnSet.new(columns)
       request = retrieve_request(entity_name, guid, column_set)
 
-      xml_response = post(@organization_endpoint, request)
+      xml_response = post(organization_endpoint, request)
       return Response::RetrieveResult.new(xml_response)
     end
 
@@ -107,7 +134,7 @@ module DynamicsCRM
       query.criteria = XML::Criteria.new(criteria)
 
       request = retrieve_multiple_request(query)
-      xml_response = post(@organization_endpoint, request)
+      xml_response = post(organization_endpoint, request)
       return Response::RetrieveMultipleResult.new(xml_response)
     end
 
@@ -125,20 +152,20 @@ module DynamicsCRM
       entity.attributes = XML::Attributes.new(attributes)
 
       request = update_request(entity)
-      xml_response = post(@organization_endpoint, request)
+      xml_response = post(organization_endpoint, request)
       return Response::UpdateResponse.new(xml_response)
-    end 
+    end
 
     def delete(entity_name, guid)
       request = delete_request(entity_name, guid)
 
-      xml_response = post(@organization_endpoint, request)
+      xml_response = post(organization_endpoint, request)
       return Response::DeleteResponse.new(xml_response)
     end
 
     def execute(action, parameters={}, response_class=nil)
       request = execute_request(action, parameters)
-      xml_response = post(@organization_endpoint, request)
+      xml_response = post(organization_endpoint, request)
 
       response_class ||= Response::ExecuteResult
       return response_class.new(xml_response)
@@ -146,13 +173,13 @@ module DynamicsCRM
 
     def associate(entity_name, guid, relationship, related_entities)
       request = associate_request(entity_name, guid, relationship, related_entities)
-      xml_response = post(@organization_endpoint, request)
+      xml_response = post(organization_endpoint, request)
       return Response::AssociateResponse.new(xml_response)
     end
 
     def disassociate(entity_name, guid, relationship, related_entities)
       request = disassociate_request(entity_name, guid, relationship, related_entities)
-      xml_response = post(@organization_endpoint, request)
+      xml_response = post(organization_endpoint, request)
       return Response::DisassociateResponse.new(xml_response)
     end
 
@@ -248,8 +275,40 @@ module DynamicsCRM
 
     protected
 
-    def post(url, request)
+    def on_premise?
+      !(hostname =~ /\.dynamics\.com/i)
+    end
 
+    attr_accessor :hostname, :region, :organization_endpoint, :login_url
+
+    def organization_wsdl
+      @organization_wsdl ||= REXML::Document.new(get(organization_endpoint + "?wsdl=wsdl0"))
+    end
+
+    def login_url
+      @login_url ||= if on_premise?
+        (organization_wsdl.document.get_elements("//ms-xrm:Identifier").first.text + "/13/usernamemixed").gsub("http://", "https://")
+      else
+        OCP_LOGIN_URL
+      end
+    end
+
+    def determine_region
+      case hostname
+      when /crm5\.dynamics\.com/
+        "urn:crmapac:dynamics\.com"
+      when /crm4\.dynamics\.com/
+        "urn:crmemea:dynamics.com"
+      when /\.dynamics\.com/
+        "urn:crmna:dynamics.com"
+      else
+        organization_endpoint
+      end
+    end
+
+    def post(url, request)
+      Rails.logger.debug "REQUEST"
+      Rails.logger.debug url
       log_xml("REQUEST", request)
 
       c = Curl::Easy.new(url) do |http|
@@ -259,15 +318,45 @@ module DynamicsCRM
         http.headers["Content-length"] = request.length
 
         http.ssl_verify_peer = false
+        http.timeout = 120
+        http.follow_location = true
+        http.ssl_version = 1
+        http.verbose = 1
+      end
+
+      begin
+        if c.http_post(request)
+          response = c.body_str
+        else
+
+        end
+        c.close
+      rescue => error
+        Rails.logger.debug error.message
+        Rails.logger.debug error.backtrace.join("\n")
+      end
+
+      log_xml("RESPONSE", response)
+
+      response
+    end
+
+    def get(url)
+      Rails.logger.debug "REQUEST"
+      Rails.logger.debug url
+      c = Curl::Easy.new(url) do |http|
+        http.ssl_verify_peer = false
         http.timeout = 60
         http.follow_location = true
         http.ssl_version = 3
         # http.verbose = 1
       end
 
-      if c.http_post(request)
+      if c.http_get
         response = c.body_str
       else
+
+        c.close
 
       end
 
@@ -279,10 +368,10 @@ module DynamicsCRM
     def log_xml(title, xml)
       return unless logger
 
-      logger.puts(title)
+      Rails.logger.debug(title)
       doc = REXML::Document.new(xml)
-      formatter.write(doc.root, logger)
-      logger.puts
+      Rails.logger.debug doc.root
+      Rails.logger.debug
     end
 
     def formatter
