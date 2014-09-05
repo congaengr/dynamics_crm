@@ -114,7 +114,54 @@ module DynamicsCRM
       def build_header(action)
 
         if on_premise?
-          %Q{<s:Header><a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/#{action}</a:Action><a:MessageID>urn:uuid:#{uuid()}</a:MessageID><a:ReplyTo><a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address></a:ReplyTo><a:To s:mustUnderstand="1">#{@organization_endpoint}</a:To><o:Security xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"><u:Timestamp xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" u:Id="_0"><u:Created>#{@header_current_time}</u:Created><u:Expires>#{@header_expires_time}</u:Expires></u:Timestamp><xenc:EncryptedData Type="http://www.w3.org/2001/04/xmlenc#Element" xmlns:xenc="http://www.w3.org/2001/04/xmlenc#"><xenc:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"/><KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#"><e:EncryptedKey xmlns:e="http://www.w3.org/2001/04/xmlenc#"><e:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p"><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/></e:EncryptionMethod><KeyInfo><o:SecurityTokenReference xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"><X509Data><X509IssuerSerial><X509IssuerName>#{@cert_issuer_name}</X509IssuerName><X509SerialNumber>#{@cert_serial_number}</X509SerialNumber></X509IssuerSerial></X509Data></o:SecurityTokenReference></KeyInfo><e:CipherData><e:CipherValue>#{@security_token0}</e:CipherValue></e:CipherData></e:EncryptedKey></KeyInfo><xenc:CipherData><xenc:CipherValue>#{@security_token1}</xenc:CipherValue></xenc:CipherData></xenc:EncryptedData><Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#hmac-sha1"/><Reference URI="#_0"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><DigestValue>#{@digest_value}</DigestValue></Reference></SignedInfo><SignatureValue>#{@signature_value}</SignatureValue><KeyInfo><o:SecurityTokenReference xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"><o:KeyIdentifier ValueType="http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.0#SAMLAssertionID">#{@key_identifier}</o:KeyIdentifier></o:SecurityTokenReference></KeyInfo></Signature></o:Security></s:Header>}
+          %Q{
+            <s:Header>
+              <a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/#{action}</a:Action>
+              <a:MessageID>urn:uuid:#{uuid()}</a:MessageID>
+              <a:ReplyTo>
+                <a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address>
+              </a:ReplyTo>
+              <a:To s:mustUnderstand="1">#{@organization_endpoint}</a:To>
+              <o:Security xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+                #{@timestamp}
+                <xenc:EncryptedData Type="http://www.w3.org/2001/04/xmlenc#Element" xmlns:xenc="http://www.w3.org/2001/04/xmlenc#">
+                  <xenc:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"/>
+                  <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+                    <e:EncryptedKey xmlns:e="http://www.w3.org/2001/04/xmlenc#">
+                      <e:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p">
+                        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                      </e:EncryptionMethod>
+                      <KeyInfo>
+                        <o:SecurityTokenReference xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+                          <X509Data>
+                            <X509IssuerSerial>
+                              <X509IssuerName>#{@cert_issuer_name}</X509IssuerName>
+                              <X509SerialNumber>#{@cert_serial_number}</X509SerialNumber>
+                            </X509IssuerSerial>
+                          </X509Data>
+                        </o:SecurityTokenReference>
+                      </KeyInfo>
+                      <e:CipherData>
+                        <e:CipherValue>#{@security_token0}</e:CipherValue>
+                      </e:CipherData>
+                    </e:EncryptedKey>
+                  </KeyInfo>
+                  <xenc:CipherData>
+                    <xenc:CipherValue>#{@security_token1}</xenc:CipherValue>
+                  </xenc:CipherData>
+                </xenc:EncryptedData>
+                <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+                  #{@signature}
+                  <SignatureValue>#{@signature_value}</SignatureValue>
+                  <KeyInfo>
+                    <o:SecurityTokenReference xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+                      <o:KeyIdentifier ValueType="http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.0#SAMLAssertionID">#{@key_identifier}</o:KeyIdentifier>
+                    </o:SecurityTokenReference>
+                  </KeyInfo>
+                </Signature>
+              </o:Security>
+            </s:Header>
+          }
         else
           caller_id = @caller_id ? %Q{<CallerId xmlns="http://schemas.microsoft.com/xrm/2011/Contracts">#{@caller_id}</CallerId>} : ""
           %Q{
