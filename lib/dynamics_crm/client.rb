@@ -57,7 +57,6 @@ module DynamicsCRM
 
       document = REXML::Document.new(soap_response)
       # Check for Fault
-      Rails.logger.debug document.to_s
       fault_xml = document.get_elements("//[local-name() = 'Fault']")
       raise XML::Fault.new(fault_xml) if fault_xml.any?
 
@@ -68,19 +67,13 @@ module DynamicsCRM
         @cert_issuer_name = document.get_elements("//X509IssuerName").first.text
         @cert_serial_number = document.get_elements("//X509SerialNumber").first.text
         @server_secret = document.get_elements("//trust:BinarySecret").first.text
-        Rails.logger.debug "SECRET VALUE"
-        Rails.logger.debug @server_secret
 
         @header_current_time = get_current_time
-        @header_expires_time = get_current_time_plus_five
+        @header_expires_time = get_current_time_plus_hour
         @timestamp = '<u:Timestamp xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" u:Id="_0"><u:Created>' + @header_current_time + '</u:Created><u:Expires>' + @header_expires_time + '</u:Expires></u:Timestamp>'
         @digest_value = Digest::SHA1.base64digest @timestamp
-        Rails.logger.debug "DIGEST VALUE"
-        Rails.logger.debug @digest_value
         @signature = '<SignedInfo xmlns="http://www.w3.org/2000/09/xmldsig#"><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></CanonicalizationMethod><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#hmac-sha1"></SignatureMethod><Reference URI="#_0"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></Transform></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></DigestMethod><DigestValue>' + @digest_value + '</DigestValue></Reference></SignedInfo>'
         @signature_value = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), Base64.decode64(@server_secret), @signature)).chomp
-        Rails.logger.debug "SIGNATURE VALUE"
-        Rails.logger.debug @signature_value
       else
         cipher_values = document.get_elements("//CipherValue")
 
@@ -307,8 +300,6 @@ module DynamicsCRM
     end
 
     def post(url, request)
-      Rails.logger.debug "REQUEST"
-      Rails.logger.debug url
       log_xml("REQUEST", request)
 
       c = Curl::Easy.new(url) do |http|
@@ -324,17 +315,12 @@ module DynamicsCRM
         http.verbose = 1
       end
 
-      begin
-        if c.http_post(request)
-          response = c.body_str
-        else
+      if c.http_post(request)
+        response = c.body_str
+      else
 
-        end
-        c.close
-      rescue => error
-        Rails.logger.debug error.message
-        Rails.logger.debug error.backtrace.join("\n")
       end
+      c.close
 
       log_xml("RESPONSE", response)
 
@@ -342,8 +328,6 @@ module DynamicsCRM
     end
 
     def get(url)
-      Rails.logger.debug "REQUEST"
-      Rails.logger.debug url
       c = Curl::Easy.new(url) do |http|
         http.ssl_verify_peer = false
         http.timeout = 60
@@ -368,10 +352,7 @@ module DynamicsCRM
     def log_xml(title, xml)
       return unless logger
 
-      Rails.logger.debug(title)
       doc = REXML::Document.new(xml)
-      Rails.logger.debug doc.root
-      Rails.logger.debug
     end
 
     def formatter

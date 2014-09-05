@@ -6,11 +6,12 @@ module DynamicsCRM
         SecureRandom.uuid
       end
 
+      # have a bit of flexiblity in the create time to handle when system clocks are out of sync
       def get_current_time
         (Time.now - 5.minutes).utc.strftime '%Y-%m-%dT%H:%M:%SZ'
       end
 
-      def get_current_time_plus_five
+      def get_current_time_plus_hour
         (Time.now.utc + (60*60)).strftime '%Y-%m-%dT%H:%M:%SZ'
       end
 
@@ -76,7 +77,7 @@ module DynamicsCRM
               <Security s:mustUnderstand="1" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
                 <u:Timestamp u:Id="#{uuid()}">
                   <u:Created>#{get_current_time}</u:Created>
-                  <u:Expires>#{get_current_time_plus_five}</u:Expires>
+                  <u:Expires>#{get_current_time_plus_hour}</u:Expires>
                 </u:Timestamp>
                 <UsernameToken u:Id="#{uuid()}">
                   <Username>#{REXML::Text.new(username).to_s}</Username>
