@@ -351,8 +351,10 @@ module DynamicsCRM
 
     def log_xml(title, xml)
       return unless logger
-
+      logger.puts(title)
       doc = REXML::Document.new(xml)
+      formatter.write(doc.root, logger)
+      logger.puts
     end
 
     def formatter
