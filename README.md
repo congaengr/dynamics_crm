@@ -38,10 +38,10 @@ client.retrieve('account', '53291AAB-4A9A-E311-B097-6C3BE5A8DD60')
 ### retrieve_multiple
 
 ```ruby
-client.retrieve_multiple('account', ["name", "Equal", "Test Account"])
+client.retrieve_multiple('account', [["name", "Equal", "Test Account"]])
 # => [#<DynamicsCRM::XML::Entity ... >]
 
-client.retrieve_multiple('account', ["name", "Equal", "Test Account"], ["Name, "CreatedBy"])
+client.retrieve_multiple('account', [["name", "Equal", "Test Account"], ["Name, "CreatedBy"]])
 # => [#<DynamicsCRM::XML::Entity ... >]
 ```
 
