@@ -105,6 +105,14 @@ contacts = [ DynamicsCRM::XML::EntityReference.new("contact", contact["id"])]
 client.associate("account", account["id"], "contact_customer_accounts", contacts)
 ```
 
+## Logging
+
+If you want to log the REQUEST and RESPONSE, you can do through [Logger](http://www.ruby-doc.org/stdlib-2.1.2/libdoc/logger/rdoc/Logger.html) class of Ruby.
+
+```ruby
+client.logger = Logger.new(STDOUT)
+```
+
 ## Contributing
 
 1. Fork it
