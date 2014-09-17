@@ -26,7 +26,6 @@ require "dynamics_crm/metadata/retrieve_attribute_response"
 require "dynamics_crm/model/entity"
 require "dynamics_crm/model/opportunity"
 # Client
-require 'securerandom'
 require "dynamics_crm/client"
 
 require 'bigdecimal'
