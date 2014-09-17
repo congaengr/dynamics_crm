@@ -52,6 +52,8 @@ module DynamicsCRM
             if entity.respond_to?(attr_name)
               if node.name == "Attributes"
                 entity.attributes = XML::Attributes.from_xml(node)
+              elsif node.name == "FormattedValues"
+                entity.formatted_values = XML::Attributes.from_xml(node)
               else
                 entity.send("#{attr_name}=", node.text ? node.text.strip : nil)
               end
