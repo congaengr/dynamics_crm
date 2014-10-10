@@ -204,11 +204,11 @@ module DynamicsCRM
           ns_alias = 'a'
         end
 
-        parameters_xml = XML::Parameters.new(parameters)
+        parameters = XML::Parameters.new(parameters)
         build_envelope('Execute') do
           %Q{<Execute xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
             <request i:type="#{ns_alias}:#{action}Request" xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:b="http://schemas.microsoft.com/crm/2011/Contracts">
-             #{parameters_xml}
+             #{parameters.to_xml}
              <a:RequestId i:nil="true" />
              <a:RequestName>#{action}</a:RequestName>
             </request>

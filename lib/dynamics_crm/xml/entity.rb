@@ -14,7 +14,7 @@ module DynamicsCRM
       def to_xml(options={})
 
         inner_xml = %Q{
-          #{@attributes}
+          #{@attributes.is_a?(XML::Attributes) ? @attributes.to_xml : @attributes}
           <a:EntityState i:nil="true" />
           <a:FormattedValues xmlns:b="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
           <a:Id>#{@id}</a:Id>
@@ -33,9 +33,9 @@ module DynamicsCRM
 
       def to_hash
         {
-          :attributes => attributes.to_hash,
+          :attributes => @attributes.to_hash,
           :entity_state => entity_state,
-          :formatted_values => formatted_values,
+          :formatted_values => (@formatted_values ? @formatted_values.to_hash : nil),
           :id => @id,
           :logical_name => @logical_name,
           :related_entities => related_entities
@@ -52,6 +52,10 @@ module DynamicsCRM
             if entity.respond_to?(attr_name)
               if node.name == "Attributes"
                 entity.attributes = XML::Attributes.from_xml(node)
+              elsif node.name == "FormattedValues"
+                entity.formatted_values = XML::FormattedValues.from_xml(node)
+                # Reset to nil if no values were found.
+                entity.formatted_values = nil if entity.formatted_values.empty?
               else
                 entity.send("#{attr_name}=", node.text ? node.text.strip : nil)
               end

@@ -2,6 +2,11 @@ module DynamicsCRM
   module Response
     class RetrieveResult < Result
 
+      # Returns RetrieveResult response body as an Entity object.
+      def entity
+        @entity ||= XML::Entity.from_xml(@result_response)
+      end
+
       protected
 
       # Invoked by Result constructor

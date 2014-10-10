@@ -282,7 +282,7 @@ module DynamicsCRM
       logger.debug(title)
       doc = REXML::Document.new(xml)
       formatter.write(doc.root, logger)
-      logger.debug
+      logger.debug("\n")
     end
 
     def formatter
