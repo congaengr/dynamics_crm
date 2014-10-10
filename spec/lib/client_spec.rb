@@ -35,16 +35,28 @@ describe DynamicsCRM::Client do
   end
 
   describe "#retrieve" do
-    it "retrieves object by id" do
-
+    before(:each) do
       subject.stub(:post).and_return(fixture("retrieve_account_all_columns"))
+    end
 
-      result = subject.retrieve("account", "93f0325c-a592-e311-b7f3-6c3be5a8a0c8")
+    let(:result) { subject.retrieve("account", "93f0325c-a592-e311-b7f3-6c3be5a8a0c8") }
 
+    it "retrieves object by id and acts as hash" do
       result.should be_a(DynamicsCRM::Response::RetrieveResult)
       result.type.should == "account"
       result.id.should == "93f0325c-a592-e311-b7f3-6c3be5a8a0c8"
       result.name.should == "Adventure Works (sample)"
+    end
+
+    it "exposes entity object" do
+      entity = result.entity
+
+      expect(entity).to be_a(DynamicsCRM::XML::Entity)
+      expect(entity.attributes).to be_a(DynamicsCRM::XML::Attributes)
+      expect(entity.attributes.merged).to eq(false)
+
+      expect(entity.formatted_values).to be_a(DynamicsCRM::XML::FormattedValues)
+      expect(entity.formatted_values.merged).to eq('No')
     end
   end
 
