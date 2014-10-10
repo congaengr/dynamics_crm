@@ -54,9 +54,11 @@ describe DynamicsCRM::Client do
       expect(entity).to be_a(DynamicsCRM::XML::Entity)
       expect(entity.attributes).to be_a(DynamicsCRM::XML::Attributes)
       expect(entity.attributes.merged).to eq(false)
+      expect(entity.attributes.nothing).to be_nil
 
       expect(entity.formatted_values).to be_a(DynamicsCRM::XML::FormattedValues)
       expect(entity.formatted_values.merged).to eq('No')
+      expect(entity.formatted_values.nothing).to be_nil
     end
   end
 

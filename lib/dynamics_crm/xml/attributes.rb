@@ -156,7 +156,7 @@ module DynamicsCRM
       # Allows method-like access to the hash (OpenStruct)
       def method_missing(method_name, *args, &block)
         # Return local hash entry if any.
-        return self[method_name.to_s]
+        return self.key?(method_name.to_s) ? self[method_name.to_s] : nil
       end
 
       def respond_to_missing?(method_name, include_private = false)
