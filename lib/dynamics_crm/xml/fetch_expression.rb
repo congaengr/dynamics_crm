@@ -1,5 +1,5 @@
 module DynamicsCRM
-  module XML    
+  module XML
     class FetchExpression
 
       def initialize(fetch_xml)

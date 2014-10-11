@@ -10,6 +10,7 @@ require "dynamics_crm/xml/query"
 require "dynamics_crm/xml/fetch_expression"
 require "dynamics_crm/xml/entity"
 require "dynamics_crm/xml/entity_reference"
+require "dynamics_crm/xml/entity_collection"
 require "dynamics_crm/response/result"
 require "dynamics_crm/response/retrieve_result"
 require "dynamics_crm/response/retrieve_multiple_result"
@@ -25,6 +26,10 @@ require "dynamics_crm/metadata/retrieve_attribute_response"
 # Model
 require "dynamics_crm/model/entity"
 require "dynamics_crm/model/opportunity"
+# Fetch XML
+require "dynamics_crm/fetch_xml/entity"
+require 'dynamics_crm/fetch_xml/link_entity'
+require "dynamics_crm/fetch_xml/builder"
 # Client
 require "dynamics_crm/client"
 
@@ -36,7 +41,7 @@ require 'curl'
 require 'securerandom'
 require 'date'
 
-module DynamicsCRM 
+module DynamicsCRM
 
   class StringUtil
     def self.underscore(str)
@@ -45,6 +50,20 @@ module DynamicsCRM
         gsub(/([a-z\d])([A-Z])/,'\1_\2').
         tr("-", "_").
         downcase
+    end
+
+    def self.valueOf(text)
+      # Convert text to actual data types.
+      value = text
+      if value == "true" || value == "false"
+        value = (value == "true")
+      elsif value =~ /^[-?]\d+$/
+        value = value.to_i
+      elsif value =~ /^[-?]\d+\.\d+$/
+        value = value.to_f
+      else
+        value
+      end
     end
   end
 

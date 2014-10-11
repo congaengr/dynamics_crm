@@ -34,11 +34,7 @@ module DynamicsCRM
               end
               value = entity_ref
             when "b:EntityCollection"
-              collection = []
-              value_element.elements["b:Entities"].elements.each  do |entity_xml|
-                collection << XML::Entity.from_xml(entity_xml)
-              end
-              value = collection
+              value = XML::EntityCollection.new(value_element)
             when "d:EntityMetadata", /^d:\w*AttributeMetadata$/
               value = value_element
             when "d:ArrayOfEntityMetadata"
