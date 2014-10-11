@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'curb', '~> 0.8', '>= 0.8.5'
   spec.add_runtime_dependency 'mimemagic', '~> 0.2', '>= 0.2.1'
+  spec.add_runtime_dependency 'builder', '~> 3.2.2', '>= 3.2.2'
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency 'rake', '~> 10.1'

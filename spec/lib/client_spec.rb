@@ -70,6 +70,14 @@ describe DynamicsCRM::Client do
       result = subject.retrieve_multiple("account", ["name", "Equal", "Test Account"], columns=[])
 
       result.should be_a(DynamicsCRM::Response::RetrieveMultipleResult)
+
+      expect(result['EntityName']).to eq('account')
+      expect(result['MinActiveRowVersion']).to eq(-1)
+      expect(result['MoreRecords']).to eq(false)
+      expect(result['PagingCookie']).not_to be_empty
+      expect(result['TotalRecordCount']).to eq(-1)
+      expect(result['TotalRecordCountLimitExceeded']).to eq(false)
+
       result.entities.size.should == 3
       entities = result.entities
 
@@ -112,13 +120,19 @@ describe DynamicsCRM::Client do
         </fetch>
       }
 
-      result = subject.fetch(xml)
+      entity_collection = subject.fetch(xml)
+      entity_collection.should be_a(DynamicsCRM::XML::EntityCollection)
 
-      result.should be_a(DynamicsCRM::Response::ExecuteResult)
+      expect(entity_collection.entity_name).to eq('new_tinderboxdocument')
+      expect(entity_collection.min_active_row_version).to eq(-1)
+      expect(entity_collection.more_records).to eq(false)
+      expect(entity_collection.paging_cookie).not_to be_empty
+      expect(entity_collection.total_record_count).to eq(-1)
+      expect(entity_collection.total_record_count_limit_exceeded).to eq(false)
 
-      result["EntityCollection"].size.should == 3
+      expect(entity_collection.entities.size).to eq(3)
 
-      entity = result["EntityCollection"].first
+      entity = entity_collection.entities.first
       entity.id.should == "9c27cf91-ada3-e311-b64f-6c3be5a87df0"
       entity.logical_name.should == "new_tinderboxdocument"
       entity.attributes["new_tinderboxdocumentid"].should == entity.id

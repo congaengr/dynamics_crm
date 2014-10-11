@@ -1,3 +1,8 @@
+## 0.4.0 (October 11, 2014)
+
+* Adds FetchXml module (Builder, Entity, LinkEntity) for building Xml document. (New dependency on builder)
+* Merge PR #15 - Adds EntityCollection object used by Client#fetch response.
+
 ## 0.3.0 (October 11, 2014)
 
 * Merge PR #12 - Adds support for Entity FormattedValues

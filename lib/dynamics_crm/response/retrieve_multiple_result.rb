@@ -13,15 +13,7 @@ module DynamicsCRM
           next if el.name == "Entities"
 
           # Convert text to actual data types.
-          value = el.text
-          if value == "true" || value == "false"
-            value = (value == "true")
-          elsif value =~ /^[-?]\d+$/
-            value = value.to_i
-          elsif value =~ /^[-?]\d+\.\d+$/
-            value = value.to_f
-          end
-          h[el.name] = value
+          h[el.name] = ::DynamicsCRM::StringUtil.valueOf(el.text)
         end
 
         h[:entities] = []
