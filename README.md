@@ -45,6 +45,25 @@ client.retrieve_multiple('account', [["name", "Equal", "Test Account"], ["Name, 
 # => [#<DynamicsCRM::XML::Entity ... >]
 ```
 
+### fetch (FetchXml)
+
+```ruby
+xml = %Q{<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+  <entity name="opportunityproduct">
+    <attribute name="opportunityproductid" />
+    <attribute name="productid" />
+    <attribute name="productdescription" />
+    <attribute name="priceperunit" />
+    <attribute name="quantity" />
+    <order attribute="productid" descending="false" />
+  </entity>
+</fetch>}
+
+result = client.fetch(xml)
+# => #<DynamicsCRM::XML::EntityCollection>
+# result.entity_name => 'opportunityproduct'
+# result.entities => [DynamicsCRM::XML::Entity, ...]
+```
 
 ### create
 

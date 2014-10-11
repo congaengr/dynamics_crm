@@ -115,6 +115,7 @@ module DynamicsCRM
       response = self.execute("RetrieveMultiple", {
         Query: XML::FetchExpression.new(fetchxml)
       })
+      response['EntityCollection']
     end
 
     # Update entity attributes
