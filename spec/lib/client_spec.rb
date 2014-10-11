@@ -120,12 +120,9 @@ describe DynamicsCRM::Client do
         </fetch>
       }
 
-      result = subject.fetch(xml)
+      entity_collection = subject.fetch(xml)
+      entity_collection.should be_a(DynamicsCRM::XML::EntityCollection)
 
-      result.should be_a(DynamicsCRM::Response::ExecuteResult)
-
-      entity_collection = result["EntityCollection"]
-      expect(entity_collection).to be_a(DynamicsCRM::XML::EntityCollection)
       expect(entity_collection.entity_name).to eq('new_tinderboxdocument')
       expect(entity_collection.min_active_row_version).to eq(-1)
       expect(entity_collection.more_records).to eq(false)

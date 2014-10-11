@@ -29,15 +29,15 @@ module DynamicsCRM
     class Builder
       attr_accessor :version, :output_format, :mapping, :distinct
 
-      def initialize
+      def initialize(options={})
         @builder = ::Builder::XmlMarkup.new(:indent=>2)
         @entities = []
         @link_entities = []
 
-        @version = '1.0'
-        @output_format = 'xml-platform'
-        @mapping = 'logical'
-        @distinct = false
+        @version = options[:version] || '1.0'
+        @output_format = options[:output_format] || 'xml-platform'
+        @mapping = options[:mapping] || 'logical'
+        @distinct = options[:distinct] || false
       end
 
       def entity(logical_name)
