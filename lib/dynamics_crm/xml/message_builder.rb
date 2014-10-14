@@ -20,7 +20,7 @@ module DynamicsCRM
       # urn:crmna:dynamics.com - North America
       # urn:crmemea:dynamics.com - Europe, the Middle East and Africa
       # urn:crmapac:dynamics.com - Asia Pacific
-      def build_ocp_request(username, password)
+      def build_ocp_request(username, password, login_url, region)
         %Q{
           <s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope"
             xmlns:a="http://www.w3.org/2005/08/addressing"
@@ -31,7 +31,7 @@ module DynamicsCRM
               <a:ReplyTo>
                 <a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address>
               </a:ReplyTo>
-              <a:To s:mustUnderstand="1">#{Client::LOGIN_URL}</a:To>
+              <a:To s:mustUnderstand="1">#{login_url}</a:To>
               <o:Security s:mustUnderstand="1" xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
                 <u:Timestamp u:Id="_0">
                   <u:Created>#{get_current_time}</u:Created>
@@ -49,7 +49,7 @@ module DynamicsCRM
               <t:RequestSecurityToken xmlns:t="http://schemas.xmlsoap.org/ws/2005/02/trust">
                 <wsp:AppliesTo xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
                   <a:EndpointReference>
-                    <a:Address>#{Client::REGION}</a:Address>
+                    <a:Address>#{region}</a:Address>
                   </a:EndpointReference>
                 </wsp:AppliesTo>
                 <t:RequestType>http://schemas.xmlsoap.org/ws/2005/02/trust/Issue</t:RequestType>
