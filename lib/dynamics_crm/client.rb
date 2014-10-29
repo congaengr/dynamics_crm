@@ -15,26 +15,27 @@ module DynamicsCRM
     extend Forwardable
     include XML::MessageBuilder
 
-    # The Login URL and Region are located in the client's Organization WSDL.
-    # https://tinderboxdev.api.crm.dynamics.com/XRMServices/2011/Organization.svc?wsdl=wsdl0
-    #
-    # Login URL: Policy -> Issuer -> Address
-    # Region: SecureTokenService -> AppliesTo
-    LOGIN_URL = "https://login.microsoftonline.com/RST2.srf"
-    REGION = 'urn:crmna:dynamics.com'
-
     attr_accessor :logger, :caller_id
 
     # Initializes Client instance.
     # Requires: organization_name
     # Optional: hostname
-    def initialize(config={organization_name: nil, hostname: nil, caller_id: nil})
+    def initialize(config={organization_name: nil, hostname: nil, caller_id: nil, login_url: nil, region: nil})
       raise RuntimeError.new("organization_name is required") if config[:organization_name].nil?
 
       @organization_name = config[:organization_name]
       @hostname = config[:hostname] || "#{@organization_name}.api.crm.dynamics.com"
       @organization_endpoint = "https://#{@hostname}/XRMServices/2011/Organization.svc"
       @caller_id = config[:caller_id]
+
+
+      # The Login URL and Region are located in the client's Organization WSDL.
+      # https://tinderboxdev.api.crm.dynamics.com/XRMServices/2011/Organization.svc?wsdl=wsdl0
+      #
+      # Login URL: Policy -> Issuer -> Address
+      # Region: SecureTokenService -> AppliesTo
+      @login_url = config[:login_url] || 'https://login.microsoftonline.com/RST2.srf'
+      @region = config[:region] || 'urn:crmna:dynamics.com'
     end
 
     # Public: Authenticate User
@@ -50,7 +51,7 @@ module DynamicsCRM
       @username = username
       @password = password
 
-      soap_response = post(LOGIN_URL, build_ocp_request(username, password))
+      soap_response = post(@login_url, build_ocp_request(username, password, @login_url, @region))
 
       document = REXML::Document.new(soap_response)
       # Check for Fault
