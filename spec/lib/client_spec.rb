@@ -5,33 +5,55 @@ describe DynamicsCRM::Client do
   let(:subject) { DynamicsCRM::Client.new(organization_name: "tinderboxdev")}
 
   describe "#authenticate" do
-    it "authenticates with username and password" do
-
-      subject.stub(:post).and_return(fixture("request_security_token_response"))
-
-      subject.authenticate('testing', 'password')
-
-      subject.instance_variable_get("@security_token0").should start_with("tMFpDJbJHcZnRVuby5cYmRbCJo2OgOFLEOrUHj+wz")
-      subject.instance_variable_get("@security_token1").should start_with("CX7BFgRnW75tE6GiuRICjeVDV+6q4KDMKLyKmKe9A8U")
-      subject.instance_variable_get("@key_identifier").should == "D3xjUG3HGaQuKyuGdTWuf6547Lo="
-    end
-
     it "raises arugment error when no parameters are passed" do
       expect { subject.authenticate() }.to raise_error(ArgumentError)
     end
 
-    # This is only method in this suite that actually sends a POST message to Dynamics.
-    # This covers the post() and fault parsing logic.
-    it "fails to authenticate with invalid credentials" do
-      begin
-        subject.authenticate('testuser@orgnam.onmicrosoft.com', 'qwerty')
-        fail("Expected Fault to be raised")
-      rescue DynamicsCRM::XML::Fault => f
-        f.code.should == "S:Sender"
-        f.subcode.should == "wst:FailedAuthentication"
-        f.reason.should == "Authentication Failure"
+    context "Online" do
+      it "authenticates with username and password" do
+
+        subject.stub(:post).and_return(fixture("request_security_token_response"))
+
+        subject.authenticate('testing', 'password')
+
+        subject.instance_variable_get("@security_token0").should start_with("tMFpDJbJHcZnRVuby5cYmRbCJo2OgOFLEOrUHj+wz")
+        subject.instance_variable_get("@security_token1").should start_with("CX7BFgRnW75tE6GiuRICjeVDV+6q4KDMKLyKmKe9A8U")
+        subject.instance_variable_get("@key_identifier").should == "D3xjUG3HGaQuKyuGdTWuf6547Lo="
+      end
+
+      # This is only method in this suite that actually sends a POST message to Dynamics.
+      # This covers the post() and fault parsing logic.
+      it "fails to authenticate with invalid credentials" do
+        begin
+          subject.authenticate('testuser@orgnam.onmicrosoft.com', 'qwerty')
+          fail("Expected Fault to be raised")
+        rescue DynamicsCRM::XML::Fault => f
+          f.code.should == "S:Sender"
+          f.subcode.should == "wst:FailedAuthentication"
+          f.reason.should == "Authentication Failure"
+        end
       end
     end
+
+    context "On-Premise" do
+      let(:subject) { DynamicsCRM::Client.new(organization_name: "myorg", hostname: "myorg.crm.powerobjects.net")}
+
+      it "authenticates with username and password" do
+
+        subject.stub(:post).and_return(fixture("request_security_token_response_onpremise"))
+
+        subject.authenticate('testing', 'password')
+
+        subject.instance_variable_get("@security_token0").should start_with("ydfdQsDU9ow4XhoBi+0+n+/9Z7Dvfi")
+        subject.instance_variable_get("@security_token1").should start_with("GcCk8ivhLAAPEbQI8qScynWLReTWE0AC5")
+        subject.instance_variable_get("@key_identifier").should == "_ed121435-64ea-45b0-9b15-e5769afdb746"
+
+        subject.instance_variable_get("@cert_issuer_name").strip.should start_with("SERIALNUMBER=12369287, CN=Go Daddy Secure")
+        subject.instance_variable_get("@cert_serial_number").should == "112094107365XXXXX"
+        subject.instance_variable_get("@server_secret").should == "XZwQpJKfAy00NNWU1RwdtDpVyW/nfabuCq4H38GgKrM="
+      end
+    end
+
   end
 
   describe "#retrieve" do
