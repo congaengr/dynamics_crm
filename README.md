@@ -1,6 +1,6 @@
 # DynamicsCRM
 
-[![Build Status](https://travis-ci.org/TinderBox/dynamics_crm.png)](https://travis-ci.org/TinderBox/dynamics_crm)
+[![Build Status](https://codeship.com/projects/f9246480-686e-0132-9d03-3ad5c353d440/status?branch=master)](https://github.com/carlos4ndre/dynamics_crm)
 
 Ruby library for accessing Microsoft Dynamics CRM Online 2011/2013 via their SOAP API.
 
