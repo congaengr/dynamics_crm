@@ -14,7 +14,7 @@ module DynamicsCRM
       #           get the values from a fetch xml query
       # Values -> Value can be repeated multiple times
       # FilterOperator: and OR or depending on the filter requirements
-      def toooooooo_xml(options={})
+      def to_xml(options={})
         ns = options[:namespace] ? options[:namespace] : "a"
 
         expressions = ""
