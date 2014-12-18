@@ -18,6 +18,8 @@ require "dynamics_crm/response/create_result"
 require "dynamics_crm/response/execute_result"
 # Metadata
 require "dynamics_crm/metadata/xml_document"
+require "dynamics_crm/metadata/one_to_many_relationship"
+require "dynamics_crm/metadata/relationship_metadata"
 require "dynamics_crm/metadata/entity_metadata"
 require "dynamics_crm/metadata/attribute_metadata"
 require "dynamics_crm/metadata/retrieve_all_entities_response"
