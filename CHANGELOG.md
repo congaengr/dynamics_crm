@@ -1,3 +1,11 @@
+## 0.5.0 (December 19, 2014)
+
+* Adds On-Premise Authenticate support with specified hostname. PR #18
+
+## 0.4.1 (November 23)
+
+* Switch to TLS. SSLv3 has been disabled. PR #19
+
 ## 0.4.0 (October 11, 2014)
 
 * Adds FetchXml module (Builder, Entity, LinkEntity) for building Xml document. (New dependency on builder)
