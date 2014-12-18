@@ -21,7 +21,7 @@ module DynamicsCRM
     # Requires: organization_name
     # Optional: hostname
     def initialize(config={organization_name: nil, hostname: nil, caller_id: nil, login_url: nil, region: nil})
-      raise RuntimeError.new("organization_name is required") if config[:organization_name].nil?
+      raise RuntimeError.new("organization_name or hostname is required") if config[:organization_name].nil? && config[:hostname].nil?
 
       @organization_name = config[:organization_name]
       @hostname = config[:hostname] || "#{@organization_name}.api.crm.dynamics.com"
