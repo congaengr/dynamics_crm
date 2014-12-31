@@ -41,6 +41,8 @@ module DynamicsCRM
               value = value_element.get_elements("d:EntityMetadata")
             when "d:ArrayOfAttributeMetadata"
               value = value_element.get_elements("d:AttributeMetadata")
+            when "b:AliasedValue"
+              value = value_element.elements["b:Value"].text
             when "b:Money"
               # Nested value.
               value = value_element.elements.first.text.to_f

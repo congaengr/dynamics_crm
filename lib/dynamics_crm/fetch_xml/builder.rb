@@ -30,7 +30,6 @@ module DynamicsCRM
       attr_accessor :version, :output_format, :mapping, :distinct
 
       def initialize(options={})
-        @builder = ::Builder::XmlMarkup.new(:indent=>2)
         @entities = []
         @link_entities = []
 
@@ -46,6 +45,8 @@ module DynamicsCRM
       end
 
       def to_xml
+        @builder = ::Builder::XmlMarkup.new(:indent=>2)
+
         # <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
         @builder.fetch(version: @version, :"output-format" => @output_format, mapping: @mapping, distinct: @distinct) {
           @entities.each do |e|
@@ -62,6 +63,16 @@ module DynamicsCRM
 
               add_link_entities(e)
 
+            if e.has_conditions?
+              # <filter type="and">
+              @builder.filter(type: 'and') {
+                e.conditions.each do |c|
+                  # <condition attribute="opportunityid" operator="eq" value="02dd7344-d04a-e411-a9d3-9cb654950300" />
+                  @builder.condition(attribute: c[:attribute], operator: c[:operator], value: c[:value])
+                end
+              }
+            end
+
             # </entity>
             }
           end
@@ -73,8 +84,9 @@ module DynamicsCRM
 
       def add_link_entities(e)
         e.link_entities.each do |le|
-          # <link-entity name="product" from="productid" to="productid" alias="product">
-          @builder.tag!('link-entity', name: le.logical_name, from: le.from, to: le.to, :alias => le.alias) {
+          # <link-entity name="product" from="productid" to="productid" alias="product" link-type="outer">
+          # NOTE: Use outer join in case related elements do not exist.
+          @builder.tag!('link-entity', name: le.logical_name, from: le.from, to: le.to, :alias => le.alias, :"link-type" => le.link_type) {
             le.attributes.each do |field|
               # <attribute name="name" />
               @builder.attribute(name: field)

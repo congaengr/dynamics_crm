@@ -42,12 +42,28 @@ describe DynamicsCRM::FetchXml::Builder do
 }
       end
 
+      it "builds a single entity with condition" do
+        entity = subject.entity('opportunity').add_attributes(['name', 'amount', 'ownerid'])
+        entity.add_condition('opportunityid', 'eq', '02dd7344-d04a-e411-a9d3-9cb654950300')
+        expect(subject.to_xml).to eq %Q{<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+  <entity name="opportunity">
+    <attribute name="name"/>
+    <attribute name="amount"/>
+    <attribute name="ownerid"/>
+    <filter type="and">
+      <condition attribute="opportunityid" operator="eq" value="02dd7344-d04a-e411-a9d3-9cb654950300"/>
+    </filter>
+  </entity>
+</fetch>
+}
+      end
+
     end
 
     context "link_entity" do
       it "builds entity with link_entity" do
         entity = subject.entity('opportunityproduct').add_attributes(opportunity_product_fields).order('productid')
-        entity.link_entity('product', to: 'productid', from: 'productid', :alias => 'prod').add_attributes(product_fields)
+        entity.link_entity('product', to: 'productid', from: 'productid', :alias => 'prod', link_type: 'outer').add_attributes(product_fields)
         expect(subject.to_xml).to eq %Q{<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
   <entity name="opportunityproduct">
     <attribute name="productid"/>
@@ -57,7 +73,7 @@ describe DynamicsCRM::FetchXml::Builder do
     <attribute name="extendedamount"/>
     <attribute name="opportunityproductid"/>
     <order attribute="productid" descending="false"/>
-    <link-entity name="product" from="productid" to="productid" alias="prod">
+    <link-entity name="product" from="productid" to="productid" alias="prod" link-type="outer">
       <attribute name="name"/>
       <attribute name="producttypecode"/>
       <attribute name="price"/>
@@ -85,14 +101,14 @@ describe DynamicsCRM::FetchXml::Builder do
     <attribute name="extendedamount"/>
     <attribute name="opportunityproductid"/>
     <order attribute="productid" descending="false"/>
-    <link-entity name="product" from="productid" to="productid" alias="prod">
+    <link-entity name="product" from="productid" to="productid" alias="prod" link-type="inner">
       <attribute name="name"/>
       <attribute name="producttypecode"/>
       <attribute name="price"/>
       <attribute name="standardcost"/>
       <attribute name="currentcost"/>
     </link-entity>
-    <link-entity name="opportunity" from="opportunityid" to="opportunityid" alias="oppty">
+    <link-entity name="opportunity" from="opportunityid" to="opportunityid" alias="oppty" link-type="inner">
       <filter type="and">
         <condition attribute="opportunityid" operator="eq" value="02dd7344-d04a-e411-a9d3-9cb654950300"/>
       </filter>

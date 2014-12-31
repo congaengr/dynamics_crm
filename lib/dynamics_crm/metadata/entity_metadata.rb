@@ -5,6 +5,8 @@ module DynamicsCRM
     class EntityMetadata < XmlDocument
       attr_reader :attributes
 
+      include DynamicsCRM::Metadata::RelationshipMetadata
+
       def initialize(document)
         super
       end
