@@ -48,18 +48,47 @@ client.retrieve_multiple('account', [["name", "Equal", "Test Account"], ["Name, 
 ### fetch (FetchXml)
 
 ```ruby
+# Raw XML Support
 xml = %Q{<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
   <entity name="opportunityproduct">
     <attribute name="opportunityproductid" />
-    <attribute name="productid" />
     <attribute name="productdescription" />
     <attribute name="priceperunit" />
     <attribute name="quantity" />
     <order attribute="productid" descending="false" />
+    <link-entity name="product" from="productid" to="productid" alias="product" link-type="inner">
+      <attribute name="name" />
+      <attribute name="producttypecode" />
+      <attribute name="price" />
+      <attribute name="standardcost" />
+    </link-entity>
+    <filter type="and">
+      <condition attribute="opportunityid" operator="eq" value="02dd7344-d04a-e411-a9d3-9cb654950300" />
+    </filter>
   </entity>
 </fetch>}
 
 result = client.fetch(xml)
+# => #<DynamicsCRM::XML::EntityCollection>
+# result.entity_name => 'opportunityproduct'
+# result.entities => [DynamicsCRM::XML::Entity, ...]
+```
+
+```ruby
+# Using FetchXml::Builder
+builder = DynamicsCRM::FetchXml::Builder.new()
+
+entity = builder.entity('opportunityproduct').add_attributes(
+  ['productdescription', 'priceperunit', 'quantity', 'opportunityproductid']
+).order('productid')
+
+entity.link_entity('product', to: 'productid', from: 'productid', :alias => 'product').add_attributes(
+  ['name', 'producttypecode', 'price', 'standardcost']
+)
+
+entity.add_condition('opportunityid', 'eq', '02dd7344-d04a-e411-a9d3-9cb654950300')
+
+result = client.fetch(builder.to_xml)
 # => #<DynamicsCRM::XML::EntityCollection>
 # result.entity_name => 'opportunityproduct'
 # result.entities => [DynamicsCRM::XML::Entity, ...]

@@ -1,3 +1,10 @@
+## 0.6.0 (December 30, 2014)
+
+* Adds support for Relationship Metadata.
+* Adds support for AliasedValue attribute type.
+* Moves FetchXml condition support to Entity class.
+* Adds configurable link-type attribute to LinkEntity.
+
 ## 0.5.0 (December 19, 2014)
 
 * Adds On-Premise Authenticate support with specified hostname. PR #18

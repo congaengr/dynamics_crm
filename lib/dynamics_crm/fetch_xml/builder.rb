@@ -30,7 +30,6 @@ module DynamicsCRM
       attr_accessor :version, :output_format, :mapping, :distinct
 
       def initialize(options={})
-        @builder = ::Builder::XmlMarkup.new(:indent=>2)
         @entities = []
         @link_entities = []
 
@@ -46,6 +45,8 @@ module DynamicsCRM
       end
 
       def to_xml
+        @builder = ::Builder::XmlMarkup.new(:indent=>2)
+
         # <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
         @builder.fetch(version: @version, :"output-format" => @output_format, mapping: @mapping, distinct: @distinct) {
           @entities.each do |e|
