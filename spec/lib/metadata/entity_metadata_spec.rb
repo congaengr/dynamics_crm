@@ -49,7 +49,7 @@ describe DynamicsCRM::Metadata::EntityMetadata do
       it { expect(systemuser.ReferencingAttribute).to eq 'createdby' }
       it { expect(systemuser.ReferencingEntity).to eq 'opportunity' }
 
-      it { expect(systemuser.link_entity).to eq %Q{
+      it { expect(systemuser.link_entity_fragment(["address1_composite", "address1_city"])).to eq %Q{
 <link-entity name="systemuser" from="systemuserid" to="createdby" alias="systemuser">
   <attribute name="address1_composite" />
   <attribute name="address1_city" />

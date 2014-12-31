@@ -10,12 +10,11 @@ module DynamicsCRM
         @entity = entity
       end
 
-      def link_entity(attributes=[])
+      def link_entity_fragment(attributes=[])
         from_object = self.ReferencedEntity
         from_attribute = self.ReferencedAttribute
-        to_attribute = self.ReferencingAttribute
         to_object = self.ReferencingEntity
-        attributes = ["address1_composite", "address1_city"]
+        to_attribute = self.ReferencingAttribute
 
         attribute_xml = attributes.map {|a| %Q{  <attribute name="#{a}" />} }.join("\n")
 %Q{

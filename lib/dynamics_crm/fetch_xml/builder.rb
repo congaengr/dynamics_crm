@@ -85,7 +85,7 @@ module DynamicsCRM
         e.link_entities.each do |le|
           # <link-entity name="product" from="productid" to="productid" alias="product" link-type="outer">
           # NOTE: Use outer join in case related elements do not exist.
-          @builder.tag!('link-entity', name: le.logical_name, from: le.from, to: le.to, :alias => le.alias, :"link-type" => 'outer') {
+          @builder.tag!('link-entity', name: le.logical_name, from: le.from, to: le.to, :alias => le.alias, :"link-type" => le.link_type) {
             le.attributes.each do |field|
               # <attribute name="name" />
               @builder.attribute(name: field)
