@@ -330,7 +330,7 @@ module DynamicsCRM
     def get(url)
       c = Curl::Easy.new(url) do |http|
         http.ssl_verify_peer = false
-        http.timeout = 60
+        http.timeout = 360
         http.follow_location = true
         http.ssl_version = 3
         # http.verbose = 1
