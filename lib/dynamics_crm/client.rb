@@ -309,7 +309,7 @@ module DynamicsCRM
         http.headers["Content-length"] = request.length
 
         http.ssl_verify_peer = false
-        http.timeout = 120
+        http.timeout = 1200
         http.follow_location = true
         http.ssl_version = 1
         http.verbose = 1
@@ -330,7 +330,7 @@ module DynamicsCRM
     def get(url)
       c = Curl::Easy.new(url) do |http|
         http.ssl_verify_peer = false
-        http.timeout = 360
+        http.timeout = 1200
         http.follow_location = true
         http.ssl_version = 3
         # http.verbose = 1
