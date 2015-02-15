@@ -37,6 +37,16 @@ module DynamicsCRM
         }
       end
 
+      def to_xml(options={})
+        options[:exclude_root] = true
+        namespace = options[:namespace] ? "#{options[:namespace]}:" : ''
+
+        entities_xml = entities.inject("") { |result,entity|
+          result << %Q{<#{namespace}Entity>#{entity.to_xml(options)}</#{namespace}Entity>}
+        }
+        %Q{<#{namespace}Entities>#{entities_xml}</#{namespace}Entities>}
+      end
+
     end
     # EntityCollection
   end

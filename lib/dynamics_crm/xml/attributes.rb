@@ -23,6 +23,8 @@ module DynamicsCRM
             type = "EntityReference"
           when Entity
             type = "Entity"
+          when EntityCollection
+            type = "EntityCollection"
           when Query
             type = "QueryExpression"
           when FetchExpression
