@@ -66,6 +66,9 @@ module DynamicsCRM
             type = get_type(key, value)
           end
 
+          # escape strings to avoid xml parsing errors
+          value = CGI.escapeHTML(value) if type == "string"
+
           xml << build_xml(key, value, type)
         end
 

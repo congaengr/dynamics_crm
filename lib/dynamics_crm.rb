@@ -42,6 +42,7 @@ require 'mimemagic'
 require 'curl'
 require 'securerandom'
 require 'date'
+require 'cgi'
 
 module DynamicsCRM
 
