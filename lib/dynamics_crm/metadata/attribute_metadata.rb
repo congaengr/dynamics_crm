@@ -63,6 +63,13 @@ module DynamicsCRM
         attribute_of_metadata = "./d:AttributeOf"
         @attribute_of = @document.get_text(attribute_of_metadata).to_s
       end
+
+      def required_level
+        return @required_level if @required_level
+
+        required_level_metadata = "./d:RequiredLevel/b:Value"
+        @required_level = @document.get_text(required_level_metadata).to_s
+      end
     end
   end
 end

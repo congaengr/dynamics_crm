@@ -17,11 +17,12 @@ describe DynamicsCRM::Metadata::RetrieveMetadataChangesResponse do
       entity.LogicalName.should eq("incident")
       attributes = entity.attributes
       attributes.should_not be_nil
-      attributes.size.should eq(117)
+      attributes.size.should eq(129)
       attributes.first.logical_name.should eq('contactid')
       attributes.first.display_name.should eq('Contact')
       attributes.first.type.should eq('Lookup')
       attributes.first.attribute_of.should be_empty
+      attributes.first.required_level.should eq('None')
 
       entity = subject.entities[1]
       entity.MetadataId.should eq("608861bc-50a4-4c5f-a02c-21fe1943e2cf")
@@ -29,10 +30,11 @@ describe DynamicsCRM::Metadata::RetrieveMetadataChangesResponse do
       attributes = entity.attributes
       attributes.should_not be_nil
       attributes.size.should eq(220)
-      attributes.first.logical_name.should eq('customertypecodename')
-      attributes.first.attribute_of.should eq('customertypecode')
+      attributes.first.logical_name.should eq("customertypecodename")
+      attributes.first.attribute_of.should eq("customertypecode")
       attributes.first.display_name.should be_empty
-      attributes.first.type.should eq('Virtual')
+      attributes.first.type.should eq("Virtual")
+      attributes.first.required_level.should eq("None")
 
       entity = subject.entities[2]
       entity.MetadataId.should eq("c1961a14-d4e6-470c-8d1e-23ae6b1bbb8d")
@@ -40,10 +42,11 @@ describe DynamicsCRM::Metadata::RetrieveMetadataChangesResponse do
       attributes = entity.attributes
       attributes.should_not be_nil
       attributes.size.should eq(41)
-      attributes.first.logical_name.should eq('createdonbehalfbyyominame')
-      attributes.first.attribute_of.should eq('createdonbehalfby')
+      attributes.first.logical_name.should eq("createdonbehalfbyyominame")
+      attributes.first.attribute_of.should eq("createdonbehalfby")
       attributes.first.display_name.should be_empty
-      attributes.first.type.should eq('String')
+      attributes.first.type.should eq("String")
+      attributes.first.required_level.should eq("None")
     end
   end
 end
