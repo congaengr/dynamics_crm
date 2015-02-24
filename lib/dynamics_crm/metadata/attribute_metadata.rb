@@ -57,6 +57,12 @@ module DynamicsCRM
         @display_name = @document.get_text(display_name_metadata).to_s
       end
 
+      def attribute_of
+        return @attribute_of if @attribute_of
+
+        attribute_of_metadata = "./d:AttributeOf"
+        @attribute_of = @document.get_text(attribute_of_metadata).to_s
+      end
     end
   end
 end

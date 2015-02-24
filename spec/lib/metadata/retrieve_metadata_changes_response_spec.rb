@@ -17,19 +17,21 @@ describe DynamicsCRM::Metadata::RetrieveMetadataChangesResponse do
       entity.LogicalName.should eq("incident")
       attributes = entity.attributes
       attributes.should_not be_nil
-      attributes.size.should eq(137)
+      attributes.size.should eq(117)
       attributes.first.logical_name.should eq('contactid')
       attributes.first.display_name.should eq('Contact')
       attributes.first.type.should eq('Lookup')
+      attributes.first.attribute_of.should be_empty
 
       entity = subject.entities[1]
       entity.MetadataId.should eq("608861bc-50a4-4c5f-a02c-21fe1943e2cf")
       entity.LogicalName.should eq("contact")
       attributes = entity.attributes
       attributes.should_not be_nil
-      attributes.size.should eq(253)
-      attributes.first.logical_name.should eq('preferredcontactmethodcodename')
-      attributes.first.display_name.should eq('')
+      attributes.size.should eq(220)
+      attributes.first.logical_name.should eq('customertypecodename')
+      attributes.first.attribute_of.should eq('customertypecode')
+      attributes.first.display_name.should be_empty
       attributes.first.type.should eq('Virtual')
 
       entity = subject.entities[2]
@@ -39,7 +41,8 @@ describe DynamicsCRM::Metadata::RetrieveMetadataChangesResponse do
       attributes.should_not be_nil
       attributes.size.should eq(41)
       attributes.first.logical_name.should eq('createdonbehalfbyyominame')
-      attributes.first.display_name.should eq('')
+      attributes.first.attribute_of.should eq('createdonbehalfby')
+      attributes.first.display_name.should be_empty
       attributes.first.type.should eq('String')
     end
   end

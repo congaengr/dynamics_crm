@@ -315,7 +315,7 @@ describe DynamicsCRM::Client do
 
       attribute_filter = DynamicsCRM::Metadata::FilterExpression.new('And')
       attribute_filter.add_condition(['IsCustomAttribute', 'Equals', false])
-      attribute_properties = DynamicsCRM::Metadata::PropertiesExpression.new(['LogicalName', 'AttributeType', 'DisplayName'])
+      attribute_properties = DynamicsCRM::Metadata::PropertiesExpression.new(['LogicalName', 'AttributeType', 'AttributeOf', 'DisplayName'])
       attribute_query = DynamicsCRM::Metadata::AttributeQueryExpression.new(attribute_filter, attribute_properties)
 
       entity_query = DynamicsCRM::Metadata::EntityQueryExpression.new({
@@ -331,25 +331,28 @@ describe DynamicsCRM::Client do
       entities.size.should eq(3)
 
       attributes = entities[0].attributes
-      attributes.size.should eq(137)
+      attributes.size.should eq(117)
       attribute  = attributes.first
       attribute.logical_name.should eq("contactid")
+      attribute.attribute_of.should be_empty
       attribute.type.should eq("Lookup")
       attribute.display_name.should eq("Contact")
 
       attributes = entities[1].attributes
-      attributes.size.should eq(253)
+      attributes.size.should eq(220)
       attribute  = attributes.first
-      attribute.logical_name.should eq("preferredcontactmethodcodename")
+      attribute.logical_name.should eq("customertypecodename")
+      attribute.attribute_of.should eq("customertypecode")
       attribute.type.should eq("Virtual")
-      attribute.display_name.should eq("")
+      attribute.display_name.should be_empty
 
       attributes = entities[2].attributes
       attributes.size.should eq(41)
       attribute = attributes.first
       attribute.logical_name.should eq("createdonbehalfbyyominame")
+      attribute.attribute_of.should eq("createdonbehalfby")
       attribute.type.should eq("String")
-      attribute.display_name.should eq("")
+      attribute.display_name.should be_empty
     end
   end
 
