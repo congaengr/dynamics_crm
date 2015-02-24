@@ -342,14 +342,14 @@ describe DynamicsCRM::Client do
       attribute  = attributes.first
       attribute.logical_name.should eq("preferredcontactmethodcodename")
       attribute.type.should eq("Virtual")
-      attribute.display_name.should be_nil
+      attribute.display_name.should eq("")
 
       attributes = entities[2].attributes
       attributes.size.should eq(41)
       attribute = attributes.first
       attribute.logical_name.should eq("createdonbehalfbyyominame")
       attribute.type.should eq("String")
-      attribute.display_name.should be_nil
+      attribute.display_name.should eq("")
     end
   end
 

@@ -29,7 +29,7 @@ describe DynamicsCRM::Metadata::RetrieveMetadataChangesResponse do
       attributes.should_not be_nil
       attributes.size.should eq(253)
       attributes.first.logical_name.should eq('preferredcontactmethodcodename')
-      attributes.first.display_name.should be_nil
+      attributes.first.display_name.should eq('')
       attributes.first.type.should eq('Virtual')
 
       entity = subject.entities[2]
@@ -39,7 +39,7 @@ describe DynamicsCRM::Metadata::RetrieveMetadataChangesResponse do
       attributes.should_not be_nil
       attributes.size.should eq(41)
       attributes.first.logical_name.should eq('createdonbehalfbyyominame')
-      attributes.first.display_name.should be_nil
+      attributes.first.display_name.should eq('')
       attributes.first.type.should eq('String')
     end
   end
