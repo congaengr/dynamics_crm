@@ -23,6 +23,8 @@ module DynamicsCRM
             type = "EntityReference"
           when Entity
             type = "Entity"
+          when EntityCollection
+            type = "EntityCollection"
           when Query
             type = "QueryExpression"
           when FetchExpression
@@ -63,6 +65,9 @@ module DynamicsCRM
           else
             type = get_type(key, value)
           end
+
+          # escape strings to avoid xml parsing errors
+          value = CGI.escapeHTML(value) if type == "string"
 
           xml << build_xml(key, value, type)
         end
