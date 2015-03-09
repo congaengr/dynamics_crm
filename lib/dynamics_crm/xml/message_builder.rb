@@ -298,7 +298,7 @@ module DynamicsCRM
         # Default namespace is /crm/2011/Contracts
         ns_alias = "b"
         # Metadata Service calls are under the /xrm/2011/Contracts schema.
-        if ["RetrieveAllEntities", "RetrieveEntityMetadata", "RetrieveEntity", "RetrieveAttribute", "RetrieveMultiple"].include?(action)
+        if ["RetrieveAllEntities", "RetrieveEntityMetadata", "RetrieveEntity", "RetrieveAttribute", "RetrieveMultiple", "RetrieveMetadataChanges"].include?(action)
           ns_alias = 'a'
         end
 

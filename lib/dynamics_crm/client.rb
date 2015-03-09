@@ -263,6 +263,13 @@ module DynamicsCRM
         Metadata::RetrieveAttributeResponse)
     end
 
+    def retrieve_metadata_changes(entity_query)
+      self.execute("RetrieveMetadataChanges", {
+        Query: entity_query
+      },
+      Metadata::RetrieveMetadataChangesResponse)
+    end
+
     def who_am_i
       self.execute('WhoAmI')
     end
