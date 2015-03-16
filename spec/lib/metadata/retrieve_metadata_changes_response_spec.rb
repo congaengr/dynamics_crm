@@ -17,7 +17,7 @@ describe DynamicsCRM::Metadata::RetrieveMetadataChangesResponse do
       entity.LogicalName.should eq("incident")
       attributes = entity.attributes
       attributes.should_not be_nil
-      attributes.size.should eq(129)
+      attributes.size.should eq(2)
       attributes.first.logical_name.should eq('contactid')
       attributes.first.display_name.should eq('Contact')
       attributes.first.type.should eq('Lookup')
@@ -29,7 +29,7 @@ describe DynamicsCRM::Metadata::RetrieveMetadataChangesResponse do
       entity.LogicalName.should eq("contact")
       attributes = entity.attributes
       attributes.should_not be_nil
-      attributes.size.should eq(220)
+      attributes.size.should eq(2)
       attributes.first.logical_name.should eq("customertypecodename")
       attributes.first.attribute_of.should eq("customertypecode")
       attributes.first.display_name.should be_empty
@@ -41,7 +41,7 @@ describe DynamicsCRM::Metadata::RetrieveMetadataChangesResponse do
       entity.LogicalName.should eq("annotation")
       attributes = entity.attributes
       attributes.should_not be_nil
-      attributes.size.should eq(41)
+      attributes.size.should eq(2)
       attributes.first.logical_name.should eq("createdonbehalfbyyominame")
       attributes.first.attribute_of.should eq("createdonbehalfby")
       attributes.first.display_name.should be_empty

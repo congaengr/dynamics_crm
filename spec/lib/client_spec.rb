@@ -331,7 +331,7 @@ describe DynamicsCRM::Client do
       entities.size.should eq(3)
 
       attributes = entities[0].attributes
-      attributes.size.should eq(129)
+      attributes.size.should eq(2)
       attribute  = attributes.first
       attribute.logical_name.should eq("contactid")
       attribute.attribute_of.should be_empty
@@ -340,7 +340,7 @@ describe DynamicsCRM::Client do
       attribute.required_level.should eq("None")
 
       attributes = entities[1].attributes
-      attributes.size.should eq(220)
+      attributes.size.should eq(2)
       attribute  = attributes.first
       attribute.logical_name.should eq("customertypecodename")
       attribute.attribute_of.should eq("customertypecode")
@@ -349,7 +349,7 @@ describe DynamicsCRM::Client do
       attribute.required_level.should eq("None")
 
       attributes = entities[2].attributes
-      attributes.size.should eq(41)
+      attributes.size.should eq(2)
       attribute = attributes.first
       attribute.logical_name.should eq("createdonbehalfbyyominame")
       attribute.attribute_of.should eq("createdonbehalfby")
