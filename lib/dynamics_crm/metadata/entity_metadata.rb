@@ -14,7 +14,7 @@ module DynamicsCRM
       def attributes
         return if @attributes.is_a?(Array)
 
-        @attributes = document.get_elements("//d:Attributes/d:AttributeMetadata").collect do |attr_metadata|
+        @attributes = document.get_elements("d:Attributes/d:AttributeMetadata").collect do |attr_metadata|
           AttributeMetadata.new(attr_metadata)
         end
 

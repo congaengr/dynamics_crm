@@ -29,6 +29,14 @@ module DynamicsCRM
             type = "QueryExpression"
           when FetchExpression
             type = "FetchExpression"
+          when DynamicsCRM::Metadata::FilterExpression
+            type = "FilterExpression"
+          when DynamicsCRM::Metadata::PropertiesExpression
+            type = "PropertiesExpression"
+          when DynamicsCRM::Metadata::AttributeQueryExpression
+            type = "AttributeQueryExpression"
+          when DynamicsCRM::Metadata::EntityQueryExpression
+            type = "EntityQueryExpression"
           else
             if key.to_s == "EntityFilters"
               type = "EntityFilters"
@@ -88,7 +96,7 @@ module DynamicsCRM
 
         # If we have an object that can convert itself, use it.
         if (value.respond_to?(:to_xml) && value.class.to_s.include?("DynamicsCRM"))
-          xml <<  "<c:value i:type=\"a:#{type}\">\n" << value.to_xml({exclude_root: true, namespace: 'a'}) << "</c:value>"
+          xml << render_object_xml(type, value)
         else
           xml << render_value_xml(type, value)
         end
@@ -141,6 +149,17 @@ module DynamicsCRM
         end
 
         xml
+      end
+
+      def render_object_xml(type, value)
+          case type
+          when "EntityQueryExpression"
+            xml = %Q{<c:value i:type="d:#{type}" xmlns:d="http://schemas.microsoft.com/xrm/2011/Metadata/Query">} << value.to_xml({namespace: 'd'}) << "</c:value>"
+          else
+            xml = %Q{<c:value i:type="a:#{type}">} << value.to_xml({exclude_root: true, namespace: 'a'}) << "</c:value>"
+          end
+
+          return xml
       end
 
       def class_name

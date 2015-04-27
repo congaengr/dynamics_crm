@@ -303,6 +303,62 @@ describe DynamicsCRM::Client do
     end
   end
 
+  describe "#retrieve_metadata_changes" do
+    it "retrieves entity metadata" do
+      subject.stub(:post).and_return(fixture("retrieve_metadata_changes_response"))
+
+      entity_filter = DynamicsCRM::Metadata::FilterExpression.new('Or')
+      entity_filter.add_condition(['SchemaName', 'Equals', 'Contact'])
+      entity_filter.add_condition(['SchemaName', 'Equals', 'Annotation'])
+      entity_filter.add_condition(['SchemaName', 'Equals', 'Incident'])
+      entity_properties = DynamicsCRM::Metadata::PropertiesExpression.new(['Attributes'])
+
+      attribute_filter = DynamicsCRM::Metadata::FilterExpression.new('And')
+      attribute_filter.add_condition(['IsCustomAttribute', 'Equals', false])
+      attribute_properties = DynamicsCRM::Metadata::PropertiesExpression.new(['LogicalName', 'AttributeType', 'AttributeOf', 'DisplayName', 'RequiredLevel'])
+      attribute_query = DynamicsCRM::Metadata::AttributeQueryExpression.new(attribute_filter, attribute_properties)
+
+      entity_query = DynamicsCRM::Metadata::EntityQueryExpression.new({
+        criteria: entity_filter,
+        properties: entity_properties,
+        attribute_query: attribute_query
+      })
+
+      result = subject.retrieve_metadata_changes(entity_query)
+      result.should be_a(DynamicsCRM::Metadata::RetrieveMetadataChangesResponse)
+      entities = result.entities
+      entities.should_not be_nil
+      entities.size.should eq(3)
+
+      attributes = entities[0].attributes
+      attributes.size.should eq(2)
+      attribute  = attributes.first
+      attribute.logical_name.should eq("contactid")
+      attribute.attribute_of.should be_empty
+      attribute.type.should eq("Lookup")
+      attribute.display_name.should eq("Contact")
+      attribute.required_level.should eq("None")
+
+      attributes = entities[1].attributes
+      attributes.size.should eq(2)
+      attribute  = attributes.first
+      attribute.logical_name.should eq("customertypecodename")
+      attribute.attribute_of.should eq("customertypecode")
+      attribute.type.should eq("Virtual")
+      attribute.display_name.should be_empty
+      attribute.required_level.should eq("None")
+
+      attributes = entities[2].attributes
+      attributes.size.should eq(2)
+      attribute = attributes.first
+      attribute.logical_name.should eq("createdonbehalfbyyominame")
+      attribute.attribute_of.should eq("createdonbehalfby")
+      attribute.type.should eq("String")
+      attribute.display_name.should be_empty
+      attribute.required_level.should eq("None")
+    end
+  end
+
   describe "#who_am_i" do
     it "returns user information" do
       subject.stub(:post).and_return(fixture("who_am_i_result"))
