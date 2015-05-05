@@ -9,31 +9,31 @@ describe DynamicsCRM::XML::Money do
 
     context "with a string" do
       let(:value) { "250.00" }
-      it { subject.to_xml.should eq("250.00") }
+      it { subject.to_xml.should eq("<a:value>250.00</a:value>") }
 
       context "and precision is 1" do
         let(:precision) { 1 }
-        it { subject.to_xml.should eq("250.0") }
+        it { subject.to_xml.should eq("<a:value>250.0</a:value>") }
       end
     end
 
     context "with a number" do
       let(:value) { 250 }
-      it { subject.to_xml.should eq("250.00") }
+      it { subject.to_xml.should eq("<a:value>250.00</a:value>") }
 
       context "and precision is 1" do
         let(:precision) { 1 }
-        it { subject.to_xml.should eq("250.0") }
+        it { subject.to_xml.should eq("<a:value>250.0</a:value>") }
       end
     end
 
     context "with a float" do
       let(:value) { 250.00 }
-      it { subject.to_xml.should eq("250.00") }
+      it { subject.to_xml.should eq("<a:value>250.00</a:value>") }
 
       context "and precision is 1" do
         let(:precision) { 1 }
-        it { subject.to_xml.should eq("250.0") }
+        it { subject.to_xml.should eq("<a:value>250.0</a:value>") }
       end
     end
 
