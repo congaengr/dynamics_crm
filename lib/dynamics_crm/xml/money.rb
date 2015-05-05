@@ -9,7 +9,7 @@ module DynamicsCRM
       end
 
       def to_xml(options={})
-        "<a:value>#{@value}</a:value>"
+        "<a:Value>#{@value}</a:Value>"
       end
     end
   end
