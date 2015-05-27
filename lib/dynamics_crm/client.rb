@@ -297,7 +297,12 @@ module DynamicsCRM
 
     def login_url
       @login_url ||= if on_premise?
-        (organization_wsdl.document.get_elements("//ms-xrm:Identifier").first.text + "/13/usernamemixed").gsub("http://", "#{@http_type}://")
+        xrm_id = organization_wsdl.document.get_elements("//ms-xrm:Identifier")
+        if (xrm_id.present?)
+          (xrm_id.first.text + "/13/usernamemixed").gsub("http://", "#{@http_type}://")
+        else
+          "#{@http_type}//#{@hostname}/#{@organization_name}"
+        end
       else
         OCP_LOGIN_URL
       end
