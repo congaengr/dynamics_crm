@@ -8,7 +8,7 @@ Ruby library for accessing Microsoft Dynamics CRM Online 2011/2013 via their SOA
 
 Add this line to your application's Gemfile:
 
-    gem 'dynamics_rails', github: 'Introhive/dynamics_rails', require: false
+    gem 'dynamics_rails', git: 'https://github.com/Introhive/dynamics_rails.git', require: false
 
 And then execute:
 
