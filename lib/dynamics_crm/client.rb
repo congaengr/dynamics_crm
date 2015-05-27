@@ -26,12 +26,13 @@ module DynamicsCRM
     # Initializes Client instance.
     # Requires: organization_name
     # Optional: hostname
-    def initialize(config={organization_name: nil, hostname: nil, caller_id: nil, login_url: nil, region: nil})
+    def initialize(config={organization_name: nil, hostname: nil, caller_id: nil, login_url: nil, region: nil, ssl: false})
       raise RuntimeError.new("organization_name or hostname is required") if config[:organization_name].nil? && config[:hostname].nil?
 
       @organization_name = config[:organization_name]
       @hostname = config[:hostname] || "#{@organization_name}.api.crm.dynamics.com"
-      @organization_endpoint = "https://#{@hostname}/XRMServices/2011/Organization.svc"
+      @http_type = ssl ? 'https' : 'http'
+      @organization_endpoint = "#{@http_type}://#{@hostname}/XRMServices/2011/Organization.svc"
       @caller_id = config[:caller_id]
 
       # The Login URL and Region are located in the client's Organization WSDL.
