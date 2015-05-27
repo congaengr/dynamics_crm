@@ -31,7 +31,7 @@ module DynamicsCRM
 
       @organization_name = config[:organization_name]
       @hostname = config[:hostname] || "#{@organization_name}.api.crm.dynamics.com"
-      @http_type = ssl ? 'https' : 'http'
+      @http_type = ssl == true ? 'https' : 'http'
       @organization_endpoint = "#{@http_type}://#{@hostname}/XRMServices/2011/Organization.svc"
       @caller_id = config[:caller_id]
 
@@ -297,7 +297,7 @@ module DynamicsCRM
 
     def login_url
       @login_url ||= if on_premise?
-        (organization_wsdl.document.get_elements("//ms-xrm:Identifier").first.text + "/13/usernamemixed").gsub("http://", "https://")
+        (organization_wsdl.document.get_elements("//ms-xrm:Identifier").first.text + "/13/usernamemixed").gsub("http://", "#{@http_type}://")
       else
         OCP_LOGIN_URL
       end
