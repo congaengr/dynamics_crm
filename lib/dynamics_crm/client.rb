@@ -31,7 +31,7 @@ module DynamicsCRM
 
       @organization_name = config[:organization_name]
       @hostname = config[:hostname] || "#{@organization_name}.api.crm.dynamics.com"
-      @http_type = ssl == true ? 'https' : 'http'
+      @http_type = config[:ssl] == true ? 'https' : 'http'
       @organization_endpoint = "#{@http_type}://#{@hostname}/XRMServices/2011/Organization.svc"
       @caller_id = config[:caller_id]
 
