@@ -23,10 +23,20 @@ module DynamicsCRM
             type = "EntityReference"
           when Entity
             type = "Entity"
+          when EntityCollection
+            type = "EntityCollection"
           when Query
             type = "QueryExpression"
           when FetchExpression
             type = "FetchExpression"
+          when DynamicsCRM::Metadata::FilterExpression
+            type = "FilterExpression"
+          when DynamicsCRM::Metadata::PropertiesExpression
+            type = "PropertiesExpression"
+          when DynamicsCRM::Metadata::AttributeQueryExpression
+            type = "AttributeQueryExpression"
+          when DynamicsCRM::Metadata::EntityQueryExpression
+            type = "EntityQueryExpression"
           else
             if key.to_s == "EntityFilters"
               type = "EntityFilters"
@@ -64,6 +74,9 @@ module DynamicsCRM
             type = get_type(key, value)
           end
 
+          # escape strings to avoid xml parsing errors
+          value = CGI.escapeHTML(value) if type == "string"
+
           xml << build_xml(key, value, type)
         end
 
@@ -71,7 +84,7 @@ module DynamicsCRM
       end
 
       def to_s
-        self.to_xml
+        self.to_hash
       end
 
       def build_xml(key, value, type)
@@ -83,7 +96,7 @@ module DynamicsCRM
 
         # If we have an object that can convert itself, use it.
         if (value.respond_to?(:to_xml) && value.class.to_s.include?("DynamicsCRM"))
-          xml <<  "<c:value i:type=\"a:#{type}\">\n" << value.to_xml({exclude_root: true, namespace: 'a'}) << "</c:value>"
+          xml << render_object_xml(type, value)
         else
           xml << render_value_xml(type, value)
         end
@@ -138,19 +151,36 @@ module DynamicsCRM
         xml
       end
 
+      def render_object_xml(type, value)
+          case type
+          when "EntityQueryExpression"
+            xml = %Q{<c:value i:type="d:#{type}" xmlns:d="http://schemas.microsoft.com/xrm/2011/Metadata/Query">} << value.to_xml({namespace: 'd'}) << "</c:value>"
+          else
+            xml = %Q{<c:value i:type="a:#{type}">} << value.to_xml({exclude_root: true, namespace: 'a'}) << "</c:value>"
+          end
+
+          return xml
+      end
+
       def class_name
         self.class.to_s.split("::").last
       end
 
       def self.from_xml(xml_document)
         hash = MessageParser.parse_key_value_pairs(xml_document)
-        return Attributes.new(hash)
+        if xml_document.name == "FormattedValues"
+          return FormattedValues.new(hash)
+        elsif xml_document.name == "Parameters"
+          return Parameters.new(hash)
+        else
+          return Attributes.new(hash)
+        end
       end
 
       # Allows method-like access to the hash (OpenStruct)
       def method_missing(method_name, *args, &block)
         # Return local hash entry if any.
-        return self[method_name.to_s]
+        return self.key?(method_name.to_s) ? self[method_name.to_s] : nil
       end
 
       def respond_to_missing?(method_name, include_private = false)
@@ -160,6 +190,7 @@ module DynamicsCRM
     end
 
     class Parameters < Attributes; end
+    class FormattedValues < Attributes; end
   end
 
 end

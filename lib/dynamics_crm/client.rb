@@ -10,6 +10,7 @@
 require 'forwardable'
 require 'digest/sha1'
 require 'openssl'
+require 'open-uri'
 
 module DynamicsCRM
 
@@ -17,27 +18,29 @@ module DynamicsCRM
     extend Forwardable
     include XML::MessageBuilder
 
-    # The Login URL and Region are located in the client's Organization WSDL.
-    # https://tinderboxdev.api.crm.dynamics.com/XRMServices/2011/Organization.svc?wsdl=wsdl0
-    #
-    # Login URL: Policy -> Issuer -> Address
-    # Region: SecureTokenService -> AppliesTo
-    OCP_LOGIN_URL = "https://login.microsoftonline.com/RST2.srf"
-    REGION = 'urn:crmna:dynamics.com'
-
     attr_accessor :logger, :caller_id
+    attr_reader :hostname, :region, :organization_endpoint, :login_url
+
+    OCP_LOGIN_URL = 'https://login.microsoftonline.com/RST2.srf'
 
     # Initializes Client instance.
     # Requires: organization_name
     # Optional: hostname
-    def initialize(config={organization_name: nil, hostname: nil, caller_id: nil, region: nil})
-      raise RuntimeError.new("organization_name is required") if config[:organization_name].nil?
+    def initialize(config={organization_name: nil, hostname: nil, caller_id: nil, login_url: nil, region: nil})
+      raise RuntimeError.new("organization_name or hostname is required") if config[:organization_name].nil? && config[:hostname].nil?
 
       @organization_name = config[:organization_name]
       @hostname = config[:hostname] || "#{@organization_name}.api.crm.dynamics.com"
       @organization_endpoint = "https://#{@hostname}/XRMServices/2011/Organization.svc"
       @caller_id = config[:caller_id]
-      @region ||= config[:region] || determine_region
+
+      # The Login URL and Region are located in the client's Organization WSDL.
+      # https://tinderboxdev.api.crm.dynamics.com/XRMServices/2011/Organization.svc?wsdl=wsdl0
+      #
+      # Login URL: Policy -> Issuer -> Address
+      # Region: SecureTokenService -> AppliesTo
+      @login_url = config[:login_url]
+      @region = config[:region] || determine_region
     end
 
     # Public: Authenticate User
@@ -53,7 +56,13 @@ module DynamicsCRM
       @username = username
       @password = password
 
-      soap_response = post(login_url, on_premise? ? build_on_premise_request(username, password, region, login_url) : build_ocp_request(username, password, region, login_url))
+      auth_request = if on_premise?
+        build_on_premise_request(username, password, region, login_url)
+      else
+        build_ocp_request(username, password, region, login_url)
+      end
+
+      soap_response = post(login_url, auth_request)
 
       document = REXML::Document.new(soap_response)
       # Check for Fault
@@ -135,6 +144,7 @@ module DynamicsCRM
       response = self.execute("RetrieveMultiple", {
         Query: XML::FetchExpression.new(fetchxml)
       })
+      response['EntityCollection']
     end
 
     # Update entity attributes
@@ -253,6 +263,13 @@ module DynamicsCRM
         Metadata::RetrieveAttributeResponse)
     end
 
+    def retrieve_metadata_changes(entity_query)
+      self.execute("RetrieveMetadataChanges", {
+        Query: entity_query
+      },
+      Metadata::RetrieveMetadataChangesResponse)
+    end
+
     def who_am_i
       self.execute('WhoAmI')
     end
@@ -269,13 +286,12 @@ module DynamicsCRM
     protected
 
     def on_premise?
-      !(hostname =~ /\.dynamics\.com/i)
+      @on_premise ||= !(hostname =~ /\.dynamics\.com/i)
     end
 
-    attr_accessor :hostname, :region, :organization_endpoint, :login_url
-
     def organization_wsdl
-      @organization_wsdl ||= REXML::Document.new(get(organization_endpoint + "?wsdl=wsdl0"))
+      wsdl = open(organization_endpoint + "?wsdl=wsdl0").read
+      @organization_wsdl ||= REXML::Document.new(wsdl)
     end
 
     def login_url
@@ -289,7 +305,7 @@ module DynamicsCRM
     def determine_region
       case hostname
       when /crm5\.dynamics\.com/
-        "urn:crmapac:dynamics\.com"
+        "urn:crmapac:dynamics.com"
       when /crm4\.dynamics\.com/
         "urn:crmemea:dynamics.com"
       when /\.dynamics\.com/
@@ -312,13 +328,13 @@ module DynamicsCRM
         http.timeout = 1200
         http.follow_location = true
         http.ssl_version = 1
-        http.verbose = 1
+        # http.verbose = 1
       end
 
       if c.http_post(request)
         response = c.body_str
       else
-
+        # Do something here on error.
       end
       c.close
 
@@ -327,34 +343,13 @@ module DynamicsCRM
       response
     end
 
-    def get(url)
-      c = Curl::Easy.new(url) do |http|
-        http.ssl_verify_peer = false
-        http.timeout = 1200
-        http.follow_location = true
-        http.ssl_version = 3
-        # http.verbose = 1
-      end
-
-      if c.http_get
-        response = c.body_str
-      else
-
-        c.close
-
-      end
-
-      log_xml("RESPONSE", response)
-
-      response
-    end
-
     def log_xml(title, xml)
       return unless logger
-      logger.puts(title)
+
+      logger.debug(title)
       doc = REXML::Document.new(xml)
       formatter.write(doc.root, logger)
-      logger.puts
+      logger.debug("\n")
     end
 
     def formatter

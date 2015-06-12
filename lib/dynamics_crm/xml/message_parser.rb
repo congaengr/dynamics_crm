@@ -34,17 +34,17 @@ module DynamicsCRM
               end
               value = entity_ref
             when "b:EntityCollection"
-              collection = []
-              value_element.elements["b:Entities"].elements.each  do |entity_xml|
-                collection << XML::Entity.from_xml(entity_xml)
-              end
-              value = collection
+              value = XML::EntityCollection.new(value_element)
             when "d:EntityMetadata", /^d:\w*AttributeMetadata$/
               value = value_element
             when "d:ArrayOfEntityMetadata"
               value = value_element.get_elements("d:EntityMetadata")
             when "d:ArrayOfAttributeMetadata"
               value = value_element.get_elements("d:AttributeMetadata")
+            when "b:EntityMetadataCollection"
+              value = value_element.get_elements("b:EntityMetadata")
+            when "b:AliasedValue"
+              value = value_element.elements["b:Value"].text
             when "b:Money"
               # Nested value.
               value = value_element.elements.first.text.to_f

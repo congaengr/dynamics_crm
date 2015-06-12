@@ -1,0 +1,215 @@
+<s:Envelope xmlns:s='http://www.w3.org/2003/05/soap-envelope' xmlns:a='http://www.w3.org/2005/08/addressing' xmlns:u='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'>
+  <s:Header>
+    <a:Action s:mustUnderstand='1'>
+      http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/ExecuteResponse
+    </a:Action>
+    <a:RelatesTo>urn:uuid:5a1b5d6a-8dba-4518-9e1c-fe5c2d972221</a:RelatesTo>
+    <ActivityId CorrelationId='4780d5c3-f5aa-42a4-ab0b-d8d784d6c963' xmlns='http://schemas.microsoft.com/2004/09/ServiceModel/Diagnostics'>00000000-0000-0000-0000-000000000000</ActivityId>
+    <o:Security s:mustUnderstand='1' xmlns:o='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'>
+      <u:Timestamp u:Id='_0'>
+        <u:Created>2015-02-24T17:34:18.908Z</u:Created>
+        <u:Expires>2015-02-24T17:39:18.908Z</u:Expires>
+      </u:Timestamp>
+    </o:Security>
+  </s:Header>
+  <s:Body>
+    <ExecuteResponse xmlns='http://schemas.microsoft.com/xrm/2011/Contracts/Services'>
+      <ExecuteResult i:type='b:RetrieveMetadataChangesResponse' xmlns:b='http://schemas.microsoft.com/xrm/2011/Contracts' xmlns:i='http://www.w3.org/2001/XMLSchema-instance'>
+        <b:ResponseName>RetrieveMetadataChanges</b:ResponseName>
+        <b:Results xmlns:c='http://schemas.datacontract.org/2004/07/System.Collections.Generic'>
+          <b:KeyValuePairOfstringanyType>
+            <c:key>ServerVersionStamp</c:key>
+            <c:value i:type='d:string' xmlns:d='http://www.w3.org/2001/XMLSchema'>22934563!02/24/2015 17:34:18</c:value>
+          </b:KeyValuePairOfstringanyType>
+          <b:KeyValuePairOfstringanyType>
+            <c:key>DeletedMetadata</c:key>
+            <c:value i:type='d:DeletedMetadataCollection' xmlns:d='http://schemas.microsoft.com/xrm/2011/Metadata/Query'/>
+          </b:KeyValuePairOfstringanyType>
+          <b:KeyValuePairOfstringanyType>
+            <c:key>EntityMetadata</c:key>
+            <c:value i:type='b:EntityMetadataCollection' xmlns:d='http://schemas.microsoft.com/xrm/2011/Metadata'>
+              <b:EntityMetadata>
+                <d:MetadataId>e3fe4ff2-a630-49bb-a1e9-debc3a076815</d:MetadataId>
+                <d:ActivityTypeMask i:nil='true'/>
+                <d:Attributes>
+                  <d:AttributeMetadata i:type='d:LookupAttributeMetadata'>
+                    <d:MetadataId>4ff40786-b76b-42bf-ab77-0f3a8fc558c5</d:MetadataId>
+                    <d:AttributeOf i:nil='true'/>
+                    <d:AttributeType>Lookup</d:AttributeType>
+                    <d:Description i:nil='true'/>
+                    <d:DisplayName>
+                      <b:LocalizedLabels>
+                        <b:LocalizedLabel>
+                          <d:MetadataId>bbc675a7-c9d8-4744-9875-b6cf8f6a226a</d:MetadataId>
+                          <b:Label>Contact</b:Label>
+                          <b:LanguageCode>1033</b:LanguageCode>
+                        </b:LocalizedLabel>
+                      </b:LocalizedLabels>
+                      <b:UserLocalizedLabel>
+                        <d:MetadataId>bbc675a7-c9d8-4744-9875-b6cf8f6a226a</d:MetadataId>
+                        <b:Label>Contact</b:Label>
+                        <b:LanguageCode>1033</b:LanguageCode>
+                      </b:UserLocalizedLabel>
+                    </d:DisplayName>
+                    <d:IsCustomAttribute i:nil='true'/>
+                    <d:LogicalName>contactid</d:LogicalName>
+                    <d:RequiredLevel>
+                      <b:CanBeChanged>false</b:CanBeChanged>
+                      <b:ManagedPropertyLogicalName>canmodifyrequirementlevelsettings</b:ManagedPropertyLogicalName>
+                      <b:Value>None</b:Value>
+                    </d:RequiredLevel>
+                    <d:AttributeTypeName xmlns:e='http://schemas.microsoft.com/xrm/2013/Metadata'>
+                      <e:Value>LookupType</e:Value>
+                    </d:AttributeTypeName>
+                    <d:Targets i:nil='true' xmlns:e='http://schemas.microsoft.com/2003/10/Serialization/Arrays'/>
+                  </d:AttributeMetadata>
+                  <d:AttributeMetadata>
+                    <d:MetadataId>b7583f6b-c3af-49bb-bab1-abb9da954b2c</d:MetadataId>
+                    <d:AttributeOf>resolvebyslastatus</d:AttributeOf>
+                    <d:AttributeType>Virtual</d:AttributeType>
+                    <d:Description i:nil='true'/>
+                    <d:DisplayName>
+                      <b:LocalizedLabels/>
+                      <b:UserLocalizedLabel i:nil='true'/>
+                    </d:DisplayName>
+                    <d:IsCustomAttribute i:nil='true'/>
+                    <d:LogicalName>resolvebyslastatusname</d:LogicalName>
+                    <d:RequiredLevel>
+                      <b:CanBeChanged>false</b:CanBeChanged>
+                      <b:ManagedPropertyLogicalName>canmodifyrequirementlevelsettings</b:ManagedPropertyLogicalName>
+                      <b:Value>None</b:Value>
+                    </d:RequiredLevel>
+                    <d:AttributeTypeName i:nil='true' xmlns:e='http://schemas.microsoft.com/xrm/2013/Metadata'/>
+                  </d:AttributeMetadata>
+                </d:Attributes>
+                <d:Description i:nil='true'/>
+                <d:DisplayName i:nil='true'/>
+                <d:LogicalName>incident</d:LogicalName>
+                <d:ObjectTypeCode i:nil='true'/>
+              </b:EntityMetadata>
+              <b:EntityMetadata>
+                <d:MetadataId>608861bc-50a4-4c5f-a02c-21fe1943e2cf</d:MetadataId>
+                <d:ActivityTypeMask i:nil='true'/>
+                <d:Attributes>
+                  <d:AttributeMetadata>
+                    <d:MetadataId>38a3d266-1c2f-454e-8136-43439b75f094</d:MetadataId>
+                    <d:AttributeOf>customertypecode</d:AttributeOf>
+                    <d:AttributeType>Virtual</d:AttributeType>
+                    <d:Description i:nil='true'/>
+                    <d:DisplayName>
+                      <b:LocalizedLabels/>
+                      <b:UserLocalizedLabel i:nil='true'/>
+                    </d:DisplayName>
+                    <d:IsCustomAttribute i:nil='true'/>
+                    <d:LogicalName>customertypecodename</d:LogicalName>
+                    <d:RequiredLevel>
+                      <b:CanBeChanged>false</b:CanBeChanged>
+                      <b:ManagedPropertyLogicalName>canmodifyrequirementlevelsettings</b:ManagedPropertyLogicalName>
+                      <b:Value>None</b:Value>
+                    </d:RequiredLevel>
+                    <d:AttributeTypeName i:nil='true' xmlns:e='http://schemas.microsoft.com/xrm/2013/Metadata'/>
+                  </d:AttributeMetadata>
+                  <d:AttributeMetadata>
+                    <d:MetadataId>4e40d60b-79fb-41b7-a0cd-a62996c46688</d:MetadataId>
+                    <d:AttributeOf i:nil='true'/>
+                    <d:AttributeType>Uniqueidentifier</d:AttributeType>
+                    <d:Description i:nil='true'/>
+                    <d:DisplayName>
+                      <b:LocalizedLabels>
+                        <b:LocalizedLabel>
+                          <d:MetadataId>7f6747a3-1c34-4ecf-a1ae-b766612c730f</d:MetadataId>
+                          <b:Label>Process</b:Label>
+                          <b:LanguageCode>1033</b:LanguageCode>
+                        </b:LocalizedLabel>
+                      </b:LocalizedLabels>
+                      <b:UserLocalizedLabel>
+                        <d:MetadataId>7f6747a3-1c34-4ecf-a1ae-b766612c730f</d:MetadataId>
+                        <b:Label>Process</b:Label>
+                        <b:LanguageCode>1033</b:LanguageCode>
+                      </b:UserLocalizedLabel>
+                    </d:DisplayName>
+                    <d:IsCustomAttribute i:nil='true'/>
+                    <d:LogicalName>processid</d:LogicalName>
+                    <d:RequiredLevel>
+                      <b:CanBeChanged>false</b:CanBeChanged>
+                      <b:ManagedPropertyLogicalName>canmodifyrequirementlevelsettings</b:ManagedPropertyLogicalName>
+                      <b:Value>None</b:Value>
+                    </d:RequiredLevel>
+                    <d:AttributeTypeName i:nil='true' xmlns:e='http://schemas.microsoft.com/xrm/2013/Metadata'/>
+                  </d:AttributeMetadata>
+                </d:Attributes>
+                <d:Description i:nil='true'/>
+                <d:DisplayName i:nil='true'/>
+                <d:LogicalName>contact</d:LogicalName>
+                <d:ObjectTypeCode i:nil='true'/>
+              </b:EntityMetadata>
+              <b:EntityMetadata>
+                <d:MetadataId>c1961a14-d4e6-470c-8d1e-23ae6b1bbb8d</d:MetadataId>
+                <d:ActivityTypeMask i:nil='true'/>
+                <d:Attributes>
+                  <d:AttributeMetadata i:type='d:StringAttributeMetadata'>
+                    <d:MetadataId>181e147a-bd89-4528-a8c5-1e6971097ec3</d:MetadataId>
+                    <d:AttributeOf>createdonbehalfby</d:AttributeOf>
+                    <d:AttributeType>String</d:AttributeType>
+                    <d:Description i:nil='true'/>
+                    <d:DisplayName>
+                      <b:LocalizedLabels/>
+                      <b:UserLocalizedLabel i:nil='true'/>
+                    </d:DisplayName>
+                    <d:IsCustomAttribute i:nil='true'/>
+                    <d:LogicalName>createdonbehalfbyyominame</d:LogicalName>
+                    <d:RequiredLevel>
+                      <b:CanBeChanged>false</b:CanBeChanged>
+                      <b:ManagedPropertyLogicalName>canmodifyrequirementlevelsettings</b:ManagedPropertyLogicalName>
+                      <b:Value>None</b:Value>
+                    </d:RequiredLevel>
+                    <d:AttributeTypeName xmlns:e='http://schemas.microsoft.com/xrm/2013/Metadata'>
+                      <e:Value>StringType</e:Value>
+                    </d:AttributeTypeName>
+                    <d:MaxLength i:nil='true'/>
+                    <d:YomiOf i:nil='true'/>
+                  </d:AttributeMetadata>
+                  <d:AttributeMetadata i:type='d:LookupAttributeMetadata'>
+                    <d:MetadataId>59a81bda-e398-4058-957e-394e15da9ff2</d:MetadataId>
+                    <d:AttributeOf i:nil='true'/>
+                    <d:AttributeType>Lookup</d:AttributeType>
+                    <d:Description i:nil='true'/>
+                    <d:DisplayName>
+                      <b:LocalizedLabels>
+                        <b:LocalizedLabel>
+                          <d:MetadataId>cd2eb1d5-438b-41e8-b422-fe738c48b518</d:MetadataId>
+                          <b:Label>Owning User</b:Label>
+                          <b:LanguageCode>1033</b:LanguageCode>
+                        </b:LocalizedLabel>
+                      </b:LocalizedLabels>
+                      <b:UserLocalizedLabel>
+                        <d:MetadataId>cd2eb1d5-438b-41e8-b422-fe738c48b518</d:MetadataId>
+                        <b:Label>Owning User</b:Label>
+                        <b:LanguageCode>1033</b:LanguageCode>
+                      </b:UserLocalizedLabel>
+                    </d:DisplayName>
+                    <d:IsCustomAttribute i:nil='true'/>
+                    <d:LogicalName>owninguser</d:LogicalName>
+                    <d:RequiredLevel>
+                      <b:CanBeChanged>false</b:CanBeChanged>
+                      <b:ManagedPropertyLogicalName>canmodifyrequirementlevelsettings</b:ManagedPropertyLogicalName>
+                      <b:Value>None</b:Value>
+                    </d:RequiredLevel>
+                    <d:AttributeTypeName xmlns:e='http://schemas.microsoft.com/xrm/2013/Metadata'>
+                      <e:Value>LookupType</e:Value>
+                    </d:AttributeTypeName>
+                    <d:Targets i:nil='true' xmlns:e='http://schemas.microsoft.com/2003/10/Serialization/Arrays'/>
+                  </d:AttributeMetadata>
+                </d:Attributes>
+                <d:Description i:nil='true'/>
+                <d:DisplayName i:nil='true'/>
+                <d:LogicalName>annotation</d:LogicalName>
+                <d:ObjectTypeCode i:nil='true'/>
+              </b:EntityMetadata>
+            </c:value>
+          </b:KeyValuePairOfstringanyType>
+        </b:Results>
+      </ExecuteResult>
+    </ExecuteResponse>
+  </s:Body>
+</s:Envelope>

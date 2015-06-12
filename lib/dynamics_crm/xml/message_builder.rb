@@ -8,7 +8,8 @@ module DynamicsCRM
 
       # have a bit of flexiblity in the create time to handle when system clocks are out of sync
       def get_current_time
-        (Time.now - 5.minutes).utc.strftime '%Y-%m-%dT%H:%M:%SZ'
+        # 5.minutes = 5 * 60
+        (Time.now - (5 * 60)).utc.strftime '%Y-%m-%dT%H:%M:%SZ'
       end
 
       def get_current_time_plus_hour
@@ -25,7 +26,7 @@ module DynamicsCRM
       # urn:crmna:dynamics.com - North America
       # urn:crmemea:dynamics.com - Europe, the Middle East and Africa
       # urn:crmapac:dynamics.com - Asia Pacific
-      def build_ocp_request(username, password, region = "urn:crmna:dynamics.com", login_url = Client::LOGIN_URL)
+      def build_ocp_request(username, password, region = "urn:crmna:dynamics.com", login_url = Client::OCP_LOGIN_URL)
         %Q{
           <s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope"
             xmlns:a="http://www.w3.org/2005/08/addressing"
@@ -100,7 +101,6 @@ module DynamicsCRM
         }
       end
 
-
       def build_envelope(action, &block)
         %Q{
          <s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
@@ -113,103 +113,110 @@ module DynamicsCRM
       end
 
       def build_header(action)
-
-        if on_premise?
-          %Q{
-            <s:Header>
-              <a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/#{action}</a:Action>
-              <a:MessageID>urn:uuid:#{uuid()}</a:MessageID>
-              <a:ReplyTo>
-                <a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address>
-              </a:ReplyTo>
-              <a:To s:mustUnderstand="1">#{@organization_endpoint}</a:To>
-              <o:Security xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
-                #{@timestamp}
-                <xenc:EncryptedData Type="http://www.w3.org/2001/04/xmlenc#Element" xmlns:xenc="http://www.w3.org/2001/04/xmlenc#">
-                  <xenc:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"/>
-                  <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
-                    <e:EncryptedKey xmlns:e="http://www.w3.org/2001/04/xmlenc#">
-                      <e:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p">
-                        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-                      </e:EncryptionMethod>
-                      <KeyInfo>
-                        <o:SecurityTokenReference xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
-                          <X509Data>
-                            <X509IssuerSerial>
-                              <X509IssuerName>#{@cert_issuer_name}</X509IssuerName>
-                              <X509SerialNumber>#{@cert_serial_number}</X509SerialNumber>
-                            </X509IssuerSerial>
-                          </X509Data>
-                        </o:SecurityTokenReference>
-                      </KeyInfo>
-                      <e:CipherData>
-                        <e:CipherValue>#{@security_token0}</e:CipherValue>
-                      </e:CipherData>
-                    </e:EncryptedKey>
-                  </KeyInfo>
-                  <xenc:CipherData>
-                    <xenc:CipherValue>#{@security_token1}</xenc:CipherValue>
-                  </xenc:CipherData>
-                </xenc:EncryptedData>
-                <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
-                  #{@signature}
-                  <SignatureValue>#{@signature_value}</SignatureValue>
-                  <KeyInfo>
-                    <o:SecurityTokenReference xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
-                      <o:KeyIdentifier ValueType="http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.0#SAMLAssertionID">#{@key_identifier}</o:KeyIdentifier>
-                    </o:SecurityTokenReference>
-                  </KeyInfo>
-                </Signature>
-              </o:Security>
-            </s:Header>
-          }
+        if @on_premise
+          build_on_premise_header(action)
         else
-          caller_id = @caller_id ? %Q{<CallerId xmlns="http://schemas.microsoft.com/xrm/2011/Contracts">#{@caller_id}</CallerId>} : ""
-          %Q{
-            <s:Header>
-             <a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/#{action}</a:Action>
-             #{caller_id}
-             <a:MessageID>
-              urn:uuid:#{uuid()}
-             </a:MessageID>
-             <a:ReplyTo><a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address></a:ReplyTo>
-             <a:To s:mustUnderstand="1">
-              #{@organization_endpoint}
-             </a:To>
-             <o:Security s:mustUnderstand="1" xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
-             <u:Timestamp u:Id="_0">
-              <u:Created>#{get_current_time}</u:Created>
-              <u:Expires>#{get_tomorrow_time}</u:Expires>
-             </u:Timestamp>
-             <EncryptedData Id="Assertion0" Type="http://www.w3.org/2001/04/xmlenc#Element" xmlns="http://www.w3.org/2001/04/xmlenc#">
-              <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#tripledes-cbc"></EncryptionMethod>
-              <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
-               <EncryptedKey>
-                <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p"></EncryptionMethod>
-                <ds:KeyInfo Id="keyinfo">
-                 <wsse:SecurityTokenReference xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
-                  <wsse:KeyIdentifier EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509SubjectKeyIdentifier">
-                   #{@key_identifier}
-                  </wsse:KeyIdentifier>
-                 </wsse:SecurityTokenReference>
-                </ds:KeyInfo>
-                <CipherData>
-                 <CipherValue>
-                  #{@security_token0}
-                 </CipherValue>
-                </CipherData>
-               </EncryptedKey>
+          build_ocp_header(action)
+        end
+      end
+
+      def build_on_premise_header(action)
+        %Q{
+          <s:Header>
+            <a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/#{action}</a:Action>
+            <a:MessageID>urn:uuid:#{uuid()}</a:MessageID>
+            <a:ReplyTo>
+              <a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address>
+            </a:ReplyTo>
+            <a:To s:mustUnderstand="1">#{@organization_endpoint}</a:To>
+            <o:Security xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+              #{@timestamp}
+              <xenc:EncryptedData Type="http://www.w3.org/2001/04/xmlenc#Element" xmlns:xenc="http://www.w3.org/2001/04/xmlenc#">
+                <xenc:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"/>
+                <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+                  <e:EncryptedKey xmlns:e="http://www.w3.org/2001/04/xmlenc#">
+                    <e:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p">
+                      <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    </e:EncryptionMethod>
+                    <KeyInfo>
+                      <o:SecurityTokenReference xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+                        <X509Data>
+                          <X509IssuerSerial>
+                            <X509IssuerName>#{@cert_issuer_name}</X509IssuerName>
+                            <X509SerialNumber>#{@cert_serial_number}</X509SerialNumber>
+                          </X509IssuerSerial>
+                        </X509Data>
+                      </o:SecurityTokenReference>
+                    </KeyInfo>
+                    <e:CipherData>
+                      <e:CipherValue>#{@security_token0}</e:CipherValue>
+                    </e:CipherData>
+                  </e:EncryptedKey>
+                </KeyInfo>
+                <xenc:CipherData>
+                  <xenc:CipherValue>#{@security_token1}</xenc:CipherValue>
+                </xenc:CipherData>
+              </xenc:EncryptedData>
+              <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+                #{@signature}
+                <SignatureValue>#{@signature_value}</SignatureValue>
+                <KeyInfo>
+                  <o:SecurityTokenReference xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+                    <o:KeyIdentifier ValueType="http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.0#SAMLAssertionID">#{@key_identifier}</o:KeyIdentifier>
+                  </o:SecurityTokenReference>
+                </KeyInfo>
+              </Signature>
+            </o:Security>
+          </s:Header>
+        }
+      end
+
+      def build_ocp_header(action)
+        caller_id = @caller_id ? %Q{<CallerId xmlns="http://schemas.microsoft.com/xrm/2011/Contracts">#{@caller_id}</CallerId>} : ""
+        %Q{
+          <s:Header>
+           <a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/#{action}</a:Action>
+           #{caller_id}
+           <a:MessageID>
+            urn:uuid:#{uuid()}
+           </a:MessageID>
+           <a:ReplyTo><a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address></a:ReplyTo>
+           <a:To s:mustUnderstand="1">
+            #{@organization_endpoint}
+           </a:To>
+           <o:Security s:mustUnderstand="1" xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+           <u:Timestamp u:Id="_0">
+            <u:Created>#{get_current_time}</u:Created>
+            <u:Expires>#{get_tomorrow_time}</u:Expires>
+           </u:Timestamp>
+           <EncryptedData Id="Assertion0" Type="http://www.w3.org/2001/04/xmlenc#Element" xmlns="http://www.w3.org/2001/04/xmlenc#">
+            <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#tripledes-cbc"></EncryptionMethod>
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+             <EncryptedKey>
+              <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p"></EncryptionMethod>
+              <ds:KeyInfo Id="keyinfo">
+               <wsse:SecurityTokenReference xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+                <wsse:KeyIdentifier EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509SubjectKeyIdentifier">
+                 #{@key_identifier}
+                </wsse:KeyIdentifier>
+               </wsse:SecurityTokenReference>
               </ds:KeyInfo>
               <CipherData>
                <CipherValue>
-                #{@security_token1}
+                #{@security_token0}
                </CipherValue>
               </CipherData>
-             </EncryptedData>
-             </o:Security>
-            </s:Header>
-          }
-        end
+             </EncryptedKey>
+            </ds:KeyInfo>
+            <CipherData>
+             <CipherValue>
+              #{@security_token1}
+             </CipherValue>
+            </CipherData>
+           </EncryptedData>
+           </o:Security>
+          </s:Header>
+        }
       end
 
       def create_request(entity)
@@ -291,15 +298,15 @@ module DynamicsCRM
         # Default namespace is /crm/2011/Contracts
         ns_alias = "b"
         # Metadata Service calls are under the /xrm/2011/Contracts schema.
-        if ["RetrieveAllEntities", "RetrieveEntityMetadata", "RetrieveEntity", "RetrieveAttribute", "RetrieveMultiple"].include?(action)
+        if ["RetrieveAllEntities", "RetrieveEntityMetadata", "RetrieveEntity", "RetrieveAttribute", "RetrieveMultiple", "RetrieveMetadataChanges"].include?(action)
           ns_alias = 'a'
         end
 
-        parameters_xml = XML::Parameters.new(parameters)
+        parameters = XML::Parameters.new(parameters)
         build_envelope('Execute') do
           %Q{<Execute xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
             <request i:type="#{ns_alias}:#{action}Request" xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:b="http://schemas.microsoft.com/crm/2011/Contracts">
-             #{parameters_xml}
+             #{parameters.to_xml}
              <a:RequestId i:nil="true" />
              <a:RequestName>#{action}</a:RequestName>
             </request>

@@ -5,6 +5,8 @@ module DynamicsCRM
     class EntityMetadata < XmlDocument
       attr_reader :attributes
 
+      include DynamicsCRM::Metadata::RelationshipMetadata
+
       def initialize(document)
         super
       end
@@ -12,7 +14,7 @@ module DynamicsCRM
       def attributes
         return if @attributes.is_a?(Array)
 
-        @attributes = document.get_elements("//d:Attributes/d:AttributeMetadata").collect do |attr_metadata|
+        @attributes = document.get_elements("d:Attributes/d:AttributeMetadata").collect do |attr_metadata|
           AttributeMetadata.new(attr_metadata)
         end
 

@@ -1,0 +1,78 @@
+<s:Envelope xmlns:s='http://www.w3.org/2003/05/soap-envelope' xmlns:a='http://www.w3.org/2005/08/addressing' xmlns:u='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'>
+  <s:Header>
+    <a:Action s:mustUnderstand='1'>http://docs.oasis-open.org/ws-sx/ws-trust/200512/RSTRC/IssueFinal</a:Action>
+    <a:RelatesTo>urn:uuid:f07eb8c1-cda5-4998-a38d-94f95be07204</a:RelatesTo>
+    <o:Security s:mustUnderstand='1' xmlns:o='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'>
+      <u:Timestamp u:Id='_0'>
+        <u:Created>2014-11-18T19:46:16.557Z</u:Created>
+        <u:Expires>2014-11-18T19:51:16.557Z</u:Expires>
+      </u:Timestamp>
+    </o:Security>
+  </s:Header>
+  <s:Body>
+    <trust:RequestSecurityTokenResponseCollection xmlns:trust='http://docs.oasis-open.org/ws-sx/ws-trust/200512'>
+      <trust:RequestSecurityTokenResponse>
+        <trust:Lifetime>
+          <wsu:Created xmlns:wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'>2014-11-18T19:46:16.542Z</wsu:Created>
+          <wsu:Expires xmlns:wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'>2014-11-25T19:46:16.542Z</wsu:Expires>
+        </trust:Lifetime>
+        <wsp:AppliesTo xmlns:wsp='http://schemas.xmlsoap.org/ws/2004/09/policy'>
+          <wsa:EndpointReference xmlns:wsa='http://www.w3.org/2005/08/addressing'>
+            <wsa:Address>https://psavtest.crm.powerobjects.net/</wsa:Address>
+          </wsa:EndpointReference>
+        </wsp:AppliesTo>
+        <trust:RequestedSecurityToken>
+          <xenc:EncryptedData Type='http://www.w3.org/2001/04/xmlenc#Element' xmlns:xenc='http://www.w3.org/2001/04/xmlenc#'>
+            <xenc:EncryptionMethod Algorithm='http://www.w3.org/2001/04/xmlenc#aes256-cbc'/>
+            <KeyInfo xmlns='http://www.w3.org/2000/09/xmldsig#'>
+              <e:EncryptedKey xmlns:e='http://www.w3.org/2001/04/xmlenc#'>
+                <e:EncryptionMethod Algorithm='http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p'>
+                  <DigestMethod Algorithm='http://www.w3.org/2000/09/xmldsig#sha1'/>
+                </e:EncryptionMethod>
+                <KeyInfo>
+                  <o:SecurityTokenReference xmlns:o='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'>
+                    <X509Data>
+                      <X509IssuerSerial>
+                        <X509IssuerName>
+                          SERIALNUMBER=12369287, CN=Go Daddy Secure
+                          Certification Authority,
+                          OU=http://certificates.godaddy.com/repository,
+                          O="GoDaddy.com, Inc.", L=Scottsdale, S=Arizona, C=US
+                        </X509IssuerName>
+                        <X509SerialNumber>112094107365XXXXX</X509SerialNumber>
+                      </X509IssuerSerial>
+                    </X509Data>
+                  </o:SecurityTokenReference>
+                </KeyInfo>
+                <e:CipherData>
+                  <e:CipherValue>ydfdQsDU9ow4XhoBi+0+n+/9Z7DvfivMKlKR8wpPnMeY5fgfmmHPAWfnGhYNYPAXCaGleY7mCqqzLe2BlDQjMKUJ5f4jI3zfoy/3vSZwoJLxIOkklFbtku1ammaKAp+Om6PTqOySbpVWcaI3herX56EzF
+                  </e:CipherValue>
+                </e:CipherData>
+              </e:EncryptedKey>
+            </KeyInfo>
+            <xenc:CipherData>
+              <xenc:CipherValue>GcCk8ivhLAAPEbQI8qScynWLReTWE0AC5NGXVGMdaoHTBSSyRUgSPpgZnCNWIqb+8rRI7l7aQNXn6L2ysxTZp+DvxontZc1uarKQWtKDskpfctdrRLfGhcfOb4NtyP9QbKQcdxYSCoQDVCQqrpYLIDHoV+0WLbI4hBQ1u+UzUxr99z+pNMKW6Z2uui+EY21dVX33HZpMWgB7bkzim8KjRulB7/WD1wBarVSIzYuxJdxXP1HcKiz7j/
+              </xenc:CipherValue>
+            </xenc:CipherData>
+          </xenc:EncryptedData>
+        </trust:RequestedSecurityToken>
+        <trust:RequestedProofToken>
+          <trust:BinarySecret>XZwQpJKfAy00NNWU1RwdtDpVyW/nfabuCq4H38GgKrM=</trust:BinarySecret>
+        </trust:RequestedProofToken>
+        <trust:RequestedAttachedReference>
+          <o:SecurityTokenReference k:TokenType='http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV1.1' xmlns:o='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd' xmlns:k='http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd'>
+            <o:KeyIdentifier ValueType='http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.0#SAMLAssertionID'>_ed121435-64ea-45b0-9b15-e5769afdb746</o:KeyIdentifier>
+          </o:SecurityTokenReference>
+        </trust:RequestedAttachedReference>
+        <trust:RequestedUnattachedReference>
+          <o:SecurityTokenReference k:TokenType='http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV1.1' xmlns:o='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd' xmlns:k='http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd'>
+            <o:KeyIdentifier ValueType='http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.0#SAMLAssertionID'>_ed121435-64ea-45b0-9b15-e5769afdb746</o:KeyIdentifier>
+          </o:SecurityTokenReference>
+        </trust:RequestedUnattachedReference>
+        <trust:TokenType>urn:oasis:names:tc:SAML:1.0:assertion</trust:TokenType>
+        <trust:RequestType>http://docs.oasis-open.org/ws-sx/ws-trust/200512/Issue</trust:RequestType>
+        <trust:KeyType>http://docs.oasis-open.org/ws-sx/ws-trust/200512/SymmetricKey</trust:KeyType>
+      </trust:RequestSecurityTokenResponse>
+    </trust:RequestSecurityTokenResponseCollection>
+  </s:Body>
+</s:Envelope>

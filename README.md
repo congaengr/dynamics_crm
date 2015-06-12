@@ -38,13 +38,61 @@ client.retrieve('account', '53291AAB-4A9A-E311-B097-6C3BE5A8DD60')
 ### retrieve_multiple
 
 ```ruby
-client.retrieve_multiple('account', ["name", "Equal", "Test Account"])
+client.retrieve_multiple('account', [["name", "Equal", "Test Account"]])
 # => [#<DynamicsCRM::XML::Entity ... >]
 
-client.retrieve_multiple('account', ["name", "Equal", "Test Account"], ["Name, "CreatedBy"])
+client.retrieve_multiple('account', [["name", "Equal", "Test Account"], ["Name, "CreatedBy"]])
 # => [#<DynamicsCRM::XML::Entity ... >]
 ```
 
+### fetch (FetchXml)
+
+```ruby
+# Raw XML Support
+xml = %Q{<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+  <entity name="opportunityproduct">
+    <attribute name="opportunityproductid" />
+    <attribute name="productdescription" />
+    <attribute name="priceperunit" />
+    <attribute name="quantity" />
+    <order attribute="productid" descending="false" />
+    <link-entity name="product" from="productid" to="productid" alias="product" link-type="inner">
+      <attribute name="name" />
+      <attribute name="producttypecode" />
+      <attribute name="price" />
+      <attribute name="standardcost" />
+    </link-entity>
+    <filter type="and">
+      <condition attribute="opportunityid" operator="eq" value="02dd7344-d04a-e411-a9d3-9cb654950300" />
+    </filter>
+  </entity>
+</fetch>}
+
+result = client.fetch(xml)
+# => #<DynamicsCRM::XML::EntityCollection>
+# result.entity_name => 'opportunityproduct'
+# result.entities => [DynamicsCRM::XML::Entity, ...]
+```
+
+```ruby
+# Using FetchXml::Builder
+builder = DynamicsCRM::FetchXml::Builder.new()
+
+entity = builder.entity('opportunityproduct').add_attributes(
+  ['productdescription', 'priceperunit', 'quantity', 'opportunityproductid']
+).order('productid')
+
+entity.link_entity('product', to: 'productid', from: 'productid', :alias => 'product').add_attributes(
+  ['name', 'producttypecode', 'price', 'standardcost']
+)
+
+entity.add_condition('opportunityid', 'eq', '02dd7344-d04a-e411-a9d3-9cb654950300')
+
+result = client.fetch(builder.to_xml)
+# => #<DynamicsCRM::XML::EntityCollection>
+# result.entity_name => 'opportunityproduct'
+# result.entities => [DynamicsCRM::XML::Entity, ...]
+```
 
 ### create
 
@@ -103,6 +151,14 @@ client.retrieve_attribute('account', 'name')
 ```ruby
 contacts = [ DynamicsCRM::XML::EntityReference.new("contact", contact["id"])]
 client.associate("account", account["id"], "contact_customer_accounts", contacts)
+```
+
+## Logging
+
+If you want to log the REQUEST and RESPONSE, you can do through [Logger](http://www.ruby-doc.org/stdlib-2.1.2/libdoc/logger/rdoc/Logger.html) class of Ruby.
+
+```ruby
+client.logger = Logger.new(STDOUT)
 ```
 
 ## Contributing
