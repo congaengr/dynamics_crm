@@ -4,13 +4,13 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'dynamics_crm/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "dynamics_rails"
+  spec.name          = "dynamics_crm"
   spec.version       = DynamicsCRM::VERSION
   spec.authors       = ["Joe Heth"]
   spec.email         = ["joeheth@gmail.com"]
   spec.description   = %q{Ruby API for integrating with MS Dynamics 2011/2013 SOAP API}
   spec.summary       = %q{Ruby gem for integrating with MS Dynamics 2011/2013 SOAP API}
-  spec.homepage      = "https://github.com/Introhive/dynamics_rails"
+  spec.homepage      = "https://github.com/TinderBox/dynamics_crm"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

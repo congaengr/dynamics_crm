@@ -4,6 +4,6 @@ rvm:
 notifications:
   email:
     recipients:
-      - dev@introhive.com
+      - joeheth@gmail.com
     on_success: never
     on_failure: always
