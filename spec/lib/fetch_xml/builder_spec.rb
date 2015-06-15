@@ -58,6 +58,24 @@ describe DynamicsCRM::FetchXml::Builder do
 }
       end
 
+      it "builds a single entity with 'in' condition" do
+        entity = subject.entity('opportunity').add_attributes(['name', 'amount', 'ownerid'])
+        entity.add_condition('opportunityid', 'in', ['6055FD14-493B-E411-80BE-00155D2A4C29', '02dd7344-d04a-e411-a9d3-9cb654950300'])
+        expect(subject.to_xml).to eq %Q{<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+  <entity name="opportunity">
+    <attribute name="name"/>
+    <attribute name="amount"/>
+    <attribute name="ownerid"/>
+    <filter type="and">
+      <condition attribute="opportunityid" operator="in">
+        <value>6055FD14-493B-E411-80BE-00155D2A4C29</value>
+        <value>02dd7344-d04a-e411-a9d3-9cb654950300</value>
+      </condition>
+    </filter>
+  </entity>
+</fetch>
+}
+      end
     end
 
     context "link_entity" do
@@ -111,6 +129,32 @@ describe DynamicsCRM::FetchXml::Builder do
     <link-entity name="opportunity" from="opportunityid" to="opportunityid" alias="oppty" link-type="inner">
       <filter type="and">
         <condition attribute="opportunityid" operator="eq" value="02dd7344-d04a-e411-a9d3-9cb654950300"/>
+      </filter>
+    </link-entity>
+  </entity>
+</fetch>
+}
+      end
+
+      it "builds entity with link_entity and in condition" do
+        entity = subject.entity('opportunityproduct').add_attributes(opportunity_product_fields).order('productid')
+        entity.link_entity('opportunity', :alias => 'oppty').
+          add_condition('opportunityid', 'in', ['6055FD14-493B-E411-80BE-00155D2A4C29', '02dd7344-d04a-e411-a9d3-9cb654950300'])
+        expect(subject.to_xml).to eq %Q{<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+  <entity name="opportunityproduct">
+    <attribute name="productid"/>
+    <attribute name="productdescription"/>
+    <attribute name="priceperunit"/>
+    <attribute name="quantity"/>
+    <attribute name="extendedamount"/>
+    <attribute name="opportunityproductid"/>
+    <order attribute="productid" descending="false"/>
+    <link-entity name="opportunity" from="opportunityid" to="opportunityid" alias="oppty" link-type="inner">
+      <filter type="and">
+        <condition attribute="opportunityid" operator="in">
+          <value>6055FD14-493B-E411-80BE-00155D2A4C29</value>
+          <value>02dd7344-d04a-e411-a9d3-9cb654950300</value>
+        </condition>
       </filter>
     </link-entity>
   </entity>
