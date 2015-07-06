@@ -322,7 +322,7 @@ module DynamicsCRM
         # Set up headers.
         http.headers["Connection"] = "Keep-Alive"
         http.headers["Content-type"] = "application/soap+xml; charset=UTF-8"
-        http.headers["Content-length"] = request.length
+        http.headers["Content-length"] = request.bytesize
 
         http.ssl_verify_peer = false
         http.timeout = 120
