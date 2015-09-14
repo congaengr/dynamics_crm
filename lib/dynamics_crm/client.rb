@@ -148,6 +148,12 @@ module DynamicsCRM
       response['EntityCollection']
     end
 
+    def raw_fetch(fetchxml)
+      self.execute("RetrieveMultiple" , {
+        Query: XML::FetchExpression.new(fetchxml)
+      }, Response::RawResult)
+    end
+
     # Update entity attributes
     def update(entity_name, guid, attributes)
 
