@@ -18,7 +18,7 @@ module DynamicsCRM
     extend Forwardable
     include XML::MessageBuilder
 
-    attr_accessor :logger, :caller_id
+    attr_accessor :logger, :caller_id, :timeout
     attr_reader :hostname, :region, :organization_endpoint, :login_url
 
     OCP_LOGIN_URL = 'https://login.microsoftonline.com/RST2.srf'
@@ -34,6 +34,7 @@ module DynamicsCRM
       @http_type = config[:ssl] == true ? 'https' : 'http'
       @organization_endpoint = "#{@http_type}://#{@hostname}/XRMServices/2011/Organization.svc"
       @caller_id = config[:caller_id]
+      @timeout = config[:timeout] || 120
 
       # The Login URL and Region are located in the client's Organization WSDL.
       # https://tinderboxdev.api.crm.dynamics.com/XRMServices/2011/Organization.svc?wsdl=wsdl0
@@ -334,10 +335,10 @@ module DynamicsCRM
         # Set up headers.
         http.headers["Connection"] = "Keep-Alive"
         http.headers["Content-type"] = "application/soap+xml; charset=UTF-8"
-        http.headers["Content-length"] = request.length
+        http.headers["Content-length"] = request.bytesize
 
         http.ssl_verify_peer = false
-        http.timeout = 120
+        http.timeout = timeout
         http.follow_location = true
         http.ssl_version = 1
         # http.verbose = 1

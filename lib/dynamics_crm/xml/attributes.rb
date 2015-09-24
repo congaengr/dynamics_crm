@@ -29,6 +29,8 @@ module DynamicsCRM
             type = "QueryExpression"
           when FetchExpression
             type = "FetchExpression"
+          when Money
+            type = "Money"
           when DynamicsCRM::Metadata::FilterExpression
             type = "FilterExpression"
           when DynamicsCRM::Metadata::PropertiesExpression
