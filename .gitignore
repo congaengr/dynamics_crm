@@ -16,3 +16,10 @@ test/tmp
 test/version_tmp
 tmp
 vendor
+.idea/.name
+.idea/.rakeTasks
+.idea/dynamics_rails.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
