@@ -44,9 +44,9 @@ module DynamicsCRM
                   <u:Expires>#{get_tomorrow_time}</u:Expires>
                 </u:Timestamp>
                 <o:UsernameToken u:Id="uuid-cdb639e6-f9b0-4c01-b454-0fe244de73af-1">
-                  <o:Username>#{username}</o:Username>
+                  <o:Username>#{REXML::Text.new(username).to_s}</o:Username>
                   <o:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">
-                    #{password}
+                    #{REXML::Text.new(password).to_s}
                   </o:Password>
                 </o:UsernameToken>
               </o:Security>
