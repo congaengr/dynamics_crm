@@ -6,7 +6,7 @@ module DynamicsCRM
       protected
 
       # Invoked by Result constructor
-      def parse_result_response(result)
+      def parse_result_response(result, prefix)
 
         h = {}
         result.elements.each do |el|
@@ -17,7 +17,7 @@ module DynamicsCRM
         end
 
         h[:entities] = []
-        result.elements["b:Entities"].elements.each do |entity_xml|
+        result.elements["#{prefix}:Entities"].elements.each do |entity_xml|
           h[:entities] << XML::Entity.from_xml(entity_xml)
         end
 

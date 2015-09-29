@@ -12,15 +12,14 @@ module DynamicsCRM
       end
 
       # Invoked by Result constructor
-      def parse_result_response(result)
+      def parse_result_response(result, prefix)
         h = {}
-        h["ResponseName"] = result.elements["b:ResponseName"].text
+        response_name = result.elements["#{prefix}:ResponseName"]
+        h["ResponseName"] = response_name.text unless response_name.nil?
 
-        attributes = XML::MessageParser.parse_key_value_pairs(result.elements["b:Results"])
+        attributes = XML::MessageParser.parse_key_value_pairs(result.elements["#{prefix}:Results"])
         h.merge(attributes)
       end
-
     end
-
   end
 end

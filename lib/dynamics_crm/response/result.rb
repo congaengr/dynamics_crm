@@ -16,7 +16,7 @@ module DynamicsCRM
         @result_response = @document.get_elements("//#{response_element}").first
 
         # Child classes should override this method.
-        h = parse_result_response(@result_response)
+        h = parse_result_response(@result_response, response_prefix(@result_response))
 
         # Calling super causes undesired behavior so just merge.
         self.merge!(h)
@@ -28,7 +28,7 @@ module DynamicsCRM
       end
 
       # Invoked by constructor, should be implemented in sub-classes.
-      def parse_result_response(result)
+      def parse_result_response(result, prefix)
         # do nothing here
         {}
       end
@@ -57,6 +57,16 @@ module DynamicsCRM
         self.has_key?(method_name.to_s) || self.has_key?(method_name) || super
       end
 
+      def response_prefix(result)
+        prefix = 'b'
+        return prefix if result.nil?
+
+        elements = result.elements
+        unless elements.first.nil?
+          prefix = elements.first.prefix
+        end
+        prefix
+      end
     end
 
     # There's nothing to parse in the UpdateResult

@@ -5,9 +5,9 @@ module DynamicsCRM
 
       attr_reader :result_response
 
-	  def initialize(xml)
-	    @result_response = xml
+      def initialize(xml)
+        @result_response = xml
+      end
 	  end
-	end
   end
 end

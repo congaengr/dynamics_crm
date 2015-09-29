@@ -26,12 +26,12 @@ module DynamicsCRM
     # Initializes Client instance.
     # Requires: organization_name
     # Optional: hostname
-    def initialize(config={organization_name: nil, hostname: nil, caller_id: nil, login_url: nil, region: nil, ssl: false})
+    def initialize(config={organization_name: nil, hostname: nil, caller_id: nil, login_url: nil, region: nil, ssl: true, btf: false})
       raise RuntimeError.new("organization_name or hostname is required") if config[:organization_name].nil? && config[:hostname].nil?
 
       @organization_name = config[:organization_name]
       @hostname = config[:hostname] || "#{@organization_name}.api.crm.dynamics.com"
-      @http_type = config[:ssl] == true ? 'https' : 'http'
+      @http_type = config[:ssl] == false ? 'http' : 'https'
       @organization_endpoint = "#{@http_type}://#{@hostname}/XRMServices/2011/Organization.svc"
       @caller_id = config[:caller_id]
 
@@ -42,6 +42,7 @@ module DynamicsCRM
       # Region: SecureTokenService -> AppliesTo
       @login_url = config[:login_url]
       @region = config[:region] || determine_region
+      @is_btf = config[:btf]
     end
 
     # Public: Authenticate User
@@ -52,10 +53,11 @@ module DynamicsCRM
     #   # => true || raised Fault
     #
     # Returns true on success or raises Fault
-    def authenticate(username, password)
-
+    def authenticate(username, password, domain=nil)
       @username = username
       @password = password
+      @domain = domain
+      return true if ad_auth_required?
 
       auth_request = if on_premise?
         build_on_premise_request(username, password, region, login_url)
@@ -63,7 +65,7 @@ module DynamicsCRM
         build_ocp_request(username, password, region, login_url)
       end
 
-      soap_response = post(login_url, auth_request)
+      soap_response = post(login_url, auth_request, nil)
 
       document = REXML::Document.new(soap_response)
       # Check for Fault
@@ -108,7 +110,7 @@ module DynamicsCRM
       entity = XML::Entity.new(entity_name)
       entity.attributes = XML::Attributes.new(attributes)
 
-      xml_response = post(organization_endpoint, create_request(entity))
+      xml_response = post(organization_endpoint, create_request(entity), 'Create')
       return Response::CreateResult.new(xml_response)
     end
 
@@ -118,7 +120,7 @@ module DynamicsCRM
       column_set = XML::ColumnSet.new(columns)
       request = retrieve_request(entity_name, guid, column_set)
 
-      xml_response = post(organization_endpoint, request)
+      xml_response = post(organization_endpoint, request, 'Retrieve')
       return Response::RetrieveResult.new(xml_response)
     end
 
@@ -137,7 +139,7 @@ module DynamicsCRM
       query.criteria = XML::Criteria.new(criteria)
 
       request = retrieve_multiple_request(query)
-      xml_response = post(organization_endpoint, request)
+      xml_response = post(organization_endpoint, request, 'RetrieveMultiple')
       return Response::RetrieveMultipleResult.new(xml_response)
     end
 
@@ -162,20 +164,20 @@ module DynamicsCRM
       entity.attributes = XML::Attributes.new(attributes)
 
       request = update_request(entity)
-      xml_response = post(organization_endpoint, request)
+      xml_response = post(organization_endpoint, request, 'Update')
       return Response::UpdateResponse.new(xml_response)
     end
 
     def delete(entity_name, guid)
       request = delete_request(entity_name, guid)
 
-      xml_response = post(organization_endpoint, request)
+      xml_response = post(organization_endpoint, request, 'Delete')
       return Response::DeleteResponse.new(xml_response)
     end
 
     def execute(action, parameters={}, response_class=nil)
       request = execute_request(action, parameters)
-      xml_response = post(organization_endpoint, request)
+      xml_response = post(organization_endpoint, request, 'Execute')
 
       response_class ||= Response::ExecuteResult
       return response_class.new(xml_response)
@@ -183,13 +185,13 @@ module DynamicsCRM
 
     def associate(entity_name, guid, relationship, related_entities)
       request = associate_request(entity_name, guid, relationship, related_entities)
-      xml_response = post(organization_endpoint, request)
+      xml_response = post(organization_endpoint, request, 'Associate')
       return Response::AssociateResponse.new(xml_response)
     end
 
     def disassociate(entity_name, guid, relationship, related_entities)
       request = disassociate_request(entity_name, guid, relationship, related_entities)
-      xml_response = post(organization_endpoint, request)
+      xml_response = post(organization_endpoint, request, 'Disassociate')
       return Response::DisassociateResponse.new(xml_response)
     end
 
@@ -301,6 +303,20 @@ module DynamicsCRM
       @organization_wsdl ||= REXML::Document.new(wsdl)
     end
 
+    def authentication_types
+      return @auth_types unless @auth_types.nil?
+
+      xrm_auth = organization_wsdl.document.get_elements("//ms-xrm:Authentication")
+      unless xrm_auth.nil?
+        @auth_types ||= xrm_auth.collect {|c| c.children[0]}
+      end
+      @auth_types
+    end
+
+    def ad_auth_required?
+      authentication_types == ['ActiveDirectory']
+    end
+
     def login_url
       @login_url ||= if on_premise?
         xrm_id = organization_wsdl.document.get_elements("//ms-xrm:Identifier")
@@ -327,20 +343,31 @@ module DynamicsCRM
       end
     end
 
-    def post(url, request)
+    def post(url, request, soapAction)
       log_xml("REQUEST", request)
+      url << "/web" if ad_auth_required?
 
       c = Curl::Easy.new(url) do |http|
         # Set up headers.
         http.headers["Connection"] = "Keep-Alive"
         http.headers["Content-type"] = "application/soap+xml; charset=UTF-8"
         http.headers["Content-length"] = request.length
+        http.headers["SOAPAction"] = "http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/#{soapAction}" unless soapAction.nil?
 
         http.ssl_verify_peer = false
         http.timeout = 120
         http.follow_location = true
         http.ssl_version = 1
-        # http.verbose = 1
+
+        if ad_auth_required?
+          http.http_auth_types = :ntlm
+          http.username = @domain.nil? ? @username : "#{@domain}\\#{@username}"
+          http.password = @password
+          http.headers["Content-type"] = "text/xml; charset=UTF-8"
+          http.headers.delete('Content-length')
+          #http.headers["Accept"] = "application/xml, text/xml, */*"
+        end
+        #http.verbose = 1
       end
 
       if c.http_post(request)
