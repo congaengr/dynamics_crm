@@ -107,22 +107,25 @@ module DynamicsCRM
     # These are all the operations defined by the Dynamics WSDL.
     # Tag names are case-sensitive.
     def create(entity_name, attributes)
-
       entity = XML::Entity.new(entity_name)
       entity.attributes = XML::Attributes.new(attributes)
+      request = create_request(entity)
+      soap_endpoint = 'Create'
+      return [request, soap_endpoint, __method__.to_s] if @is_btf
 
-      xml_response = post(organization_endpoint, create_request(entity), 'Create')
-      return Response::CreateResult.new(xml_response)
+      xml_response = post(organization_endpoint, request, soap_endpoint)
+      return process_response(__method__, xml_response)
     end
 
     # http://crmtroubleshoot.blogspot.com.au/2013/07/dynamics-crm-2011-php-and-soap-calls.html
     def retrieve(entity_name, guid, columns=[])
-
       column_set = XML::ColumnSet.new(columns)
       request = retrieve_request(entity_name, guid, column_set)
+      soap_endpoint = 'Retrieve'
+      return [request, soap_endpoint, __method__.to_s] if @is_btf
 
-      xml_response = post(organization_endpoint, request, 'Retrieve')
-      return Response::RetrieveResult.new(xml_response)
+      xml_response = post(organization_endpoint, request, soap_endpoint)
+      return process_response(__method__, xml_response)
     end
 
     def rollup(target_entity, query, rollup_type="Related")
@@ -134,66 +137,78 @@ module DynamicsCRM
     end
 
     def retrieve_multiple(entity_name, criteria=[], columns=[])
-
       query = XML::Query.new(entity_name)
       query.columns = columns
       query.criteria = XML::Criteria.new(criteria)
-
       request = retrieve_multiple_request(query)
-      xml_response = post(organization_endpoint, request, 'RetrieveMultiple')
-      return Response::RetrieveMultipleResult.new(xml_response)
+      soap_endpoint = 'RetrieveMultiple'
+      return [request, soap_endpoint, __method__.to_s] if @is_btf
+
+      xml_response = post(organization_endpoint, request, soap_endpoint)
+      return process_response(__method__, xml_response)
     end
 
     def fetch(fetchxml)
       response = self.execute("RetrieveMultiple", {
         Query: XML::FetchExpression.new(fetchxml)
-      })
+      }, nil, __method__.to_s)
       response['EntityCollection']
     end
 
     def raw_fetch(fetchxml)
       self.execute("RetrieveMultiple" , {
         Query: XML::FetchExpression.new(fetchxml)
-      }, Response::RawResult)
+      }, Response::RawResult, __method__.to_s)
     end
 
     # Update entity attributes
     def update(entity_name, guid, attributes)
-
       entity = XML::Entity.new(entity_name)
       entity.id = guid
       entity.attributes = XML::Attributes.new(attributes)
-
       request = update_request(entity)
-      xml_response = post(organization_endpoint, request, 'Update')
-      return Response::UpdateResponse.new(xml_response)
+      soap_endpoint = 'RetrieveMultiple'
+      return [request, soap_endpoint, __method__.to_s] if @is_btf
+
+      xml_response = post(organization_endpoint, request, soap_endpoint)
+      return process_response(__method__, xml_response)
     end
 
     def delete(entity_name, guid)
       request = delete_request(entity_name, guid)
+      soap_endpoint = 'Delete'
+      return [request, soap_endpoint, __method__.to_s] if @is_btf
 
-      xml_response = post(organization_endpoint, request, 'Delete')
-      return Response::DeleteResponse.new(xml_response)
+      xml_response = post(organization_endpoint, request, soap_endpoint)
+      return process_response(__method__, xml_response)
     end
 
-    def execute(action, parameters={}, response_class=nil)
+    def execute(action, parameters={}, response_class=nil, original_method=nil)
       request = execute_request(action, parameters)
-      xml_response = post(organization_endpoint, request, 'Execute')
+      original_method ||= __method__.to_s
+      soap_endpoint = 'Execute'
+      return [request, soap_endpoint, original_method] if @is_btf
 
-      response_class ||= Response::ExecuteResult
-      return response_class.new(xml_response)
+      xml_response = post(organization_endpoint, request, soap_endpoint)
+      return process_response(__method__, xml_response, response_class)
     end
 
     def associate(entity_name, guid, relationship, related_entities)
       request = associate_request(entity_name, guid, relationship, related_entities)
-      xml_response = post(organization_endpoint, request, 'Associate')
-      return Response::AssociateResponse.new(xml_response)
+      soap_endpoint = 'Associate'
+      return [request, soap_endpoint, __method__.to_s] if @is_btf
+
+      xml_response = post(organization_endpoint, request, soap_endpoint)
+      return process_response(__method__, xml_response)
     end
 
     def disassociate(entity_name, guid, relationship, related_entities)
       request = disassociate_request(entity_name, guid, relationship, related_entities)
-      xml_response = post(organization_endpoint, request, 'Disassociate')
-      return Response::DisassociateResponse.new(xml_response)
+      soap_endpoint = 'Disassociate'
+      return [request, soap_endpoint, __method__.to_s] if @is_btf
+
+      xml_response = post(organization_endpoint, request, soap_endpoint)
+      return process_response(__method__, xml_response)
     end
 
     def create_attachment(entity_name, entity_id, options={})
@@ -249,7 +264,7 @@ module DynamicsCRM
         EntityFilters: "Entity",
         RetrieveAsIfPublished: true
         },
-        Metadata::RetrieveAllEntitiesResponse)
+        Metadata::RetrieveAllEntitiesResponse, __method__.to_s)
     end
 
     # EntityFilters Enum: Default, Entity, Attributes, Privileges, Relationships, All
@@ -260,7 +275,7 @@ module DynamicsCRM
         EntityFilters: entity_filter,
         RetrieveAsIfPublished: true
         },
-        Metadata::RetrieveEntityResponse)
+        Metadata::RetrieveEntityResponse, __method__.to_s)
     end
 
     def retrieve_attribute(entity_logical_name, logical_name)
@@ -270,14 +285,14 @@ module DynamicsCRM
         MetadataId: "00000000-0000-0000-0000-000000000000",
         RetrieveAsIfPublished: true
         },
-        Metadata::RetrieveAttributeResponse)
+        Metadata::RetrieveAttributeResponse, __method__.to_s)
     end
 
     def retrieve_metadata_changes(entity_query)
       self.execute("RetrieveMetadataChanges", {
         Query: entity_query
       },
-      Metadata::RetrieveMetadataChangesResponse)
+      Metadata::RetrieveMetadataChangesResponse, __method__.to_s)
     end
 
     def who_am_i
@@ -291,6 +306,52 @@ module DynamicsCRM
       else
         Model::Entity.new(logical_name, id, self)
       end
+    end
+
+    def process_response(method, payload, response_class=nil)
+      supported_commands = %w(associate create create_attachment delete disassociate execute fetch raw_fetch
+                              retrieve retrieve_all_entities retrieve_attachments retrieve_attribute retrieve_entity
+                              retrieve_metadata_changes retrieve_multiple update who_am_i)
+      raise RuntimeError.new("Command '#{method.to_s}' is unsupported for processing payloads") unless supported_commands.include?(method.to_s)
+
+      response = case method
+                   when :associate
+                     Response::AssociateResponse.new(payload)
+                   when :create, :create_attachment
+                     Response::CreateResult.new(payload)
+                   when :delete
+                     Response::DeleteResponse.new(payload)
+                   when :disassociate
+                     Response::DisassociateResponse.new(payload)
+                   when :execute, :who_am_i
+                     response_class ||= Response::ExecuteResult
+                     response_class.new(payload)
+                   when :fetch
+                     response_class ||= Response::ExecuteResult
+                     result = response_class.new(payload)
+                     result['EntityCollection']
+                   when :raw_fetch
+                     payload
+                   when :retrieve
+                     Response::RetrieveResult.new(payload)
+                   when :retrieve_all_entities
+                     response_class ||= Metadata::RetrieveAllEntitiesResponse
+                     response_class.new(payload)
+                   when :retrieve_attribute
+                     response_class ||= Metadata::RetrieveAttributeResponse
+                     response_class.new(payload)
+                   when :retrieve_entity
+                     response_class ||= Metadata::RetrieveEntityResponse
+                     response_class.new(payload)
+                   when :retrieve_metadata_changes
+                     response_class ||= Metadata::RetrieveMetadataChangesResponse
+                     response_class.new(payload)
+                   when :retrieve_multiple, :retrieve_attachments
+                     Response::RetrieveMultipleResult.new(payload)
+                   when :update
+                     Response::UpdateResponse.new(payload)
+                 end
+      response
     end
 
     protected
