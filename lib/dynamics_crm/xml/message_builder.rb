@@ -102,6 +102,23 @@ module DynamicsCRM
       end
 
       def build_envelope(action, &block)
+        if ad_auth_required?
+          build_ad_payload(action, &block)
+        else
+          build_payload(action, &block)
+        end
+      end
+
+      def build_ad_payload(action, &block)
+        %Q{<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+            <s:Body>
+              #{yield}
+            </s:Body>
+          </s:Envelope>
+          }
+      end
+
+      def build_payload(action, &block)
         %Q{
          <s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
           #{build_header(action)}

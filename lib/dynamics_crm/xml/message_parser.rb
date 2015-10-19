@@ -16,41 +16,46 @@ module DynamicsCRM
           value_element = key_value_pair.elements["#{namespace_alias}:value"]
           value = value_element.text
           begin
+            if value_element.attributes['type'].nil?
+              h[key] = value
+              next
+            end
 
-            case value_element.attributes["type"]
-            when "b:OptionSetValue"
+            prefix, type = value_element.attributes['type'].split(':')
+            case type
+            when "OptionSetValue"
               # Nested value. Appears to always be an integer.
               value = value_element.elements.first.text.to_i
-            when "d:boolean"
+            when "boolean"
               value = (value == "true")
-            when "d:decimal"
+            when "decimal"
               value = value.to_f
-            when "d:dateTime"
+            when "dateTime"
               value = Time.parse(value)
-            when "b:EntityReference"
+            when "EntityReference"
               entity_ref = {}
               value_element.each_element do |child|
                 entity_ref[child.name] = child.text
               end
               value = entity_ref
-            when "b:EntityCollection"
+            when "EntityCollection"
               value = XML::EntityCollection.new(value_element)
-            when "d:EntityMetadata", /^d:\w*AttributeMetadata$/
+            when "EntityMetadata", /^\w*AttributeMetadata$/
               value = value_element
-            when "d:ArrayOfEntityMetadata"
-              value = value_element.get_elements("d:EntityMetadata")
-            when "d:ArrayOfAttributeMetadata"
-              value = value_element.get_elements("d:AttributeMetadata")
-            when "b:EntityMetadataCollection"
-              value = value_element.get_elements("b:EntityMetadata")
-            when "b:AliasedValue"
-              value = value_element.elements["b:Value"].text
-            when "b:Money"
+            when "ArrayOfEntityMetadata"
+              value = value_element.get_elements("#{prefix}:EntityMetadata")
+            when "ArrayOfAttributeMetadata"
+              value = value_element.get_elements("#{prefix}:AttributeMetadata")
+            when "EntityMetadataCollection"
+              value = value_element.get_elements("#{prefix}:EntityMetadata")
+            when "AliasedValue"
+              value = value_element.elements["#{prefix}:Value"].text
+            when "Money"
               # Nested value.
               value = value_element.elements.first.text.to_f
-            when "d:int"
+            when "int"
               value = value.to_i
-            when "d:string", "d:guid"
+            when "string", "guid"
               # nothing
             end
           rescue => e
