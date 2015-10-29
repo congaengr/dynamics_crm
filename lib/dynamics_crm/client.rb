@@ -305,10 +305,18 @@ module DynamicsCRM
 
     def determine_region
       case hostname
+      when /crm9\.dynamics\.com/
+        "urn:crmgcc:dynamics.com"
+      when /crm7\.dynamics\.com/
+        "urn:crmjpn:dynamics.com"
+      when /crm6\.dynamics\.com/
+        "urn:crmoce:dynamics.com"
       when /crm5\.dynamics\.com/
         "urn:crmapac:dynamics.com"
       when /crm4\.dynamics\.com/
         "urn:crmemea:dynamics.com"
+      when /crm2\.dynamics\.com/
+        "urn:crmsam:dynamics.com"
       when /\.dynamics\.com/
         "urn:crmna:dynamics.com"
       else
