@@ -23,6 +23,16 @@ module DynamicsCRM
 
     OCP_LOGIN_URL = 'https://login.microsoftonline.com/RST2.srf'
 
+    REGION = {
+      "crm9.dynamics.com": "urn:crmgcc:dynamics.com",
+      "crm7.dynamics.com": "urn:crmjpn:dynamics.com",
+      "crm6.dynamics.com": "urn:crmoce:dynamics.com",
+      "crm5.dynamics.com": "urn:crmapac:dynamics.com",
+      "crm4.dynamics.com": "urn:crmemea:dynamics.com",
+      "crm2.dynamics.com": "urn:crmsam:dynamics.com",
+      "crm.dynamics.com": "urn:crmna:dynamics.com",
+    }
+
     # Initializes Client instance.
     # Requires: organization_name
     # Optional: hostname
@@ -32,6 +42,7 @@ module DynamicsCRM
       @organization_name = config[:organization_name]
       @hostname = config[:hostname] || "#{@organization_name}.api.crm.dynamics.com"
       @organization_endpoint = "https://#{@hostname}/XRMServices/2011/Organization.svc"
+      REGION.default = @organization_endpoint
       @caller_id = config[:caller_id]
       @timeout = config[:timeout] || 120
 
@@ -304,24 +315,8 @@ module DynamicsCRM
     end
 
     def determine_region
-      case hostname
-      when /crm9\.dynamics\.com/
-        "urn:crmgcc:dynamics.com"
-      when /crm7\.dynamics\.com/
-        "urn:crmjpn:dynamics.com"
-      when /crm6\.dynamics\.com/
-        "urn:crmoce:dynamics.com"
-      when /crm5\.dynamics\.com/
-        "urn:crmapac:dynamics.com"
-      when /crm4\.dynamics\.com/
-        "urn:crmemea:dynamics.com"
-      when /crm2\.dynamics\.com/
-        "urn:crmsam:dynamics.com"
-      when /\.dynamics\.com/
-        "urn:crmna:dynamics.com"
-      else
-        organization_endpoint
-      end
+      hostname.match(/(crm\d?\.dynamics.com)/)
+      REGION[:"#{$1}"]
     end
 
     def post(url, request)
