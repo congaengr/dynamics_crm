@@ -11,7 +11,8 @@ module DynamicsCRM
         @document = REXML::Document.new(xml)
 
         fault_xml = @document.get_elements("//[local-name() = 'Fault']")
-        raise XML::Fault.new(fault_xml) if fault_xml.any?
+        code = fault_xml.first.get_text("//[local-name() = 'Code']/[local-name() = 'Value']")  if fault_xml.any?
+        raise XML::Fault.new(fault_xml) if fault_xml.any? && !code.nil?
 
         @result_response = @document.get_elements("//#{response_element}").first
 

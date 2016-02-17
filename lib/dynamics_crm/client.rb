@@ -123,6 +123,20 @@ module DynamicsCRM
       return Response::CreateResult.new(xml_response)
     end
 
+    def create_multiple(entity_name, attributesArray)
+
+      entities = []
+      attributesArray.each do |attributes|
+        entity = XML::Entity.new(entity_name)
+        entity.attributes = XML::Attributes.new(attributes)
+
+        entities << entity
+      end
+      xml_response = post(organization_endpoint, create_multiple_request(entities))
+
+      return Response::ExecuteMultipleResult.new(xml_response)
+    end
+
     # http://crmtroubleshoot.blogspot.com.au/2013/07/dynamics-crm-2011-php-and-soap-calls.html
     def retrieve(entity_name, guid, columns=[])
 
