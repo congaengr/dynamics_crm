@@ -17,6 +17,7 @@ require "dynamics_crm/response/retrieve_result"
 require "dynamics_crm/response/retrieve_multiple_result"
 require "dynamics_crm/response/create_result"
 require "dynamics_crm/response/execute_result"
+require "dynamics_crm/response/execute_multiple_result"
 # Metadata
 require "dynamics_crm/metadata/xml_document"
 require "dynamics_crm/metadata/one_to_many_relationship"
