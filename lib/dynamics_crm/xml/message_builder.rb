@@ -311,6 +311,53 @@ module DynamicsCRM
         end
       end
 
+      def bulk_delete_request(object, emailToRecipientGuid)
+        build_envelope('Execute') do
+          %Q{<Execute xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+            <request i:type="b:BulkDeleteRequest" xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:b="http://schemas.microsoft.com/crm/2011/Contracts">
+              <a:Parameters xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
+                <a:KeyValuePairOfstringanyType>
+                  <c:key>QuerySet</c:key>
+                  <c:value i:type="a:ArrayOfQueryExpression">
+                    <a:QueryExpression>
+                      #{object.to_xml({exclude_root: true, namespace: 'a'})}
+                    </a:QueryExpression>
+                  </c:value>
+                </a:KeyValuePairOfstringanyType>
+                <a:KeyValuePairOfstringanyType>
+                 <c:key>JobName</c:key>
+                 <c:value i:type="d:string" xmlns:d="http://www.w3.org/2001/XMLSchema">pitcherbulkdeletejob</c:value>
+                </a:KeyValuePairOfstringanyType>
+                <a:KeyValuePairOfstringanyType>
+                  <c:key>SendEmailNotification</c:key>
+                  <c:value i:type="d:boolean" xmlns:d="http://www.w3.org/2001/XMLSchema">true</c:value>
+                </a:KeyValuePairOfstringanyType>
+                <a:KeyValuePairOfstringanyType>
+                  <c:key>ToRecipients</c:key>
+                  <c:value i:type="d:ArrayOfguid" xmlns:d="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+                    <d:guid>#{emailToRecipientGuid}</d:guid>
+                  </c:value>
+                </a:KeyValuePairOfstringanyType>
+                <a:KeyValuePairOfstringanyType>
+                  <c:key>CCRecipients</c:key>
+                  <c:value i:type="d:ArrayOfguid" xmlns:d="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+                </a:KeyValuePairOfstringanyType>
+                <a:KeyValuePairOfstringanyType>
+                  <c:key>RecurrencePattern</c:key>
+                  <c:value i:type="d:string" xmlns:d="http://www.w3.org/2001/XMLSchema" />
+                </a:KeyValuePairOfstringanyType>
+                <a:KeyValuePairOfstringanyType>
+                  <c:key>StartDateTime</c:key>
+                  <c:value i:type="d:dateTime" xmlns:d="http://www.w3.org/2001/XMLSchema">0001-01-01T00:00:00</c:value>
+                </a:KeyValuePairOfstringanyType>
+              </a:Parameters>
+              <a:RequestId i:nil="true" />
+              <a:RequestName>BulkDelete</a:RequestName>
+            </request>
+           </Execute>}
+        end
+      end
+
       def associate_request(entity_name, id, relationship, relationship_entities=[])
         modify_association("Associate", entity_name, id, relationship, relationship_entities)
       end

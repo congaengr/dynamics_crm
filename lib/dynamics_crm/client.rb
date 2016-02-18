@@ -181,6 +181,17 @@ module DynamicsCRM
       return Response::DeleteResponse.new(xml_response)
     end
 
+    def bulk_delete(entity_name, emailToRecipientGuid, criteria=[])
+
+      query = XML::Query.new(entity_name)
+      query.criteria = XML::Criteria.new(criteria)
+
+      request = bulk_delete_request(query, emailToRecipientGuid)
+      xml_response = post(organization_endpoint, request)
+
+      return Response::ExecuteResult.new(xml_response)
+    end
+
     def execute(action, parameters={}, response_class=nil)
       request = execute_request(action, parameters)
       xml_response = post(organization_endpoint, request)
