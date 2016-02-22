@@ -181,7 +181,7 @@ module DynamicsCRM
       return Response::DeleteResponse.new(xml_response)
     end
 
-    def bulk_delete(entity_name, emailToRecipientGuid, criteria=[])
+    def bulk_delete(entity_name, emailToRecipientGuid, criteria=[], wait=false)
 
       query = XML::Query.new(entity_name)
       query.criteria = XML::Criteria.new(criteria)
@@ -189,7 +189,25 @@ module DynamicsCRM
       request = bulk_delete_request(query, emailToRecipientGuid)
       xml_response = post(organization_endpoint, request)
 
-      return Response::ExecuteResult.new(xml_response)
+      response = Response::ExecuteResult.new(xml_response)
+      jobId = response['JobId']
+      if wait && !jobId.nil?
+        while true
+          jobStatus = check_job_status(jobId)
+          if jobStatus != "Waiting For Resources" && jobStatus != "Waiting" && jobStatus != "In Progress"
+            break
+          end
+          sleep(2) # wait x seconds and check again
+        end
+
+        if jobStatus != 'Succeeded'
+          response['errorMessage'] = "The job has not completed with success. The response returned a status of #{jobStatus}. Please check your query/parameters and try again."
+        end
+
+        return response
+      else
+        return response
+      end
     end
 
     def execute(action, parameters={}, response_class=nil)
@@ -392,6 +410,13 @@ module DynamicsCRM
         @formatter.compact = true # This is the magic line that does what you need!
       end
       @formatter
+    end
+
+    def check_job_status(job_id)
+      jobStatusResult = self.retrieve_multiple('asyncoperation', [["asyncoperationid", "Equal", job_id]], ["statuscode"])
+      jobStatus = jobStatusResult.entities[0].formatted_values['statuscode'] if jobStatusResult.entities.count > 0
+
+      jobStatus
     end
 
   end
