@@ -18,8 +18,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency 'curb', '~> 0.8', '>= 0.8.5'
-  spec.add_runtime_dependency 'mimemagic', '~> 0.2', '>= 0.2.1'
+  spec.add_runtime_dependency 'curb', '>= 0.8', '< 1.0.0'
+  spec.add_runtime_dependency 'mimemagic', '>= 0.2', '< 4.0.0'
   spec.add_runtime_dependency 'builder', '>= 3.0.0', '< 4.0.0'
 
   spec.add_development_dependency "bundler", "~> 1.3"
