@@ -50,9 +50,9 @@ describe DynamicsCRM::Response::RetrieveResult do
     context "respond to hash methods" do
 
       it "should has_key?" do
-        expect(subject.has_key?("name")).to be_true
-        expect(subject.has_key?("type")).to be_true
-        expect(subject.has_key?("nothing")).to be_false
+        expect(subject.key?("name")).to be true
+        expect(subject.key?("type")).to be true
+        expect(subject.key?("nothing")).to be false
       end
 
       it "should return keys" do
