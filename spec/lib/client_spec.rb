@@ -12,13 +12,13 @@ describe DynamicsCRM::Client do
     context "Online" do
       it "authenticates with username and password" do
 
-        subject.stub(:post).and_return(fixture("request_security_token_response"))
+        allow(subject).to receive(:post).and_return(fixture("request_security_token_response"))
 
         subject.authenticate('testing', 'password')
 
-        subject.instance_variable_get("@security_token0").should start_with("tMFpDJbJHcZnRVuby5cYmRbCJo2OgOFLEOrUHj+wz")
-        subject.instance_variable_get("@security_token1").should start_with("CX7BFgRnW75tE6GiuRICjeVDV+6q4KDMKLyKmKe9A8U")
-        subject.instance_variable_get("@key_identifier").should == "D3xjUG3HGaQuKyuGdTWuf6547Lo="
+        expect(subject.instance_variable_get("@security_token0")).to start_with("tMFpDJbJHcZnRVuby5cYmRbCJo2OgOFLEOrUHj+wz")
+        expect(subject.instance_variable_get("@security_token1")).to start_with("CX7BFgRnW75tE6GiuRICjeVDV+6q4KDMKLyKmKe9A8U")
+        expect(subject.instance_variable_get("@key_identifier")).to eq("D3xjUG3HGaQuKyuGdTWuf6547Lo=")
       end
 
       # This is only method in this suite that actually sends a POST message to Dynamics.
@@ -28,9 +28,9 @@ describe DynamicsCRM::Client do
           subject.authenticate('testuser@orgnam.onmicrosoft.com', 'qwerty')
           fail("Expected Fault to be raised")
         rescue DynamicsCRM::XML::Fault => f
-          f.code.should == "S:Sender"
-          f.subcode.should == "wst:FailedAuthentication"
-          f.reason.should == "Authentication Failure"
+          expect(f.code).to eq("S:Sender")
+          expect(f.subcode).to eq("wst:FailedAuthentication")
+          expect(f.reason).to eq("Authentication Failure")
         end
       end
     end
@@ -40,17 +40,17 @@ describe DynamicsCRM::Client do
 
       it "authenticates with username and password" do
 
-        subject.stub(:post).and_return(fixture("request_security_token_response_onpremise"))
+        allow(subject).to receive(:post).and_return(fixture("request_security_token_response_onpremise"))
 
         subject.authenticate('testing', 'password')
 
-        subject.instance_variable_get("@security_token0").should start_with("ydfdQsDU9ow4XhoBi+0+n+/9Z7Dvfi")
-        subject.instance_variable_get("@security_token1").should start_with("GcCk8ivhLAAPEbQI8qScynWLReTWE0AC5")
-        subject.instance_variable_get("@key_identifier").should == "_ed121435-64ea-45b0-9b15-e5769afdb746"
+        expect(subject.instance_variable_get("@security_token0")).to start_with("ydfdQsDU9ow4XhoBi+0+n+/9Z7Dvfi")
+        expect(subject.instance_variable_get("@security_token1")).to start_with("GcCk8ivhLAAPEbQI8qScynWLReTWE0AC5")
+        expect(subject.instance_variable_get("@key_identifier")).to eq("_ed121435-64ea-45b0-9b15-e5769afdb746")
 
-        subject.instance_variable_get("@cert_issuer_name").strip.should start_with("SERIALNUMBER=12369287, CN=Go Daddy Secure")
-        subject.instance_variable_get("@cert_serial_number").should == "112094107365XXXXX"
-        subject.instance_variable_get("@server_secret").should == "XZwQpJKfAy00NNWU1RwdtDpVyW/nfabuCq4H38GgKrM="
+        expect(subject.instance_variable_get("@cert_issuer_name").strip).to start_with("SERIALNUMBER=12369287, CN=Go Daddy Secure")
+        expect(subject.instance_variable_get("@cert_serial_number")).to eq("112094107365XXXXX")
+        expect(subject.instance_variable_get("@server_secret")).to eq("XZwQpJKfAy00NNWU1RwdtDpVyW/nfabuCq4H38GgKrM=")
       end
     end
 
@@ -58,16 +58,16 @@ describe DynamicsCRM::Client do
 
   describe "#retrieve" do
     before(:each) do
-      subject.stub(:post).and_return(fixture("retrieve_account_all_columns"))
+      allow(subject).to receive(:post).and_return(fixture("retrieve_account_all_columns"))
     end
 
     let(:result) { subject.retrieve("account", "93f0325c-a592-e311-b7f3-6c3be5a8a0c8") }
 
     it "retrieves object by id and acts as hash" do
-      result.should be_a(DynamicsCRM::Response::RetrieveResult)
-      result.type.should == "account"
-      result.id.should == "93f0325c-a592-e311-b7f3-6c3be5a8a0c8"
-      result.name.should == "Adventure Works (sample)"
+      expect(result).to be_a(DynamicsCRM::Response::RetrieveResult)
+      expect(result.type).to eq("account")
+      expect(result.id).to eq("93f0325c-a592-e311-b7f3-6c3be5a8a0c8")
+      expect(result.name).to eq("Adventure Works (sample)")
     end
 
     it "exposes entity object" do
@@ -87,11 +87,11 @@ describe DynamicsCRM::Client do
   describe "#retrieve_multiple" do
     it "retrieves multiple entities by criteria" do
 
-      subject.stub(:post).and_return(fixture("retrieve_multiple_result"))
+      allow(subject).to receive(:post).and_return(fixture("retrieve_multiple_result"))
 
       result = subject.retrieve_multiple("account", ["name", "Equal", "Test Account"], columns=[])
 
-      result.should be_a(DynamicsCRM::Response::RetrieveMultipleResult)
+      expect(result).to be_a(DynamicsCRM::Response::RetrieveMultipleResult)
 
       expect(result['EntityName']).to eq('account')
       expect(result['MinActiveRowVersion']).to eq(-1)
@@ -100,31 +100,31 @@ describe DynamicsCRM::Client do
       expect(result['TotalRecordCount']).to eq(-1)
       expect(result['TotalRecordCountLimitExceeded']).to eq(false)
 
-      result.entities.size.should == 3
+      expect(result.entities.size).to eq(3)
       entities = result.entities
 
       entities[0].logical_name == "account"
-      entities[0].id.should == "7bf2e032-ad92-e311-9752-6c3be5a87df0"
-      entities[0].attributes["accountid"].should == "7bf2e032-ad92-e311-9752-6c3be5a87df0"
+      expect(entities[0].id).to eq("7bf2e032-ad92-e311-9752-6c3be5a87df0")
+      expect(entities[0].attributes["accountid"]).to eq("7bf2e032-ad92-e311-9752-6c3be5a87df0")
 
-      entities[1].attributes["accountid"].should == "dbe9d7c9-2c98-e311-9752-6c3be5a87df0"
-      entities[2].attributes["accountid"].should == "8ff0325c-a592-e311-b7f3-6c3be5a8a0c8"
+      expect(entities[1].attributes["accountid"]).to eq("dbe9d7c9-2c98-e311-9752-6c3be5a87df0")
+      expect(entities[2].attributes["accountid"]).to eq("8ff0325c-a592-e311-b7f3-6c3be5a8a0c8")
     end
   end
 
   describe "#retrieve_attachments" do
     it "retrieves document records from annotation object" do
-      subject.stub(:post).and_return(fixture("retrieve_multiple_result"))
+      allow(subject).to receive(:post).and_return(fixture("retrieve_multiple_result"))
 
       result = subject.retrieve_attachments("93f0325c-a592-e311-b7f3-6c3be5a8a0c8")
-      result.should be_a(DynamicsCRM::Response::RetrieveMultipleResult)
+      expect(result).to be_a(DynamicsCRM::Response::RetrieveMultipleResult)
     end
   end
 
   describe "#fetch" do
     it "uses FetchXML to retrieve multiple" do
 
-      subject.stub(:post).and_return(fixture("fetch_xml_response"))
+      allow(subject).to receive(:post).and_return(fixture("fetch_xml_response"))
 
       xml = %Q{
         <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="true">
@@ -143,7 +143,7 @@ describe DynamicsCRM::Client do
       }
 
       entity_collection = subject.fetch(xml)
-      entity_collection.should be_a(DynamicsCRM::XML::EntityCollection)
+      expect(entity_collection).to be_a(DynamicsCRM::XML::EntityCollection)
 
       expect(entity_collection.entity_name).to eq('new_tinderboxdocument')
       expect(entity_collection.min_active_row_version).to eq(-1)
@@ -155,10 +155,10 @@ describe DynamicsCRM::Client do
       expect(entity_collection.entities.size).to eq(3)
 
       entity = entity_collection.entities.first
-      entity.id.should == "9c27cf91-ada3-e311-b64f-6c3be5a87df0"
-      entity.logical_name.should == "new_tinderboxdocument"
-      entity.attributes["new_tinderboxdocumentid"].should == entity.id
-      entity.attributes["new_name"].should == "6 orders of Product SKU JJ202"
+      expect(entity.id).to eq("9c27cf91-ada3-e311-b64f-6c3be5a87df0")
+      expect(entity.logical_name).to eq("new_tinderboxdocument")
+      expect(entity.attributes["new_tinderboxdocumentid"]).to eq(entity.id)
+      expect(entity.attributes["new_name"]).to eq("6 orders of Product SKU JJ202")
     end
   end
 
@@ -166,13 +166,13 @@ describe DynamicsCRM::Client do
   describe "#create" do
     it "creates new entity with parameters" do
 
-      subject.stub(:post).and_return(fixture("create_response"))
+      allow(subject).to receive(:post).and_return(fixture("create_response"))
 
       result = subject.create("account", {name: "Adventure Works"})
 
-      result.should be_a(DynamicsCRM::Response::CreateResult)
-      result.id.should == "c4944f99-b5a0-e311-b64f-6c3be5a87df0"
-      result.Id.should == "c4944f99-b5a0-e311-b64f-6c3be5a87df0"
+      expect(result).to be_a(DynamicsCRM::Response::CreateResult)
+      expect(result.id).to eq("c4944f99-b5a0-e311-b64f-6c3be5a87df0")
+      expect(result.Id).to eq("c4944f99-b5a0-e311-b64f-6c3be5a87df0")
     end
   end
 
@@ -181,7 +181,7 @@ describe DynamicsCRM::Client do
 
       file = Tempfile.new(["sample-file", "pdf"])
 
-      subject.should_receive(:create).with("annotation", {
+      expect(subject).to receive(:create).with("annotation", {
         objectid: {id: "f4944f99-b5a0-e311-b64f-6c3be5a87df0", logical_name: "opportunity"},
         subject: "Sample Subject",
         notetext: "Post message",
@@ -206,22 +206,22 @@ describe DynamicsCRM::Client do
   describe "#update" do
     it "updates entity by id" do
 
-      subject.stub(:post).and_return(fixture("update_response"))
+      allow(subject).to receive(:post).and_return(fixture("update_response"))
 
       result = subject.update("account", "c4944f99-b5a0-e311-b64f-6c3be5a87df0", {name: "Adventure Park"})
 
-      result.should be_a(DynamicsCRM::Response::UpdateResponse)
+      expect(result).to be_a(DynamicsCRM::Response::UpdateResponse)
     end
   end
 
   describe "#delete" do
     it "deletes entity by id" do
 
-      subject.stub(:post).and_return(fixture("update_response"))
+      allow(subject).to receive(:post).and_return(fixture("update_response"))
 
       result = subject.delete("account", "c4944f99-b5a0-e311-b64f-6c3be5a87df0")
 
-      result.should be_a(DynamicsCRM::Response::DeleteResponse)
+      expect(result).to be_a(DynamicsCRM::Response::DeleteResponse)
     end
   end
 
@@ -230,53 +230,53 @@ describe DynamicsCRM::Client do
   describe "#retrieve_all_entities" do
     it "retrieve entity list" do
 
-      subject.stub(:post).and_return(fixture("retrieve_all_entities"))
+      allow(subject).to receive(:post).and_return(fixture("retrieve_all_entities"))
 
       result = subject.retrieve_all_entities
 
-      result.should be_a(DynamicsCRM::Metadata::RetrieveAllEntitiesResponse)
-      result.entities.should_not be_nil
+      expect(result).to be_a(DynamicsCRM::Metadata::RetrieveAllEntitiesResponse)
+      expect(result.entities).not_to be_nil
 
       entities = result.entities
-      entities.size.should == 3
+      expect(entities.size).to eq(3)
 
-      entities[0].LogicalName.should == "opportunity"
-      entities[1].LogicalName.should == "new_tinderboxdocument"
-      entities[2].LogicalName.should == "new_tinderboxcontent"
+      expect(entities[0].LogicalName).to eq("opportunity")
+      expect(entities[1].LogicalName).to eq("new_tinderboxdocument")
+      expect(entities[2].LogicalName).to eq("new_tinderboxcontent")
     end
   end
 
   describe "#retrieve_entity" do
     it "retrieve entity metadata" do
 
-      subject.stub(:post).and_return(fixture("retrieve_entity_response"))
+      allow(subject).to receive(:post).and_return(fixture("retrieve_entity_response"))
 
       result = subject.retrieve_entity("opportunity")
 
-      result.should be_a(DynamicsCRM::Metadata::RetrieveEntityResponse)
-      result.entity.should_not be_nil
+      expect(result).to be_a(DynamicsCRM::Metadata::RetrieveEntityResponse)
+      expect(result.entity).not_to be_nil
       entity = result.entity
-      entity.should be_a(DynamicsCRM::Metadata::EntityMetadata)
+      expect(entity).to be_a(DynamicsCRM::Metadata::EntityMetadata)
 
-      entity.LogicalName.should == "opportunity"
-      entity.PrimaryIdAttribute.should == "opportunityid"
-      entity.PrimaryNameAttribute.should == "name"
+      expect(entity.LogicalName).to eq("opportunity")
+      expect(entity.PrimaryIdAttribute).to eq("opportunityid")
+      expect(entity.PrimaryNameAttribute).to eq("name")
     end
   end
 
   describe "#retrieve_attribute" do
     it "retrieve attribute metadata" do
 
-      subject.stub(:post).and_return(fixture("retrieve_attribute_response"))
+      allow(subject).to receive(:post).and_return(fixture("retrieve_attribute_response"))
 
       result = subject.retrieve_attribute("new_tinderboxdocument", "new_value")
 
-      result.should be_a(DynamicsCRM::Metadata::RetrieveAttributeResponse)
-      result.attribute.should_not be_nil
+      expect(result).to be_a(DynamicsCRM::Metadata::RetrieveAttributeResponse)
+      expect(result.attribute).not_to be_nil
       attribute = result.attribute
 
-      attribute.EntityLogicalName.should == "new_tinderboxdocument"
-      attribute.LogicalName.should == "new_value"
+      expect(attribute.EntityLogicalName).to eq("new_tinderboxdocument")
+      expect(attribute.LogicalName).to eq("new_value")
     end
   end
 
@@ -288,7 +288,7 @@ describe DynamicsCRM::Client do
 
     describe "#associate" do
       it "associates contacts with account" do
-        subject.stub(:post).and_return(fixture("associate_response"))
+        allow(subject).to receive(:post).and_return(fixture("associate_response"))
 
         subject.associate("account", "7BF2E032-AD92-E311-9752-6C3BE5A87DF0", "contact_customer_accounts", contacts)
       end
@@ -296,7 +296,7 @@ describe DynamicsCRM::Client do
 
     describe "#disassociate" do
       it "disassociates contacts with accounts" do
-        subject.stub(:post).and_return(fixture("disassociate_response"))
+        allow(subject).to receive(:post).and_return(fixture("disassociate_response"))
 
         subject.disassociate("account", "7BF2E032-AD92-E311-9752-6C3BE5A87DF0", "contact_customer_accounts", contacts)
       end
@@ -305,7 +305,7 @@ describe DynamicsCRM::Client do
 
   describe "#retrieve_metadata_changes" do
     it "retrieves entity metadata" do
-      subject.stub(:post).and_return(fixture("retrieve_metadata_changes_response"))
+      allow(subject).to receive(:post).and_return(fixture("retrieve_metadata_changes_response"))
 
       entity_filter = DynamicsCRM::Metadata::FilterExpression.new('Or')
       entity_filter.add_condition(['SchemaName', 'Equals', 'Contact'])
@@ -325,60 +325,60 @@ describe DynamicsCRM::Client do
       })
 
       result = subject.retrieve_metadata_changes(entity_query)
-      result.should be_a(DynamicsCRM::Metadata::RetrieveMetadataChangesResponse)
+      expect(result).to be_a(DynamicsCRM::Metadata::RetrieveMetadataChangesResponse)
       entities = result.entities
-      entities.should_not be_nil
-      entities.size.should eq(3)
+      expect(entities).not_to be_nil
+      expect(entities.size).to eq(3)
 
       attributes = entities[0].attributes
-      attributes.size.should eq(2)
+      expect(attributes.size).to eq(2)
       attribute  = attributes.first
-      attribute.logical_name.should eq("contactid")
-      attribute.attribute_of.should be_empty
-      attribute.type.should eq("Lookup")
-      attribute.display_name.should eq("Contact")
-      attribute.required_level.should eq("None")
+      expect(attribute.logical_name).to eq("contactid")
+      expect(attribute.attribute_of).to be_empty
+      expect(attribute.type).to eq("Lookup")
+      expect(attribute.display_name).to eq("Contact")
+      expect(attribute.required_level).to eq("None")
 
       attributes = entities[1].attributes
-      attributes.size.should eq(2)
+      expect(attributes.size).to eq(2)
       attribute  = attributes.first
-      attribute.logical_name.should eq("customertypecodename")
-      attribute.attribute_of.should eq("customertypecode")
-      attribute.type.should eq("Virtual")
-      attribute.display_name.should be_empty
-      attribute.required_level.should eq("None")
+      expect(attribute.logical_name).to eq("customertypecodename")
+      expect(attribute.attribute_of).to eq("customertypecode")
+      expect(attribute.type).to eq("Virtual")
+      expect(attribute.display_name).to be_empty
+      expect(attribute.required_level).to eq("None")
 
       attributes = entities[2].attributes
-      attributes.size.should eq(2)
+      expect(attributes.size).to eq(2)
       attribute = attributes.first
-      attribute.logical_name.should eq("createdonbehalfbyyominame")
-      attribute.attribute_of.should eq("createdonbehalfby")
-      attribute.type.should eq("String")
-      attribute.display_name.should be_empty
-      attribute.required_level.should eq("None")
+      expect(attribute.logical_name).to eq("createdonbehalfbyyominame")
+      expect(attribute.attribute_of).to eq("createdonbehalfby")
+      expect(attribute.type).to eq("String")
+      expect(attribute.display_name).to be_empty
+      expect(attribute.required_level).to eq("None")
     end
   end
 
   describe "#who_am_i" do
     it "returns user information" do
-      subject.stub(:post).and_return(fixture("who_am_i_result"))
+      allow(subject).to receive(:post).and_return(fixture("who_am_i_result"))
 
       response = subject.who_am_i
-      response.UserId.should == "1bfa3886-df7e-468c-8435-b5adfb0441ed"
-      response.BusinessUnitId.should == "4e87d619-838a-e311-89a7-6c3be5a80184"
-      response.OrganizationId.should == "0140d597-e270-494a-89e1-bd0b43774e50"
+      expect(response.UserId).to eq("1bfa3886-df7e-468c-8435-b5adfb0441ed")
+      expect(response.BusinessUnitId).to eq("4e87d619-838a-e311-89a7-6c3be5a80184")
+      expect(response.OrganizationId).to eq("0140d597-e270-494a-89e1-bd0b43774e50")
     end
   end
 
   describe "#load_entity" do
     it "returns Model::Opportunity" do
       response = subject.load_entity("opportunity", "c4944f99-b5a0-e311-b64f-6c3be5a87df0")
-      response.should be_a(DynamicsCRM::Model::Opportunity)
+      expect(response).to be_a(DynamicsCRM::Model::Opportunity)
     end
 
     it "returns Model::Entity" do
       response = subject.load_entity("account", "c4944f99-b5a0-e311-b64f-6c3be5a87df0")
-      response.should be_a(DynamicsCRM::Model::Entity)
+      expect(response).to be_a(DynamicsCRM::Model::Entity)
     end
   end
 

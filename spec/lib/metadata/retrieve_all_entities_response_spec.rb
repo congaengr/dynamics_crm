@@ -10,14 +10,14 @@ describe DynamicsCRM::Metadata::RetrieveAllEntitiesResponse do
 
     context "parse execute result" do
       let(:opportunity) { subject.entities.first }
-      it { subject.ResponseName.should == "RetrieveAllEntities" }
-      it { subject.entities.size.should == 3 }
-      it { opportunity.MetadataId.should == "30b0cd7e-0081-42e1-9a48-688442277fae" }
-      it { opportunity.LogicalName.should == "opportunity" }
-      it { opportunity.ObjectTypeCode.should == "3" }
-      it { opportunity.OwnershipType.should == "UserOwned" }
-      it { opportunity.PrimaryIdAttribute.should == "opportunityid" }
-      it { opportunity.PrimaryNameAttribute.should == "name" }
+      it { expect(subject.ResponseName).to eq("RetrieveAllEntities") }
+      it { expect(subject.entities.size).to eq(3) }
+      it { expect(opportunity.MetadataId).to eq("30b0cd7e-0081-42e1-9a48-688442277fae") }
+      it { expect(opportunity.LogicalName).to eq("opportunity") }
+      it { expect(opportunity.ObjectTypeCode).to eq("3") }
+      it { expect(opportunity.OwnershipType).to eq("UserOwned") }
+      it { expect(opportunity.PrimaryIdAttribute).to eq("opportunityid") }
+      it { expect(opportunity.PrimaryNameAttribute).to eq("name") }
 
     end
 

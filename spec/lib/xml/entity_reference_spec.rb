@@ -8,9 +8,9 @@ describe DynamicsCRM::XML::EntityReference do
     }
 
     context "default instance" do
-      it { subject.logical_name.should == "opportunity" }
-      it { subject.id.should == "9BF1325C-A592-E311-B7F3-6C3BE5A8A0C8" }
-      it { subject.name.should be_nil }
+      it { expect(subject.logical_name).to eq("opportunity") }
+      it { expect(subject.id).to eq("9BF1325C-A592-E311-B7F3-6C3BE5A8A0C8") }
+      it { expect(subject.name).to be_nil }
     end
 
     context "#to_xml" do
@@ -23,7 +23,7 @@ describe DynamicsCRM::XML::EntityReference do
           <Name #{@name ? '' : 'nil="true"'}>#{@name}</Name>
         </entityReference>
         }
-        subject.to_xml.should == expected_xml
+        expect(subject.to_xml).to eq(expected_xml)
       end
 
       it "outputs EntityReference with namespace" do
@@ -35,7 +35,7 @@ describe DynamicsCRM::XML::EntityReference do
           <b:Name #{@name ? '' : 'nil="true"'}>#{@name}</b:Name>
         </b:EntityReference>
         }
-        subject.to_xml(namespace: 'b', camel_case: true).should == expected_xml
+        expect(subject.to_xml(namespace: 'b', camel_case: true)).to eq(expected_xml)
       end
 
     end
@@ -50,9 +50,9 @@ describe DynamicsCRM::XML::EntityReference do
         DynamicsCRM::XML::EntityReference.from_xml(xml.root)
       }
 
-      it { subject.logical_name.should == "opportunity" }
-      it { subject.id.should == "9BF1325C-A592-E311-B7F3-6C3BE5A8A0C8" }
-      it { subject.name.should == "Sample Opportunity Name" }
+      it { expect(subject.logical_name).to eq("opportunity") }
+      it { expect(subject.id).to eq("9BF1325C-A592-E311-B7F3-6C3BE5A8A0C8") }
+      it { expect(subject.name).to eq("Sample Opportunity Name") }
     end
 
   end

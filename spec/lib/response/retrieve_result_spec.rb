@@ -10,53 +10,53 @@ describe DynamicsCRM::Response::RetrieveResult do
 
     context "parse attributes according to their type" do
 
-      it { subject.id.should == "93f0325c-a592-e311-b7f3-6c3be5a8a0c8" }
-      it { subject.type.should == "account" }
-      it { subject.exchangerate.should == 1.0 }    # decimal
-      it { subject.modifiedon.should be_a(Time) }  # datetime
-      it { subject.territorycode.should  == 1}     # OptionType
-      it { subject.importsequencenumber.should  == 1}     # int
-      it { subject.donotemail.should == false}     # boolean
-      it { subject.revenue.should == 60000.00 }    # Money
-      it { subject.modifiedby.should == {
+      it { expect(subject.id).to eq("93f0325c-a592-e311-b7f3-6c3be5a8a0c8") }
+      it { expect(subject.type).to eq("account") }
+      it { expect(subject.exchangerate).to eq(1.0) }    # decimal
+      it { expect(subject.modifiedon).to be_a(Time) }  # datetime
+      it { expect(subject.territorycode).to  eq(1)}     # OptionType
+      it { expect(subject.importsequencenumber).to  eq(1)}     # int
+      it { expect(subject.donotemail).to eq(false)}     # boolean
+      it { expect(subject.revenue).to eq(60000.00) }    # Money
+      it { expect(subject.modifiedby).to eq({
             "Id" => "1bfa3886-df7e-468c-8435-b5adfb0441ed",
             "LogicalName" => "systemuser",
-            "Name" => "Joe Heth"} }
+            "Name" => "Joe Heth"}) }
 
-      it { subject["id"].should == "93f0325c-a592-e311-b7f3-6c3be5a8a0c8" }
-      it { subject["type"].should == "account" }
+      it { expect(subject["id"]).to eq("93f0325c-a592-e311-b7f3-6c3be5a8a0c8") }
+      it { expect(subject["type"]).to eq("account") }
     end
 
     context "parses Attributes list" do
-      it { subject.name.should == "Adventure Works (sample)" }
-      it { subject.websiteurl.should == "http://www.adventure-works.com/" }
-      it { subject.address1_city.should == "Santa Cruz" }
+      it { expect(subject.name).to eq("Adventure Works (sample)") }
+      it { expect(subject.websiteurl).to eq("http://www.adventure-works.com/") }
+      it { expect(subject.address1_city).to eq("Santa Cruz") }
 
-      it { subject["name"].should == "Adventure Works (sample)" }
-      it { subject["websiteurl"].should == "http://www.adventure-works.com/" }
-      it { subject["address1_city"].should == "Santa Cruz" }
+      it { expect(subject["name"]).to eq("Adventure Works (sample)") }
+      it { expect(subject["websiteurl"]).to eq("http://www.adventure-works.com/") }
+      it { expect(subject["address1_city"]).to eq("Santa Cruz") }
     end
 
     context "assignment" do
       it "should assign through hash index" do
-        subject[:nothing].should be_nil
+        expect(subject[:nothing]).to be_nil
         subject[:nothing] = "New Value"
-        subject[:nothing].should == "New Value"
-        subject.nothing.should == "New Value"
-        subject.Nothing.should == "New Value"
+        expect(subject[:nothing]).to eq("New Value")
+        expect(subject.nothing).to eq("New Value")
+        expect(subject.Nothing).to eq("New Value")
       end
     end
 
     context "respond to hash methods" do
 
       it "should has_key?" do
-        subject.has_key?("name").should be_true
-        subject.has_key?("type").should be_true
-        subject.has_key?("nothing").should be_false
+        expect(subject.has_key?("name")).to be_true
+        expect(subject.has_key?("type")).to be_true
+        expect(subject.has_key?("nothing")).to be_false
       end
 
       it "should return keys" do
-        subject.keys.should include("type", "id", "accountid", "address1_city",
+        expect(subject.keys).to include("type", "id", "accountid", "address1_city",
           "address1_stateorprovince", "address1_postalcode", "websiteurl", "name",
           "address1_line1", "address1_country", "address1_composite")
       end

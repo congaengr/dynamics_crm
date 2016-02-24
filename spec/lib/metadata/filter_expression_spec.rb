@@ -13,13 +13,13 @@ describe DynamicsCRM::Metadata::FilterExpression do
         filter
       }
 
-      it { subject.to_xml.should include("<a:MetadataConditionExpression>") }
-      it { subject.to_xml.should include("<a:PropertyName>SchemaName</a:PropertyName>") }
-      it { subject.to_xml.should include("<a:ConditionOperator>Equals</a:ConditionOperator>") }
-      it { subject.to_xml.should match(/<a:Value(.*)>Contact<\/a:Value>/) }
-      it { subject.to_xml.should match(/<a:Value(.*)>Annotation<\/a:Value>/) }
-      it { subject.to_xml.should match(/<a:Value(.*)>Incident<\/a:Value>/) }
-      it { subject.to_xml.should include("<a:FilterOperator>Or</a:FilterOperator>") }
+      it { expect(subject.to_xml).to include("<a:MetadataConditionExpression>") }
+      it { expect(subject.to_xml).to include("<a:PropertyName>SchemaName</a:PropertyName>") }
+      it { expect(subject.to_xml).to include("<a:ConditionOperator>Equals</a:ConditionOperator>") }
+      it { expect(subject.to_xml).to match(/<a:Value(.*)>Contact<\/a:Value>/) }
+      it { expect(subject.to_xml).to match(/<a:Value(.*)>Annotation<\/a:Value>/) }
+      it { expect(subject.to_xml).to match(/<a:Value(.*)>Incident<\/a:Value>/) }
+      it { expect(subject.to_xml).to include("<a:FilterOperator>Or</a:FilterOperator>") }
     end
 
     context "generate AND filter expression XML" do
@@ -31,13 +31,13 @@ describe DynamicsCRM::Metadata::FilterExpression do
         filter
       }
 
-      it { subject.to_xml.should include("<a:MetadataConditionExpression>") }
-      it { subject.to_xml.should include("<a:PropertyName>SchemaName</a:PropertyName>") }
-      it { subject.to_xml.should include("<a:ConditionOperator>Equals</a:ConditionOperator>") }
-      it { subject.to_xml.should match(/<a:Value(.*)>Contact<\/a:Value>/) }
-      it { subject.to_xml.should match(/<a:Value(.*)>Annotation<\/a:Value>/) }
-      it { subject.to_xml.should match(/<a:Value(.*)>Incident<\/a:Value>/) }
-      it { subject.to_xml.should include("<a:FilterOperator>And</a:FilterOperator>") }
+      it { expect(subject.to_xml).to include("<a:MetadataConditionExpression>") }
+      it { expect(subject.to_xml).to include("<a:PropertyName>SchemaName</a:PropertyName>") }
+      it { expect(subject.to_xml).to include("<a:ConditionOperator>Equals</a:ConditionOperator>") }
+      it { expect(subject.to_xml).to match(/<a:Value(.*)>Contact<\/a:Value>/) }
+      it { expect(subject.to_xml).to match(/<a:Value(.*)>Annotation<\/a:Value>/) }
+      it { expect(subject.to_xml).to match(/<a:Value(.*)>Incident<\/a:Value>/) }
+      it { expect(subject.to_xml).to include("<a:FilterOperator>And</a:FilterOperator>") }
     end
 
   end

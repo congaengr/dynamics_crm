@@ -8,12 +8,12 @@ describe DynamicsCRM::Metadata::PropertiesExpression do
     }
 
     context "generate properties expression XML" do
-      it { subject.to_xml({namespace: 'd'}).should include("<d:AllProperties>false</d:AllProperties>") }
-      it { subject.to_xml.should include("<AllProperties>false</AllProperties>") }
-      it { subject.to_xml.should include("<e:string>LogicalName</e:string>") }
-      it { subject.to_xml.should include("<e:string>AttributeType</e:string>") }
-      it { subject.to_xml.should include("<e:string>DisplayName</e:string>") }
-      it { subject.to_xml.should include("<e:string>Description</e:string>") }
+      it { expect(subject.to_xml({namespace: 'd'})).to include("<d:AllProperties>false</d:AllProperties>") }
+      it { expect(subject.to_xml).to include("<AllProperties>false</AllProperties>") }
+      it { expect(subject.to_xml).to include("<e:string>LogicalName</e:string>") }
+      it { expect(subject.to_xml).to include("<e:string>AttributeType</e:string>") }
+      it { expect(subject.to_xml).to include("<e:string>DisplayName</e:string>") }
+      it { expect(subject.to_xml).to include("<e:string>Description</e:string>") }
     end
   end
 end

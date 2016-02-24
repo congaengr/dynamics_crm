@@ -11,18 +11,18 @@ describe DynamicsCRM::Metadata::AttributeQueryExpression do
     }
 
     context "generate attribute query expression" do
-      it { subject.to_xml.should include("<b:AttributeQuery>") }
-      it { subject.to_xml.should include("<b:MetadataConditionExpression>") }
-      it { subject.to_xml.should include("<b:PropertyName>IsCustomAttribute</b:PropertyName>") }
-      it { subject.to_xml.should include("<b:ConditionOperator>Equals</b:ConditionOperator>") }
-      it { subject.to_xml.should match(/<b:Value i:type='e:boolean' (.*)>true<\/b:Value>/) }
-      it { subject.to_xml.should include("<b:FilterOperator>And</b:FilterOperator>") }
-      it { subject.to_xml.should include("<b:Properties>") }
-      it { subject.to_xml.should include("<b:AllProperties>false</b:AllProperties>") }
-      it { subject.to_xml.should include("<b:PropertyNames ") }
-      it { subject.to_xml.should include("<e:string>LogicalName</e:string>") }
-      it { subject.to_xml.should include("<e:string>AttributeType</e:string>") }
-      it { subject.to_xml.should include("<e:string>DisplayName</e:string>") }
+      it { expect(subject.to_xml).to include("<b:AttributeQuery>") }
+      it { expect(subject.to_xml).to include("<b:MetadataConditionExpression>") }
+      it { expect(subject.to_xml).to include("<b:PropertyName>IsCustomAttribute</b:PropertyName>") }
+      it { expect(subject.to_xml).to include("<b:ConditionOperator>Equals</b:ConditionOperator>") }
+      it { expect(subject.to_xml).to match(/<b:Value i:type='e:boolean' (.*)>true<\/b:Value>/) }
+      it { expect(subject.to_xml).to include("<b:FilterOperator>And</b:FilterOperator>") }
+      it { expect(subject.to_xml).to include("<b:Properties>") }
+      it { expect(subject.to_xml).to include("<b:AllProperties>false</b:AllProperties>") }
+      it { expect(subject.to_xml).to include("<b:PropertyNames ") }
+      it { expect(subject.to_xml).to include("<e:string>LogicalName</e:string>") }
+      it { expect(subject.to_xml).to include("<e:string>AttributeType</e:string>") }
+      it { expect(subject.to_xml).to include("<e:string>DisplayName</e:string>") }
     end
 
   end

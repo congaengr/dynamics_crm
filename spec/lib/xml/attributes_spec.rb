@@ -17,21 +17,21 @@ describe DynamicsCRM::XML::Attributes do
     }
 
     context "attributes extends hash" do
-      it { subject.should == attrs }
+      it { expect(subject).to eq(attrs) }
     end
 
     context "attributes uses method_missing for hash access" do
-      it { subject.telephone1.should == attrs["telephone1"]}
-      it { subject.modifiedon.should == attrs["modifiedon"]}
-      it { subject.donotemail.should == attrs["donotemail"]}
-      it { subject.id.should == attrs["id"]}
-      it { subject.reference.should == attrs["reference"]}
+      it { expect(subject.telephone1).to eq(attrs["telephone1"])}
+      it { expect(subject.modifiedon).to eq(attrs["modifiedon"])}
+      it { expect(subject.donotemail).to eq(attrs["donotemail"])}
+      it { expect(subject.id).to eq(attrs["id"])}
+      it { expect(subject.reference).to eq(attrs["reference"])}
     end
 
     context "parse attributes according to their type" do
-      it { subject.to_xml.should include("<c:key>telephone1</c:key>") }
-      it { subject.to_xml.should include("<c:key>donotemail</c:key>") }
-      it { subject.to_xml.should include("<c:key>modifiedon</c:key>") }
+      it { expect(subject.to_xml).to include("<c:key>telephone1</c:key>") }
+      it { expect(subject.to_xml).to include("<c:key>donotemail</c:key>") }
+      it { expect(subject.to_xml).to include("<c:key>modifiedon</c:key>") }
     end
 
   end

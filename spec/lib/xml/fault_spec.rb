@@ -12,10 +12,10 @@ describe DynamicsCRM::XML::Fault do
       }
 
       context "generate ColumnSet XML" do
-        it { subject.code.should == "s:Receiver" }
-        it { subject.subcode.should == "a:InternalServiceFault" }
-        it { subject.reason.should == "The server was unable to process the request due to an internal error." }
-        it { subject.message.should == "#{subject.code}[#{subject.subcode}] #{subject.reason}" }
+        it { expect(subject.code).to eq("s:Receiver") }
+        it { expect(subject.subcode).to eq("a:InternalServiceFault") }
+        it { expect(subject.reason).to eq("The server was unable to process the request due to an internal error.") }
+        it { expect(subject.message).to eq("#{subject.code}[#{subject.subcode}] #{subject.reason}") }
       end
     end
 
@@ -28,10 +28,10 @@ describe DynamicsCRM::XML::Fault do
       }
 
       context "generate ColumnSet XML" do
-        it { subject.code.should == "s:Sender" }
-        it { subject.subcode.should be_nil }
-        it { subject.reason.should == "'account' entity doesn't contain attribute with Name = 'ticketsymbol'." }
-        it { subject.message.should start_with("#{subject.code}[#{subject.subcode}] #{subject.reason} (Detail =>") }
+        it { expect(subject.code).to eq("s:Sender") }
+        it { expect(subject.subcode).to be_nil }
+        it { expect(subject.reason).to eq("'account' entity doesn't contain attribute with Name = 'ticketsymbol'.") }
+        it { expect(subject.message).to start_with("#{subject.code}[#{subject.subcode}] #{subject.reason} (Detail =>") }
       end
 
     end

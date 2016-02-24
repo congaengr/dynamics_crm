@@ -9,44 +9,44 @@ describe DynamicsCRM::Metadata::RetrieveMetadataChangesResponse do
     }
 
     it "parses execute result" do
-      subject.ResponseName.should eq("RetrieveMetadataChanges")
-      subject.entities.size.should eq(3)
+      expect(subject.ResponseName).to eq("RetrieveMetadataChanges")
+      expect(subject.entities.size).to eq(3)
 
       entity = subject.entities[0]
-      entity.MetadataId.should eq("e3fe4ff2-a630-49bb-a1e9-debc3a076815")
-      entity.LogicalName.should eq("incident")
+      expect(entity.MetadataId).to eq("e3fe4ff2-a630-49bb-a1e9-debc3a076815")
+      expect(entity.LogicalName).to eq("incident")
       attributes = entity.attributes
-      attributes.should_not be_nil
-      attributes.size.should eq(2)
-      attributes.first.logical_name.should eq('contactid')
-      attributes.first.display_name.should eq('Contact')
-      attributes.first.type.should eq('Lookup')
-      attributes.first.attribute_of.should be_empty
-      attributes.first.required_level.should eq('None')
+      expect(attributes).not_to be_nil
+      expect(attributes.size).to eq(2)
+      expect(attributes.first.logical_name).to eq('contactid')
+      expect(attributes.first.display_name).to eq('Contact')
+      expect(attributes.first.type).to eq('Lookup')
+      expect(attributes.first.attribute_of).to be_empty
+      expect(attributes.first.required_level).to eq('None')
 
       entity = subject.entities[1]
-      entity.MetadataId.should eq("608861bc-50a4-4c5f-a02c-21fe1943e2cf")
-      entity.LogicalName.should eq("contact")
+      expect(entity.MetadataId).to eq("608861bc-50a4-4c5f-a02c-21fe1943e2cf")
+      expect(entity.LogicalName).to eq("contact")
       attributes = entity.attributes
-      attributes.should_not be_nil
-      attributes.size.should eq(2)
-      attributes.first.logical_name.should eq("customertypecodename")
-      attributes.first.attribute_of.should eq("customertypecode")
-      attributes.first.display_name.should be_empty
-      attributes.first.type.should eq("Virtual")
-      attributes.first.required_level.should eq("None")
+      expect(attributes).not_to be_nil
+      expect(attributes.size).to eq(2)
+      expect(attributes.first.logical_name).to eq("customertypecodename")
+      expect(attributes.first.attribute_of).to eq("customertypecode")
+      expect(attributes.first.display_name).to be_empty
+      expect(attributes.first.type).to eq("Virtual")
+      expect(attributes.first.required_level).to eq("None")
 
       entity = subject.entities[2]
-      entity.MetadataId.should eq("c1961a14-d4e6-470c-8d1e-23ae6b1bbb8d")
-      entity.LogicalName.should eq("annotation")
+      expect(entity.MetadataId).to eq("c1961a14-d4e6-470c-8d1e-23ae6b1bbb8d")
+      expect(entity.LogicalName).to eq("annotation")
       attributes = entity.attributes
-      attributes.should_not be_nil
-      attributes.size.should eq(2)
-      attributes.first.logical_name.should eq("createdonbehalfbyyominame")
-      attributes.first.attribute_of.should eq("createdonbehalfby")
-      attributes.first.display_name.should be_empty
-      attributes.first.type.should eq("String")
-      attributes.first.required_level.should eq("None")
+      expect(attributes).not_to be_nil
+      expect(attributes.size).to eq(2)
+      expect(attributes.first.logical_name).to eq("createdonbehalfbyyominame")
+      expect(attributes.first.attribute_of).to eq("createdonbehalfby")
+      expect(attributes.first.display_name).to be_empty
+      expect(attributes.first.type).to eq("String")
+      expect(attributes.first.required_level).to eq("None")
     end
   end
 end

@@ -94,7 +94,7 @@ module DynamicsCRM
         @timestamp = '<u:Timestamp xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" u:Id="_0"><u:Created>' + @header_current_time + '</u:Created><u:Expires>' + @header_expires_time + '</u:Expires></u:Timestamp>'
         @digest_value = Digest::SHA1.base64digest @timestamp
         @signature = '<SignedInfo xmlns="http://www.w3.org/2000/09/xmldsig#"><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></CanonicalizationMethod><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#hmac-sha1"></SignatureMethod><Reference URI="#_0"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></Transform></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></DigestMethod><DigestValue>' + @digest_value + '</DigestValue></Reference></SignedInfo>'
-        @signature_value = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), Base64.decode64(@server_secret), @signature)).chomp
+        @signature_value = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha1'), Base64.decode64(@server_secret), @signature)).chomp
       else
         cipher_values = document.get_elements("//CipherValue")
 

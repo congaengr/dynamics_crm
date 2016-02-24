@@ -8,10 +8,10 @@ describe DynamicsCRM::XML::ColumnSet do
     }
 
     context "generate ColumnSet XML" do
-      it { subject.to_xml.should include("<b:AllColumns>false</b:AllColumns>") }
-      it { subject.to_xml.should include("<d:string>accountid</d:string>") }
-      it { subject.to_xml.should include("<d:string>donotemail</d:string>") }
-      it { subject.to_xml.should include("<d:string>telephone1</d:string>") }
+      it { expect(subject.to_xml).to include("<b:AllColumns>false</b:AllColumns>") }
+      it { expect(subject.to_xml).to include("<d:string>accountid</d:string>") }
+      it { expect(subject.to_xml).to include("<d:string>donotemail</d:string>") }
+      it { expect(subject.to_xml).to include("<d:string>telephone1</d:string>") }
     end
 
   end

@@ -8,17 +8,17 @@ describe DynamicsCRM::XML::Entity do
     }
 
     context "default instance" do
-      it { subject.logical_name.should == "account" }
-      it { subject.id.should == "00000000-0000-0000-0000-000000000000" }
-      it { subject.attributes.should be_nil }
-      it { subject.entity_state.should be_nil }
-      it { subject.formatted_values.should be_nil }
-      it { subject.related_entities.should be_nil }
+      it { expect(subject.logical_name).to eq("account") }
+      it { expect(subject.id).to eq("00000000-0000-0000-0000-000000000000") }
+      it { expect(subject.attributes).to be_nil }
+      it { expect(subject.entity_state).to be_nil }
+      it { expect(subject.formatted_values).to be_nil }
+      it { expect(subject.related_entities).to be_nil }
     end
 
     context "#to_xml" do
-      it { subject.to_xml.should include("<a:Id>00000000-0000-0000-0000-000000000000</a:Id>") }
-      it { subject.to_xml.should include("<a:LogicalName>account</a:LogicalName>") }
+      it { expect(subject.to_xml).to include("<a:Id>00000000-0000-0000-0000-000000000000</a:Id>") }
+      it { expect(subject.to_xml).to include("<a:LogicalName>account</a:LogicalName>") }
     end
 
   end
@@ -34,10 +34,10 @@ describe DynamicsCRM::XML::Entity do
 
     context "#to_xml" do
       # Contains nested Attributes with EntityReference
-      it { subject.to_xml.should include('<c:value i:type="a:EntityReference">') }
-      it { subject.to_xml.should include("<a:Id>2dc8d7bb-149f-e311-ba8d-6c3be5a8ad64</a:Id>") }
-      it { subject.to_xml.should include("<a:LogicalName>opportunity</a:LogicalName>") }
-      it { subject.to_xml.should include("<a:Id>00000000-0000-0000-0000-000000000000</a:Id>") }
+      it { expect(subject.to_xml).to include('<c:value i:type="a:EntityReference">') }
+      it { expect(subject.to_xml).to include("<a:Id>2dc8d7bb-149f-e311-ba8d-6c3be5a8ad64</a:Id>") }
+      it { expect(subject.to_xml).to include("<a:LogicalName>opportunity</a:LogicalName>") }
+      it { expect(subject.to_xml).to include("<a:Id>00000000-0000-0000-0000-000000000000</a:Id>") }
     end
 
   end
@@ -51,12 +51,12 @@ describe DynamicsCRM::XML::Entity do
     }
 
     context "parses XML document into instance variables" do
-      it { subject.id.should == "7bf2e032-ad92-e311-9752-6c3be5a87df0" }
-      it { subject.attributes.should == {"accountid" => "7bf2e032-ad92-e311-9752-6c3be5a87df0"} }
-      it { subject.entity_state.should be_nil }
-      it { subject.formatted_values.should be_nil }
-      it { subject.logical_name.should == "account" }
-      it { subject.related_entities.should be_nil }
+      it { expect(subject.id).to eq("7bf2e032-ad92-e311-9752-6c3be5a87df0") }
+      it { expect(subject.attributes).to eq({"accountid" => "7bf2e032-ad92-e311-9752-6c3be5a87df0"}) }
+      it { expect(subject.entity_state).to be_nil }
+      it { expect(subject.formatted_values).to be_nil }
+      it { expect(subject.logical_name).to eq("account") }
+      it { expect(subject.related_entities).to be_nil }
     end
   end
 

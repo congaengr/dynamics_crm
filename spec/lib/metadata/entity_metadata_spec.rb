@@ -10,13 +10,13 @@ describe DynamicsCRM::Metadata::EntityMetadata do
     }
 
     context "parse attributes according to their type" do
-      it { subject.MetadataId.should == "30b0cd7e-0081-42e1-9a48-688442277fae" }
-      it { subject.LogicalName.should == "opportunity" }
-      it { subject.ObjectTypeCode.should == "3" }
-      it { subject.OwnershipType.should == "UserOwned" }
-      it { subject.PrimaryIdAttribute.should == "opportunityid" }
-      it { subject.PrimaryNameAttribute.should == "name" }
-      it { subject.attributes.should == [] }
+      it { expect(subject.MetadataId).to eq("30b0cd7e-0081-42e1-9a48-688442277fae") }
+      it { expect(subject.LogicalName).to eq("opportunity") }
+      it { expect(subject.ObjectTypeCode).to eq("3") }
+      it { expect(subject.OwnershipType).to eq("UserOwned") }
+      it { expect(subject.PrimaryIdAttribute).to eq("opportunityid") }
+      it { expect(subject.PrimaryNameAttribute).to eq("name") }
+      it { expect(subject.attributes).to eq([]) }
     end
 
   end
@@ -29,12 +29,12 @@ describe DynamicsCRM::Metadata::EntityMetadata do
     }
 
     context "parse attributes and relationships according to their type" do
-      it { subject.MetadataId.should == "30b0cd7e-0081-42e1-9a48-688442277fae" }
-      it { subject.LogicalName.should == "opportunity" }
-      it { subject.ObjectTypeCode.should == "3" }
-      it { subject.OwnershipType.should == "UserOwned" }
-      it { subject.PrimaryIdAttribute.should == "opportunityid" }
-      it { subject.PrimaryNameAttribute.should == "name" }
+      it { expect(subject.MetadataId).to eq("30b0cd7e-0081-42e1-9a48-688442277fae") }
+      it { expect(subject.LogicalName).to eq("opportunity") }
+      it { expect(subject.ObjectTypeCode).to eq("3") }
+      it { expect(subject.OwnershipType).to eq("UserOwned") }
+      it { expect(subject.PrimaryIdAttribute).to eq("opportunityid") }
+      it { expect(subject.PrimaryNameAttribute).to eq("name") }
       it { expect(subject.one_to_many.size).to eq 7 }
       it { expect(subject.many_to_many.size).to eq 1 }
       it { expect(subject.many_to_one.size).to eq 8 }

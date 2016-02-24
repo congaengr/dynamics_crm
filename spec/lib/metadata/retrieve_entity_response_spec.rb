@@ -9,13 +9,13 @@ describe DynamicsCRM::Metadata::RetrieveEntityResponse do
     }
 
     context "parse execute result" do
-      it { subject.ResponseName.should == "RetrieveEntity" }
-      it { subject.entity.MetadataId.should == "30b0cd7e-0081-42e1-9a48-688442277fae" }
-      it { subject.entity.LogicalName.should == "opportunity" }
-      it { subject.entity.ObjectTypeCode.should == "3" }
-      it { subject.entity.OwnershipType.should == "UserOwned" }
-      it { subject.entity.PrimaryIdAttribute.should == "opportunityid" }
-      it { subject.entity.PrimaryNameAttribute.should == "name" }
+      it { expect(subject.ResponseName).to eq("RetrieveEntity") }
+      it { expect(subject.entity.MetadataId).to eq("30b0cd7e-0081-42e1-9a48-688442277fae") }
+      it { expect(subject.entity.LogicalName).to eq("opportunity") }
+      it { expect(subject.entity.ObjectTypeCode).to eq("3") }
+      it { expect(subject.entity.OwnershipType).to eq("UserOwned") }
+      it { expect(subject.entity.PrimaryIdAttribute).to eq("opportunityid") }
+      it { expect(subject.entity.PrimaryNameAttribute).to eq("name") }
 
     end
 

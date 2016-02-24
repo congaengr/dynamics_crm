@@ -10,9 +10,9 @@ describe DynamicsCRM::Model::Opportunity do
   describe '#initialize' do
 
     context "default instance" do
-      it { subject.logical_name.should == "opportunity" }
-      it { subject.id.should == "2dc8d7bb-149f-e311-ba8d-6c3be5a8ad64" }
-      it { subject.client.should_not be_nil }
+      it { expect(subject.logical_name).to eq("opportunity") }
+      it { expect(subject.id).to eq("2dc8d7bb-149f-e311-ba8d-6c3be5a8ad64") }
+      it { expect(subject.client).not_to be_nil }
     end
 
   end
@@ -22,16 +22,16 @@ describe DynamicsCRM::Model::Opportunity do
     context "#set_as_won" do
 
       it "sets as won" do
-        subject.client.stub(:post).and_return(fixture("win_opportunity_response"))
-        subject.set_as_won.should == {"ResponseName"=>"WinOpportunity"}
+        allow(subject.client).to receive(:post).and_return(fixture("win_opportunity_response"))
+        expect(subject.set_as_won).to eq({"ResponseName"=>"WinOpportunity"})
       end
     end
 
     context "#set_as_lost" do
 
       it "set as lost" do
-        subject.client.stub(:post).and_return(fixture("lose_opportunity_response"))
-        subject.set_as_lost.should == {"ResponseName"=>"LoseOpportunity"}
+        allow(subject.client).to receive(:post).and_return(fixture("lose_opportunity_response"))
+        expect(subject.set_as_lost).to eq({"ResponseName"=>"LoseOpportunity"})
       end
     end
   end
