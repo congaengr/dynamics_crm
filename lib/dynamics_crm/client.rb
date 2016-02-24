@@ -214,11 +214,8 @@ module DynamicsCRM
         if jobStatus != 'Succeeded'
           response['errorMessage'] = "The job has not completed with success. The response returned a status of #{jobStatus}. Please check your query/parameters and try again."
         end
-
-        return response
-      else
-        return response
       end
+      response
     end
 
     def execute(action, parameters={}, response_class=nil)
