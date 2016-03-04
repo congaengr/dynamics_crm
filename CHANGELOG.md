@@ -1,3 +1,13 @@
+## 0.7.0 (March 4, 2016)
+* Add EntityCollection to xml attributes #24
+* Fix illegal XML characters #25
+* Dynamics optimize metadata queries #26
+* Add Money attribute #31
+* Use `request.bytesize` instead of `request.length` #32
+* Rexml sanitization on username and password for ocp request builder #33
+* Adding new regions to determine region set #34
+* Improve region determination #37
+
 ## 0.6.0 (December 30, 2014)
 
 * Adds support for Relationship Metadata.
