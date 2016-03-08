@@ -77,7 +77,7 @@ module DynamicsCRM
           end
 
           # escape strings to avoid xml parsing errors
-          value = CGI.escapeHTML(value) if type == "string"
+          value = CGI.escapeHTML(value) if value.is_a?(String)
 
           xml << build_xml(key, value, type)
         end

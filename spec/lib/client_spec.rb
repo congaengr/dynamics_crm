@@ -174,6 +174,34 @@ describe DynamicsCRM::Client do
       expect(result.id).to eq("c4944f99-b5a0-e311-b64f-6c3be5a87df0")
       expect(result.Id).to eq("c4944f99-b5a0-e311-b64f-6c3be5a87df0")
     end
+
+    it "creates new entity with custom fields and relationship" do
+
+      params = {
+               :tndrbox_id => 929177,
+             :tndrbox_name => "TEST",
+      :tndrbox_description => "",
+           :tndrbox_status => "Draft",
+            :tndrbox_views => 0,
+         :tndrbox_category => nil,
+          "tndrbox_opportunity_id" => {
+                        :id => "71a4a3af-d7ab-e411-80c7-00155dd44307",
+              :logical_name => "opportunity"
+          },
+          :tndrbox_value => {
+              :value => 0.0,
+               :type => "Money"
+          }
+      }
+
+      allow(subject).to receive(:post).and_return(fixture("create_response"))
+
+      result = subject.create('opportunity', params)
+
+      expect(result).to be_a(DynamicsCRM::Response::CreateResult)
+      expect(result.id).to eq("c4944f99-b5a0-e311-b64f-6c3be5a87df0")
+      expect(result.Id).to eq("c4944f99-b5a0-e311-b64f-6c3be5a87df0")
+    end
   end
 
   describe "#create_attachment" do
