@@ -24,11 +24,19 @@ module DynamicsCRM
 
         return inner_xml if options[:exclude_root]
 
-        %Q{
-        <entity xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts">
-          #{inner_xml}
-        </entity>
-        }
+        if options[:in_array]
+          %Q{
+          <a:Entity>
+            #{inner_xml}
+          </a:Entity>
+          }
+        else
+          %Q{
+          <entity xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts">
+            #{inner_xml}
+          </entity>
+          }
+        end
       end
 
       def to_hash
