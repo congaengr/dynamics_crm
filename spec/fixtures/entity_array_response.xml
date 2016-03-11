@@ -1,0 +1,37 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Body>
+    <Create xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+      <entity xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts">
+        <a:Attributes xmlns:b="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
+          <a:KeyValuePairOfstringanyType>
+            <b:key>from</b:key>
+            <b:value i:type="a:ArrayOfEntity">
+              <a:Entity>
+                <a:Attributes>
+                  <a:KeyValuePairOfstringanyType>
+                    <b:key>partyid</b:key>
+                    <b:value i:type="a:EntityReference">
+                      <a:Id>f36aa96c-e7a5-4c70-8254-47c8ba947561</a:Id>
+                      <a:LogicalName>systemuser</a:LogicalName>
+                      <a:Name i:nil="true" />
+                    </b:value>
+                  </a:KeyValuePairOfstringanyType>
+                </a:Attributes>
+                <a:EntityState i:nil="true" />
+                <a:FormattedValues />
+                <a:Id>00000000-0000-0000-0000-000000000000</a:Id>
+                <a:LogicalName>activityparty</a:LogicalName>
+                <a:RelatedEntities />
+              </a:Entity>
+            </b:value>
+          </a:KeyValuePairOfstringanyType>
+        </a:Attributes>
+        <a:EntityState i:nil="true" />
+        <a:FormattedValues xmlns:b="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+        <a:Id>00000000-0000-0000-0000-000000000000</a:Id>
+        <a:LogicalName>phonecall</a:LogicalName>
+        <a:RelatedEntities xmlns:b="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+      </entity>
+    </Create>
+  </s:Body>
+</s:Envelope>
