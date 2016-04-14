@@ -11,6 +11,8 @@ module DynamicsCRM
       def get_type(key, value)
         type = "string"
         case value
+          when ::Array
+            type = "ArrayOfEntity"
           when ::Fixnum
             type = "int"
           when ::BigDecimal, ::Float
@@ -111,6 +113,13 @@ module DynamicsCRM
       def render_value_xml(type, value)
         xml = ""
         case type
+        when "ArrayOfEntity"
+          raise "We can only serialize Entities inside of ArrayOfEntity" unless value.all?{|a| a.is_a?(DynamicsCRM::XML::Entity)}
+          xml << %Q{
+          <c:value i:type="a:ArrayOfEntity">
+              #{value.map(&->(_) { _.to_xml({in_array: true}) }).join}
+          </c:value>
+        }
         when "EntityReference"
           xml << %Q{
             <c:value i:type="a:EntityReference">
@@ -154,14 +163,14 @@ module DynamicsCRM
       end
 
       def render_object_xml(type, value)
-          case type
-          when "EntityQueryExpression"
-            xml = %Q{<c:value i:type="d:#{type}" xmlns:d="http://schemas.microsoft.com/xrm/2011/Metadata/Query">} << value.to_xml({namespace: 'd'}) << "</c:value>"
-          else
-            xml = %Q{<c:value i:type="a:#{type}">} << value.to_xml({exclude_root: true, namespace: 'a'}) << "</c:value>"
-          end
+        case type
+        when "EntityQueryExpression"
+          xml = %Q{<c:value i:type="d:#{type}" xmlns:d="http://schemas.microsoft.com/xrm/2011/Metadata/Query">} << value.to_xml({namespace: 'd'}) << "</c:value>"
+        else
+          xml = %Q{<c:value i:type="a:#{type}">} << value.to_xml({exclude_root: true, namespace: 'a'}) << "</c:value>"
+        end
 
-          return xml
+        xml
       end
 
       def class_name

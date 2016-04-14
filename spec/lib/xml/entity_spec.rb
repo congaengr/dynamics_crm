@@ -60,4 +60,18 @@ describe DynamicsCRM::XML::Entity do
     end
   end
 
+  describe "entity with array" do
+    subject {
+      entity = DynamicsCRM::XML::Entity.new("activityparty")
+      entity.attributes = DynamicsCRM::XML::Attributes.new(
+          partyid: DynamicsCRM::XML::EntityReference.new("systemuser", "f36aa96c-e7a5-4c70-8254-47c8ba947561")
+      )
+      entity
+    }
+
+    context "#to_xml" do
+      it { expect(DynamicsCRM::XML::Attributes.new({to: [subject]}).to_xml).to include('<c:value i:type="a:ArrayOfEntity">') }
+    end
+  end
+
 end
