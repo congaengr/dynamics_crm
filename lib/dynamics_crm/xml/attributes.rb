@@ -140,7 +140,11 @@ module DynamicsCRM
             s_namespace = "http://schemas.microsoft.com/xrm/2011/Metadata"
           end
 
-          if type == "guid"
+          if value.nil?
+            xml << %Q{
+              <c:value i:nil="true"></c:value>
+            }
+          elsif type == "guid"
             xml << %Q{
               <c:value xmlns:d="http://schemas.microsoft.com/2003/10/Serialization/" i:type="d:guid">#{value}</c:value>
             }
