@@ -33,6 +33,8 @@ module DynamicsCRM
             type = "FetchExpression"
           when Money
             type = "Money"
+          when DynamicsCRM::Metadata::Double
+            type = "double"
           when DynamicsCRM::Metadata::FilterExpression
             type = "FilterExpression"
           when DynamicsCRM::Metadata::PropertiesExpression
@@ -155,6 +157,10 @@ module DynamicsCRM
           elsif type == "dateTime"
             xml << %Q{
               <c:value i:type="s:#{type}" xmlns:s="http://www.w3.org/2001/XMLSchema">#{value.utc.strftime('%Y-%m-%dT%H:%M:%SZ')}</c:value>
+            }
+          elsif type == "double"
+            xml << %Q{
+              <c:value i:type="s:#{type}" xmlns:s="#{s_namespace}">#{value.value}</c:value>
             }
           else
             xml << %Q{
