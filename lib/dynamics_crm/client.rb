@@ -18,7 +18,7 @@ module DynamicsCRM
     extend Forwardable
     include XML::MessageBuilder
 
-    attr_accessor :logger, :caller_id, :timeout
+    attr_accessor :logger, :caller_id, :timeout, :security_token0, :security_token1, :key_identifier
     attr_reader :hostname, :region, :organization_endpoint, :login_url
 
     OCP_LOGIN_URL = 'https://login.microsoftonline.com/RST2.srf'
