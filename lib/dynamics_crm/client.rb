@@ -185,6 +185,22 @@ module DynamicsCRM
       return Response::UpdateResponse.new(xml_response)
     end
 
+    def update_multiple(entity_name, guids, attributesArray)
+      raise "Number of 'guids' to be updated should be equal to attributes array size" if guids.count != attributesArray.count
+
+      entities = []
+      attributesArray.each_with_index do |attributes, index|
+        entity = XML::Entity.new(entity_name)
+        entity.id = guids[index]
+        entity.attributes = XML::Attributes.new(attributes)
+
+        entities << entity
+      end
+      xml_response = post(organization_endpoint, update_multiple_request(entities))
+
+      return Response::ExecuteMultipleResult.new(xml_response)
+    end
+
     def delete(entity_name, guid)
       request = delete_request(entity_name, guid)
 
