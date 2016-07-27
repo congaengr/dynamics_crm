@@ -228,48 +228,7 @@ module DynamicsCRM
       end
 
       def create_multiple_request(entities)
-        requests = ''
-        entities.each do |entity|
-          requests +=
-            %Q{
-              <c:OrganizationRequest i:type="a:CreateRequest">
-                <a:Parameters>
-                  <a:KeyValuePairOfstringanyType>
-                    <b:key>Target</b:key>
-                    <b:value i:type="a:Entity">
-                      #{entity.to_xml({exclude_root: true})}
-                    </b:value>
-                  </a:KeyValuePairOfstringanyType>
-                </a:Parameters>
-                <a:RequestId i:nil="true" />
-                <a:RequestName>Create</a:RequestName>
-              </c:OrganizationRequest>
-            }
-        end
-
-        build_envelope('Execute') do
-          %Q{<Execute xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-            <request i:type="a:ExecuteMultipleRequest" xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:b="http://schemas.microsoft.com/crm/2011/Contracts">
-              <a:Parameters xmlns:b="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
-              <a:KeyValuePairOfstringanyType>
-                <b:key>Requests</b:key>
-                <b:value i:type="c:OrganizationRequestCollection" xmlns:c="http://schemas.microsoft.com/xrm/2012/Contracts">
-                  #{requests}
-                </b:value>
-              </a:KeyValuePairOfstringanyType>
-              <a:KeyValuePairOfstringanyType>
-                <b:key>Settings</b:key>
-                <b:value i:type="c:ExecuteMultipleSettings" xmlns:c="http://schemas.microsoft.com/xrm/2012/Contracts">
-                  <c:ContinueOnError>false</c:ContinueOnError>
-                  <c:ReturnResponses>true</c:ReturnResponses>
-                </b:value>
-              </a:KeyValuePairOfstringanyType>
-            </a:Parameters>
-             <a:RequestId i:nil="true" />
-             <a:RequestName>ExecuteMultiple</a:RequestName>
-            </request>
-           </Execute>}
-        end
+        execute_multiple_request('Create', entities)
       end
 
       def update_request(entity)
@@ -281,48 +240,7 @@ module DynamicsCRM
       end
 
       def update_multiple_request(entities)
-        requests = ''
-        entities.each do |entity|
-          requests +=
-            %Q{
-              <c:OrganizationRequest i:type="a:CreateRequest">
-                <a:Parameters>
-                  <a:KeyValuePairOfstringanyType>
-                    <b:key>Target</b:key>
-                    <b:value i:type="a:Entity">
-                      #{entity.to_xml({exclude_root: true})}
-                    </b:value>
-                  </a:KeyValuePairOfstringanyType>
-                </a:Parameters>
-                <a:RequestId i:nil="true" />
-                <a:RequestName>Update</a:RequestName>
-              </c:OrganizationRequest>
-            }
-        end
-
-        build_envelope('Execute') do
-          %Q{<Execute xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-            <request i:type="a:ExecuteMultipleRequest" xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:b="http://schemas.microsoft.com/crm/2011/Contracts">
-              <a:Parameters xmlns:b="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
-              <a:KeyValuePairOfstringanyType>
-                <b:key>Requests</b:key>
-                <b:value i:type="c:OrganizationRequestCollection" xmlns:c="http://schemas.microsoft.com/xrm/2012/Contracts">
-                  #{requests}
-                </b:value>
-              </a:KeyValuePairOfstringanyType>
-              <a:KeyValuePairOfstringanyType>
-                <b:key>Settings</b:key>
-                <b:value i:type="c:ExecuteMultipleSettings" xmlns:c="http://schemas.microsoft.com/xrm/2012/Contracts">
-                  <c:ContinueOnError>false</c:ContinueOnError>
-                  <c:ReturnResponses>true</c:ReturnResponses>
-                </b:value>
-              </a:KeyValuePairOfstringanyType>
-            </a:Parameters>
-             <a:RequestId i:nil="true" />
-             <a:RequestName>ExecuteMultiple</a:RequestName>
-            </request>
-           </Execute>}
-        end
+        execute_multiple_request('Update', entities)
       end
 
       # Tag name case MATTERS!
@@ -449,6 +367,51 @@ module DynamicsCRM
             </request>
            </Execute>}
          end
+      end
+
+      def execute_multiple_request(action, entities)
+        requests = ''
+        entities.each do |entity|
+          requests +=
+              %Q{
+              <c:OrganizationRequest i:type="a:#{action}Request">
+                <a:Parameters>
+                  <a:KeyValuePairOfstringanyType>
+                    <b:key>Target</b:key>
+                    <b:value i:type="a:Entity">
+                      #{entity.to_xml({exclude_root: true})}
+                    </b:value>
+                  </a:KeyValuePairOfstringanyType>
+                </a:Parameters>
+                <a:RequestId i:nil="true" />
+                <a:RequestName>#{action}</a:RequestName>
+              </c:OrganizationRequest>
+            }
+        end
+
+        build_envelope('Execute') do
+          %Q{<Execute xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+            <request i:type="a:ExecuteMultipleRequest" xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:b="http://schemas.microsoft.com/crm/2011/Contracts">
+              <a:Parameters xmlns:b="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
+              <a:KeyValuePairOfstringanyType>
+                <b:key>Requests</b:key>
+                <b:value i:type="c:OrganizationRequestCollection" xmlns:c="http://schemas.microsoft.com/xrm/2012/Contracts">
+                  #{requests}
+                </b:value>
+              </a:KeyValuePairOfstringanyType>
+              <a:KeyValuePairOfstringanyType>
+                <b:key>Settings</b:key>
+                <b:value i:type="c:ExecuteMultipleSettings" xmlns:c="http://schemas.microsoft.com/xrm/2012/Contracts">
+                  <c:ContinueOnError>false</c:ContinueOnError>
+                  <c:ReturnResponses>true</c:ReturnResponses>
+                </b:value>
+              </a:KeyValuePairOfstringanyType>
+            </a:Parameters>
+             <a:RequestId i:nil="true" />
+             <a:RequestName>ExecuteMultiple</a:RequestName>
+            </request>
+           </Execute>}
+        end
       end
 
     end
