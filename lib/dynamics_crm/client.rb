@@ -208,6 +208,20 @@ module DynamicsCRM
       return Response::DeleteResponse.new(xml_response)
     end
 
+    def delete_multiple(entity_name, guids)
+      entities = []
+      guids.each do |guid|
+        entity = XML::EntityReference.new(entity_name, guid)
+        entity.logical_name = entity_name
+
+        entities << entity
+      end
+      request = delete_multiple_request(entities)
+      xml_response = post(organization_endpoint, request)
+
+      return Response::ExecuteMultipleResult.new(xml_response)
+    end
+
     def bulk_delete(entity_name, emailToRecipientGuid, criteria=[], wait=false)
 
       query = XML::Query.new(entity_name)

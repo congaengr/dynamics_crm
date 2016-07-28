@@ -274,6 +274,10 @@ module DynamicsCRM
         end
       end
 
+      def delete_multiple_request(entities)
+        execute_multiple_request('Delete', entities)
+      end
+
       def bulk_delete_request(object, emailToRecipientGuid)
         build_envelope('Execute') do
           %Q{<Execute xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
@@ -378,7 +382,7 @@ module DynamicsCRM
                 <a:Parameters>
                   <a:KeyValuePairOfstringanyType>
                     <b:key>Target</b:key>
-                    <b:value i:type="a:Entity">
+                    <b:value i:type="a:#{entity.is_a?(DynamicsCRM::XML::EntityReference) ? "EntityReference" : "Entity"}">
                       #{entity.to_xml({exclude_root: true})}
                     </b:value>
                   </a:KeyValuePairOfstringanyType>
