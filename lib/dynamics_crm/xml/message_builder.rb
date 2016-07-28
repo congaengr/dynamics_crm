@@ -383,7 +383,7 @@ module DynamicsCRM
                   <a:KeyValuePairOfstringanyType>
                     <b:key>Target</b:key>
                     <b:value i:type="a:#{entity.is_a?(DynamicsCRM::XML::EntityReference) ? "EntityReference" : "Entity"}">
-                      #{entity.to_xml({exclude_root: true})}
+                      #{entity.to_xml({exclude_root: true, namespace: 'a'})}
                     </b:value>
                   </a:KeyValuePairOfstringanyType>
                 </a:Parameters>
