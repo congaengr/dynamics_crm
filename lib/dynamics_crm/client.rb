@@ -186,6 +186,14 @@ module DynamicsCRM
       return response_class.new(xml_response)
     end
 
+    def execute_simple_action_tag(action, parameters={}, response_class=nil)
+      request = execute_request(action, parameters, false)
+      xml_response = post(organization_endpoint, request)
+
+      response_class ||= Response::ExecuteResult
+      return response_class.new(xml_response)
+    end
+
     def associate(entity_name, guid, relationship, related_entities)
       request = associate_request(entity_name, guid, relationship, related_entities)
       xml_response = post(organization_endpoint, request)
