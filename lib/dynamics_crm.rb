@@ -1,4 +1,5 @@
 require "dynamics_crm/version"
+require "dynamics_crm/configuration"
 # CRM
 require "dynamics_crm/xml/message_builder"
 require 'dynamics_crm/xml/message_parser'
