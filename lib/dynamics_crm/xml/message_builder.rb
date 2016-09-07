@@ -18,6 +18,10 @@ module DynamicsCRM
         end
       end
 
+      def get_current_time_minus_hour
+        (Time.now.utc - (60*60)).strftime '%Y-%m-%dT%H:%M:%SZ'
+      end
+
       def get_current_time_plus_hour
         (Time.now.utc + (60*60)).strftime '%Y-%m-%dT%H:%M:%SZ'
       end
