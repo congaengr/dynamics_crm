@@ -36,7 +36,7 @@ describe DynamicsCRM::Client do
     end
 
     context "On-Premise" do
-      let(:subject) { DynamicsCRM::Client.new(organization_name: "psavtest", hostname: "psavtest.crm.powerobjects.net")}
+      let(:subject) { DynamicsCRM::Client.new(hostname: "customers.crm.psav.com")}
 
       it "authenticates with username and password" do
 
