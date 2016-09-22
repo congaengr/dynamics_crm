@@ -31,6 +31,7 @@ require "dynamics_crm/metadata/retrieve_all_entities_response"
 require "dynamics_crm/metadata/retrieve_entity_response"
 require "dynamics_crm/metadata/retrieve_attribute_response"
 require "dynamics_crm/metadata/retrieve_metadata_changes_response"
+require "dynamics_crm/metadata/double"
 # Model
 require "dynamics_crm/model/entity"
 require "dynamics_crm/model/opportunity"
