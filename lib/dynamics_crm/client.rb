@@ -141,11 +141,10 @@ module DynamicsCRM
         })
     end
 
-    def retrieve_multiple(entity_name, criteria=[], columns=[])
-
+    def retrieve_multiple(entity_name, criteria=[], columns=[], operator=nil)
       query = XML::Query.new(entity_name)
       query.columns = columns
-      query.criteria = XML::Criteria.new(criteria)
+      query.criteria = XML::Criteria.new(criteria, operator)
 
       request = retrieve_multiple_request(query)
       xml_response = post(organization_endpoint, request)

@@ -110,6 +110,15 @@ describe DynamicsCRM::Client do
       expect(entities[1].attributes["accountid"]).to eq("dbe9d7c9-2c98-e311-9752-6c3be5a87df0")
       expect(entities[2].attributes["accountid"]).to eq("8ff0325c-a592-e311-b7f3-6c3be5a8a0c8")
     end
+
+    it "retrieves multiple entities by criteria using OR" do
+
+      allow(subject).to receive(:post).and_return(fixture("retrieve_multiple_result"))
+
+      result = subject.retrieve_multiple("account", ["name", "Equal", "Test Account", 'Or'], columns=[])
+
+      expect(result).to be_a(DynamicsCRM::Response::RetrieveMultipleResult)
+    end
   end
 
   describe "#retrieve_attachments" do

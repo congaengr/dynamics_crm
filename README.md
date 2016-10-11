@@ -43,6 +43,9 @@ client.retrieve_multiple('account', [["name", "Equal", "Test Account"]])
 
 client.retrieve_multiple('account', [["name", "Equal", "Test Account"], ["Name, "CreatedBy"]])
 # => [#<DynamicsCRM::XML::Entity ... >]
+
+client.retrieve_multiple('account', [["telephone1", "EndsWith", "5558675309"], ["mobilephone", "EndsWith", "5558675309"]], [], "Or")
+# => [#<DynamicsCRM::XML::Entity ... >]
 ```
 
 ### fetch (FetchXml)
