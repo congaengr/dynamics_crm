@@ -4,6 +4,7 @@ require "dynamics_crm/xml/message_builder"
 require 'dynamics_crm/xml/message_parser'
 require "dynamics_crm/xml/fault"
 require "dynamics_crm/xml/attributes"
+require "dynamics_crm/xml/condition_expression"
 require "dynamics_crm/xml/column_set"
 require "dynamics_crm/xml/criteria"
 require "dynamics_crm/xml/query_expression"
