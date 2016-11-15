@@ -41,7 +41,7 @@ client.retrieve('account', '53291AAB-4A9A-E311-B097-6C3BE5A8DD60')
 client.retrieve_multiple('account', [["name", "Equal", "Test Account"]])
 # => [#<DynamicsCRM::XML::Entity ... >]
 
-client.retrieve_multiple('account', [["name", "Equal", "Test Account"], ["Name, "CreatedBy"]])
+client.retrieve_multiple('account', [["name", "Equal", "Test Account"], ['salesstage', 'In', [0, 1, 2]]])
 # => [#<DynamicsCRM::XML::Entity ... >]
 
 client.retrieve_multiple('account', [["telephone1", "EndsWith", "5558675309"], ["mobilephone", "EndsWith", "5558675309"]], [], "Or")

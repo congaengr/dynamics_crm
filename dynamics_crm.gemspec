@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = DynamicsCRM::VERSION
   spec.authors       = ["Joe Heth"]
   spec.email         = ["joeheth@gmail.com"]
-  spec.description   = %q{Ruby API for integrating with MS Dynamics 2011/2013 SOAP API}
-  spec.summary       = %q{Ruby gem for integrating with MS Dynamics 2011/2013 SOAP API}
+  spec.description   = %q{Ruby API for integrating with MS Dynamics SOAP API}
+  spec.summary       = %q{Ruby gem for integrating with MS Dynamics SOAP API}
   spec.homepage      = "https://github.com/TinderBox/dynamics_crm"
   spec.license       = "MIT"
 

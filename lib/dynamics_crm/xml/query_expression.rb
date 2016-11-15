@@ -1,8 +1,7 @@
 module DynamicsCRM
   module XML
-    # Represents Query XML fragment.
-    class Query
-
+    # Represents QueryExpression XML fragment.
+    class QueryExpression
       attr_accessor :columns, :criteria, :entity_name
 
       def initialize(entity_name)
@@ -33,6 +32,10 @@ module DynamicsCRM
       end
 
     end
-    # Query
+    # QueryExpression
+
+    # Backward compatible class
+    class Query < QueryExpression
+    end
   end
 end

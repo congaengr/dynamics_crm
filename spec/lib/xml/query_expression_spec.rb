@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe DynamicsCRM::XML::Query do
+describe DynamicsCRM::XML::QueryExpression do
 
   describe 'initialization' do
     subject {
-      DynamicsCRM::XML::Query.new('opportunity')
+      DynamicsCRM::XML::QueryExpression.new('opportunity')
     }
 
-    context "generate empty Query fragment" do
+    context "generate empty QueryExpression fragment" do
       it { expect(subject.to_xml).to include("<b:ColumnSet ") }
       it { expect(subject.to_xml).to match(/<b:Conditions>\s+<\/b:Conditions>/) }
       it { expect(subject.to_xml).to include("<b:AllColumns>true</b:AllColumns>") }
@@ -15,18 +15,16 @@ describe DynamicsCRM::XML::Query do
       it { expect(subject.to_xml).to include("<b:EntityName>opportunity</b:EntityName>") }
       it { expect(subject.to_xml).to include("<b:FilterOperator>And</b:FilterOperator>").or(include("<b:FilterOperator>Or</b:FilterOperator>")) }
     end
-
   end
-
 
   describe 'criteria' do
     subject {
-      query = DynamicsCRM::XML::Query.new('opportunity')
+      query = DynamicsCRM::XML::QueryExpression.new('opportunity')
       query.criteria = DynamicsCRM::XML::Criteria.new([["name", "Equal", "Test Opp"]])
       query
     }
 
-    context "generate empty Query fragment" do
+    context "generate empty QueryExpression fragment" do
       it { expect(subject.to_xml).to include("<b:ColumnSet ") }
       it { expect(subject.to_xml).to include("<b:ConditionExpression") }
       it { expect(subject.to_xml).to include("AttributeName>name</") }
@@ -37,7 +35,5 @@ describe DynamicsCRM::XML::Query do
       it { expect(subject.to_xml).to include("<b:EntityName>opportunity</b:EntityName>") }
       it { expect(subject.to_xml).to include("<b:FilterOperator>And</b:FilterOperator>").or(include("<b:FilterOperator>Or</b:FilterOperator>")) }
     end
-
   end
-
 end
