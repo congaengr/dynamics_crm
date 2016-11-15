@@ -141,7 +141,7 @@ module DynamicsCRM
         })
     end
 
-    def retrieve_multiple(entity_name, criteria=[], columns=[])
+    def retrieve_multiple(entity_name, criteria=[], columns=[], operator=nil)
       query = XML::QueryExpression.new(entity_name)
       query.columns = columns
       query.criteria = XML::Criteria.new(criteria, operator)
