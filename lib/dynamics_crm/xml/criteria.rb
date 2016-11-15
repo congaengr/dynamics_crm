@@ -2,11 +2,14 @@ module DynamicsCRM
   module XML
 
     class Criteria < Array
+      SUPPORTED_OPERATORS = %w(And Or)
 
-      attr_accessor :filter_operator
-      def initialize(tuples=[])
-        super
-        @filter_operator = 'And'
+      def initialize(tuples=[], filter_operator:nil)
+        filter_operator ||= 'And'
+        raise "Supported operators: #{SUPPORTED_OPERATORS.join(',')}" if !SUPPORTED_OPERATORS.include?(filter_operator)
+
+        super(tuples)
+        @filter_operator = filter_operator
       end
 
       # ConditionExpression can be repeated multiple times
