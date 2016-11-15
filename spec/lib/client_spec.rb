@@ -115,7 +115,7 @@ describe DynamicsCRM::Client do
 
       allow(subject).to receive(:post).and_return(fixture("retrieve_multiple_result"))
 
-      result = subject.retrieve_multiple("account", ["name", "Equal", "Test Account", 'Or'], columns=[])
+      result = subject.retrieve_multiple("account", ["name", "Equal", "Test Account"], columns=[], 'Or')
 
       expect(result).to be_a(DynamicsCRM::Response::RetrieveMultipleResult)
     end

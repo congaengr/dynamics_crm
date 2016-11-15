@@ -5,11 +5,11 @@ module DynamicsCRM
       SUPPORTED_OPERATORS = %w(And Or)
 
       attr_accessor :filter_operator
-      def initialize(tuples=[], filter_operator=nil)
-        raise "Supported operators: #{SUPPORTED_OPERATORS.join(',')}" if filter_operator && !filter_operator.include?(SUPPORTED_OPERATORS)
+      def initialize(tuples=[], filter_operator:'And')
+        raise "Supported operators: #{SUPPORTED_OPERATORS.join(',')}" if !filter_operator.include?(SUPPORTED_OPERATORS)
 
         super(tuples)
-        @filter_operator = filter_operator || 'And'
+        @filter_operator = filter_operator
       end
 
       # ConditionExpression can be repeated multiple times
