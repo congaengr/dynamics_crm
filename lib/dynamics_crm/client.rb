@@ -320,30 +320,29 @@ module DynamicsCRM
 
     def post(url, request)
       log_xml("REQUEST", request)
+      uri = URI.parse(url)
 
-      c = Curl::Easy.new(url) do |http|
-        # Set up headers.
-        http.headers["Connection"] = "Keep-Alive"
-        http.headers["Content-type"] = "application/soap+xml; charset=UTF-8"
-        http.headers["Content-length"] = request.bytesize
+      http = Net::HTTP.new uri.host, uri.port
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_PEER
 
-        http.ssl_verify_peer = false
-        http.timeout = timeout
-        http.follow_location = true
-        http.ssl_version = 1
-        # http.verbose = 1
-      end
+      req = Net::HTTP::Post.new(uri.request_uri, {
+        "Connection" => "Keep-Alive",
+        "Content-type" => "application/soap+xml; charset=UTF-8",
+        "Content-length" => request.bytesize.to_s
+      })
+      req.body = request
+      response = http.request(req)
 
-      if c.http_post(request)
-        response = c.body_str
+      if response.code.to_i == 200
+        response_body = response.body
       else
         # Do something here on error.
       end
-      c.close
+      
+      log_xml("RESPONSE", response_body)
 
-      log_xml("RESPONSE", response)
-
-      response
+      response_body
     end
 
     def log_xml(title, xml)
