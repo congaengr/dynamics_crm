@@ -119,6 +119,21 @@ describe DynamicsCRM::Client do
 
       expect(result).to be_a(DynamicsCRM::Response::RetrieveMultipleResult)
     end
+
+    it "retrieves multiple entities by QueryExpression" do
+      allow(subject).to receive(:post).and_return(fixture("retrieve_multiple_result"))
+
+      query = DynamicsCRM::XML::QueryExpression.new('account')
+      query.columns = %w(accountid name)
+      query.criteria.add_condition('name', 'Equal', 'Test Account')
+
+      result = subject.retrieve_multiple(query)
+
+      expect(result).to be_a(DynamicsCRM::Response::RetrieveMultipleResult)
+
+      expect(result['EntityName']).to eq('account')
+      expect(result.entities.size).to eq(3)
+    end
   end
 
   describe "#retrieve_attachments" do
