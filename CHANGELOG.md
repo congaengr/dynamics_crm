@@ -1,3 +1,11 @@
+## 0.8.0 (January 4, 2017)
+* Support ArrayOfEntity so one can create bound entities like ActivityParties on create #41
+* Add special case for nil value #43
+* Add support for double type #44
+* Support Or queries in Criteria #53
+* Removed dependency on Curb #54
+* Adds PageInfo support to QueryExpression. #56
+
 ## 0.7.0 (March 4, 2016)
 * Add EntityCollection to xml attributes #24
 * Fix illegal XML characters #25
