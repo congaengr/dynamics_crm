@@ -48,6 +48,28 @@ client.retrieve_multiple('account', [["telephone1", "EndsWith", "5558675309"], [
 # => [#<DynamicsCRM::XML::Entity ... >]
 ```
 
+### retrieve_multiple using QueryExpression
+
+```ruby
+# Build QueryExpression
+query = DynamicsCRM::XML::QueryExpression.new('account')
+query.columns = %w(accountid name)
+query.criteria.add_condition('name', 'NotEqual', 'Test Account')
+# Optional PageInfo
+query.page_info = DynamicsCRM::XML::PageInfo.new(count: 5, page_number: 1, return_total_record_count: true)
+
+# Get first page
+result = client.retrieve_multiple(query)
+
+while result.MoreRecords
+  # Next page
+  query.page_info.page_number += 1
+  query.page_info.paging_cookie = result.PagingCookie
+
+  result = client.retrieve_multiple(query)
+end
+```
+
 ### fetch (FetchXml)
 
 ```ruby

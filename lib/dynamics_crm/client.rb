@@ -141,14 +141,19 @@ module DynamicsCRM
         })
     end
 
-    def retrieve_multiple(entity_name, criteria=[], columns=[], operator=nil)
-      query = XML::QueryExpression.new(entity_name)
-      query.columns = columns
-      query.criteria = XML::Criteria.new(criteria, filter_operator: operator)
+    # Suports parameter list or QueryExpression object.
+    def retrieve_multiple(entity_name, criteria = [], columns = [], operator = nil)
+      if entity_name.is_a?(XML::QueryExpression)
+        query = entity_name
+      else
+        query = XML::QueryExpression.new(entity_name)
+        query.columns = columns
+        query.criteria = XML::Criteria.new(criteria, filter_operator: operator)
+      end
 
       request = retrieve_multiple_request(query)
       xml_response = post(organization_endpoint, request)
-      return Response::RetrieveMultipleResult.new(xml_response)
+      Response::RetrieveMultipleResult.new(xml_response)
     end
 
     def fetch(fetchxml)
@@ -339,7 +344,7 @@ module DynamicsCRM
       else
         # Do something here on error.
       end
-      
+
       log_xml("RESPONSE", response_body)
 
       response_body
