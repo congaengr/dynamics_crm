@@ -51,8 +51,8 @@ module DynamicsCRM
             end
         end
 
-        if type == "string" && value =~ /\w+{8}-\w+{4}-\w+{4}-\w+{4}-\w+{12}/
-          type = "guid"
+        if type == 'string' && value =~ /\A\{?\w+{8}-\w+{4}-\w+{4}-\w+{4}-\w+{12}\}?\z/
+          type = 'guid'
         end
 
         type
