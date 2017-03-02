@@ -64,7 +64,6 @@ module DynamicsCRM
     #
     # Returns true on success or raises Fault
     def authenticate(username, password)
-
       @username = username
       @password = password
 
@@ -108,37 +107,34 @@ module DynamicsCRM
         end
       end
 
-
       true
     end
 
     # These are all the operations defined by the Dynamics WSDL.
     # Tag names are case-sensitive.
     def create(entity_name, attributes)
-
       entity = XML::Entity.new(entity_name)
       entity.attributes = XML::Attributes.new(attributes)
 
       xml_response = post(organization_endpoint, create_request(entity))
-      return Response::CreateResult.new(xml_response)
+      Response::CreateResult.new(xml_response)
     end
 
     # http://crmtroubleshoot.blogspot.com.au/2013/07/dynamics-crm-2011-php-and-soap-calls.html
     def retrieve(entity_name, guid, columns=[])
-
       column_set = XML::ColumnSet.new(columns)
       request = retrieve_request(entity_name, guid, column_set)
 
       xml_response = post(organization_endpoint, request)
-      return Response::RetrieveResult.new(xml_response)
+      Response::RetrieveResult.new(xml_response)
     end
 
     def rollup(target_entity, query, rollup_type="Related")
-        self.execute("Rollup", {
-          Target: target_entity,
-          Query: query,
-          RollupType: rollup_type
-        })
+      self.execute("Rollup", {
+        Target: target_entity,
+        Query: query,
+        RollupType: rollup_type
+      })
     end
 
     # Suports parameter list or QueryExpression object.
@@ -172,14 +168,14 @@ module DynamicsCRM
 
       request = update_request(entity)
       xml_response = post(organization_endpoint, request)
-      return Response::UpdateResponse.new(xml_response)
+      Response::UpdateResponse.new(xml_response)
     end
 
     def delete(entity_name, guid)
       request = delete_request(entity_name, guid)
 
       xml_response = post(organization_endpoint, request)
-      return Response::DeleteResponse.new(xml_response)
+      Response::DeleteResponse.new(xml_response)
     end
 
     def execute(action, parameters={}, response_class=nil)
@@ -187,19 +183,19 @@ module DynamicsCRM
       xml_response = post(organization_endpoint, request)
 
       response_class ||= Response::ExecuteResult
-      return response_class.new(xml_response)
+      response_class.new(xml_response)
     end
 
     def associate(entity_name, guid, relationship, related_entities)
       request = associate_request(entity_name, guid, relationship, related_entities)
       xml_response = post(organization_endpoint, request)
-      return Response::AssociateResponse.new(xml_response)
+      Response::AssociateResponse.new(xml_response)
     end
 
     def disassociate(entity_name, guid, relationship, related_entities)
       request = disassociate_request(entity_name, guid, relationship, related_entities)
       xml_response = post(organization_endpoint, request)
-      return Response::DisassociateResponse.new(xml_response)
+      Response::DisassociateResponse.new(xml_response)
     end
 
     def create_attachment(entity_name, entity_id, options={})
@@ -354,6 +350,7 @@ module DynamicsCRM
       return unless logger
 
       logger.debug(title)
+
       doc = REXML::Document.new(xml)
       formatter.write(doc.root, logger)
       logger.debug("\n")

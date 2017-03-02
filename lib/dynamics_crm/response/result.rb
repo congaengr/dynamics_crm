@@ -1,13 +1,10 @@
 module DynamicsCRM
   module Response
-
     class Result < Hash
-
       attr_reader :document
       attr_reader :result_response
 
       def initialize(xml)
-
         @document = REXML::Document.new(xml)
 
         fault_xml = @document.get_elements("//[local-name() = 'Fault']")
@@ -24,7 +21,7 @@ module DynamicsCRM
 
       # Returns base element of the response document to parse.
       def response_element
-        class_name = self.class.to_s.split("::").last
+        class_name = self.class.to_s.split('::').last
       end
 
       # Invoked by constructor, should be implemented in sub-classes.
@@ -35,7 +32,6 @@ module DynamicsCRM
 
       # Allows method-like access to the hash using camelcase field names.
       def method_missing(method, *args, &block)
-
         # First return local hash entry for symbol or string.
         return self[method] if self.has_key?(method)
 
@@ -50,13 +46,12 @@ module DynamicsCRM
         end
 
         # Finally return nil.
-        return value
+        value
       end
 
       def respond_to_missing?(method_name, include_private = false)
         self.has_key?(method_name.to_s) || self.has_key?(method_name) || super
       end
-
     end
 
     # There's nothing to parse in the UpdateResult
@@ -73,6 +68,5 @@ module DynamicsCRM
 
     class DisassociateResponse < Result
     end
-
   end
 end
