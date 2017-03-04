@@ -9,7 +9,8 @@ describe DynamicsCRM::XML::QueryExpression do
 
     context "generate empty QueryExpression fragment" do
       it { expect(subject.to_xml).to include("<b:ColumnSet ") }
-      it { expect(subject.to_xml).to match(/<b:Conditions>\s+<\/b:Conditions>/) }
+      it { expect(subject.to_xml).to include("<b:Criteria>") }
+      it { expect(subject.to_xml).to include("<b:Conditions />") }
       it { expect(subject.to_xml).to include("<b:AllColumns>true</b:AllColumns>") }
       it { expect(subject.to_xml).to include("<b:Distinct>false</b:Distinct>") }
       it { expect(subject.to_xml).to include("<b:EntityName>opportunity</b:EntityName>") }

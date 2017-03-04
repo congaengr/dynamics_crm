@@ -47,4 +47,18 @@ describe DynamicsCRM::XML::ConditionExpression do
 
     expect(subject.to_xml(namespace: 'b')).to match_xml fragment
   end
+
+  it 'supports Null operator without value' do
+    subject = DynamicsCRM::XML::ConditionExpression.new('telephone1', 'Null')
+
+    fragment = %(
+      <b:ConditionExpression>
+        <b:AttributeName>telephone1</b:AttributeName>
+        <b:Operator>Null</b:Operator>
+        <b:Values xmlns:d="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+        </b:Values>
+      </b:ConditionExpression>)
+
+    expect(subject.to_xml(namespace: 'b')).to match_xml fragment
+  end
 end

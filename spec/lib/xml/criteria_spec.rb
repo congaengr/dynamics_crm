@@ -8,9 +8,9 @@ describe DynamicsCRM::XML::Criteria do
 
     it 'generates empty Criteria fragment' do
       expected = %(<a:Criteria>
-        <a:Conditions>
-        </a:Conditions>
+        <a:Conditions />
         <a:FilterOperator>And</a:FilterOperator>
+        <a:Filters />
       </a:Criteria>)
 
       expect(subject.to_xml).to match_xml(expected)
@@ -33,6 +33,7 @@ describe DynamicsCRM::XML::Criteria do
             </a:ConditionExpression>
           </a:Conditions>
           <a:FilterOperator>And</a:FilterOperator>
+          <a:Filters />
       </a:Criteria>)
     }
 
@@ -77,6 +78,7 @@ describe DynamicsCRM::XML::Criteria do
             </a:ConditionExpression>
           </a:Conditions>
           <a:FilterOperator>And</a:FilterOperator>
+          <a:Filters />
       </a:Criteria>)
     end
   end
