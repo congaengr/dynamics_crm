@@ -4,9 +4,11 @@ module DynamicsCRM
     # Creates a ConditionExpression element to be used in retrieve calls.
     class ConditionExpression
       attr_accessor :attr_name, :operator, :value, :type
-      def initialize(attr_name, operator, value, type: nil)
+
+      def initialize(attr_name, operator, value = nil, type: nil)
         @attr_name = attr_name
         @operator = operator
+        # value can be optional to support Null and NotNull operators
         @value = value
         @values = Array(value)
         @type = type
