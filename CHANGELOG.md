@@ -1,3 +1,8 @@
+## 0.9.0 (March 13, 2017)
+* Adds Filters support to Query Criteria #60
+* Improve GUID attribute regex.
+* Fix logging for non-200 response codes.
+
 ## 0.8.0 (January 4, 2017)
 * Support ArrayOfEntity so one can create bound entities like ActivityParties on create #41
 * Add special case for nil value #43
