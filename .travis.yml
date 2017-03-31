@@ -9,3 +9,5 @@ notifications:
       - joeheth@gmail.com
     on_success: never
     on_failure: always
+before_install:
+  - gem install bundler

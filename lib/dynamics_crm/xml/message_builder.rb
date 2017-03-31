@@ -227,12 +227,20 @@ module DynamicsCRM
         end
       end
 
+      def create_multiple_request(entities)
+        execute_multiple_request('Create', entities)
+      end
+
       def update_request(entity)
         build_envelope('Update') do
           %Q{<Update xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
               #{entity.to_xml}
           </Update>}
         end
+      end
+
+      def update_multiple_request(entities)
+        execute_multiple_request('Update', entities)
       end
 
       # Tag name case MATTERS!
@@ -263,6 +271,57 @@ module DynamicsCRM
               <entityName>#{entity_name}</entityName>
               <id>#{guid}</id>
             </Delete>}
+        end
+      end
+
+      def delete_multiple_request(entities)
+        execute_multiple_request('Delete', entities)
+      end
+
+      def bulk_delete_request(object, emailToRecipientGuid)
+        build_envelope('Execute') do
+          %Q{<Execute xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+            <request i:type="b:BulkDeleteRequest" xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:b="http://schemas.microsoft.com/crm/2011/Contracts">
+              <a:Parameters xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
+                <a:KeyValuePairOfstringanyType>
+                  <c:key>QuerySet</c:key>
+                  <c:value i:type="a:ArrayOfQueryExpression">
+                    <a:QueryExpression>
+                      #{object.to_xml({exclude_root: true, namespace: 'a'})}
+                    </a:QueryExpression>
+                  </c:value>
+                </a:KeyValuePairOfstringanyType>
+                <a:KeyValuePairOfstringanyType>
+                 <c:key>JobName</c:key>
+                 <c:value i:type="d:string" xmlns:d="http://www.w3.org/2001/XMLSchema">pitcherbulkdeletejob</c:value>
+                </a:KeyValuePairOfstringanyType>
+                <a:KeyValuePairOfstringanyType>
+                  <c:key>SendEmailNotification</c:key>
+                  <c:value i:type="d:boolean" xmlns:d="http://www.w3.org/2001/XMLSchema">true</c:value>
+                </a:KeyValuePairOfstringanyType>
+                <a:KeyValuePairOfstringanyType>
+                  <c:key>ToRecipients</c:key>
+                  <c:value i:type="d:ArrayOfguid" xmlns:d="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+                    <d:guid>#{emailToRecipientGuid}</d:guid>
+                  </c:value>
+                </a:KeyValuePairOfstringanyType>
+                <a:KeyValuePairOfstringanyType>
+                  <c:key>CCRecipients</c:key>
+                  <c:value i:type="d:ArrayOfguid" xmlns:d="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+                </a:KeyValuePairOfstringanyType>
+                <a:KeyValuePairOfstringanyType>
+                  <c:key>RecurrencePattern</c:key>
+                  <c:value i:type="d:string" xmlns:d="http://www.w3.org/2001/XMLSchema" />
+                </a:KeyValuePairOfstringanyType>
+                <a:KeyValuePairOfstringanyType>
+                  <c:key>StartDateTime</c:key>
+                  <c:value i:type="d:dateTime" xmlns:d="http://www.w3.org/2001/XMLSchema">0001-01-01T00:00:00</c:value>
+                </a:KeyValuePairOfstringanyType>
+              </a:Parameters>
+              <a:RequestId i:nil="true" />
+              <a:RequestName>BulkDelete</a:RequestName>
+            </request>
+           </Execute>}
         end
       end
 
@@ -312,6 +371,51 @@ module DynamicsCRM
             </request>
            </Execute>}
          end
+      end
+
+      def execute_multiple_request(action, entities)
+        requests = ''
+        entities.each do |entity|
+          requests +=
+              %Q{
+              <c:OrganizationRequest i:type="a:#{action}Request">
+                <a:Parameters>
+                  <a:KeyValuePairOfstringanyType>
+                    <b:key>Target</b:key>
+                    <b:value i:type="a:#{entity.is_a?(DynamicsCRM::XML::EntityReference) ? "EntityReference" : "Entity"}">
+                      #{entity.to_xml({exclude_root: true, namespace: 'a'})}
+                    </b:value>
+                  </a:KeyValuePairOfstringanyType>
+                </a:Parameters>
+                <a:RequestId i:nil="true" />
+                <a:RequestName>#{action}</a:RequestName>
+              </c:OrganizationRequest>
+            }
+        end
+
+        build_envelope('Execute') do
+          %Q{<Execute xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+            <request i:type="a:ExecuteMultipleRequest" xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:b="http://schemas.microsoft.com/crm/2011/Contracts">
+              <a:Parameters xmlns:b="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
+              <a:KeyValuePairOfstringanyType>
+                <b:key>Requests</b:key>
+                <b:value i:type="c:OrganizationRequestCollection" xmlns:c="http://schemas.microsoft.com/xrm/2012/Contracts">
+                  #{requests}
+                </b:value>
+              </a:KeyValuePairOfstringanyType>
+              <a:KeyValuePairOfstringanyType>
+                <b:key>Settings</b:key>
+                <b:value i:type="c:ExecuteMultipleSettings" xmlns:c="http://schemas.microsoft.com/xrm/2012/Contracts">
+                  <c:ContinueOnError>false</c:ContinueOnError>
+                  <c:ReturnResponses>true</c:ReturnResponses>
+                </b:value>
+              </a:KeyValuePairOfstringanyType>
+            </a:Parameters>
+             <a:RequestId i:nil="true" />
+             <a:RequestName>ExecuteMultiple</a:RequestName>
+            </request>
+           </Execute>}
+        end
       end
 
     end

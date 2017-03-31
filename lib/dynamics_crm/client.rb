@@ -18,7 +18,7 @@ module DynamicsCRM
     extend Forwardable
     include XML::MessageBuilder
 
-    attr_accessor :logger, :caller_id, :timeout
+    attr_accessor :logger, :caller_id, :timeout, :security_token0, :security_token1, :key_identifier
     attr_reader :hostname, :region, :organization_endpoint, :login_url
 
     OCP_LOGIN_URL = 'https://login.microsoftonline.com/RST2.srf'
@@ -120,6 +120,20 @@ module DynamicsCRM
       Response::CreateResult.new(xml_response)
     end
 
+    def create_multiple(entity_name, attributesArray)
+
+      entities = []
+      attributesArray.each do |attributes|
+        entity = XML::Entity.new(entity_name)
+        entity.attributes = XML::Attributes.new(attributes)
+
+        entities << entity
+      end
+      xml_response = post(organization_endpoint, create_multiple_request(entities))
+
+      return Response::ExecuteMultipleResult.new(xml_response)
+    end
+
     # http://crmtroubleshoot.blogspot.com.au/2013/07/dynamics-crm-2011-php-and-soap-calls.html
     def retrieve(entity_name, guid, columns=[])
       column_set = XML::ColumnSet.new(columns)
@@ -171,11 +185,67 @@ module DynamicsCRM
       Response::UpdateResponse.new(xml_response)
     end
 
+    def update_multiple(entity_name, guids, attributesArray)
+      raise "Number of 'guids' to be updated should be equal to attributes array size" if guids.count != attributesArray.count
+
+      entities = []
+      attributesArray.each_with_index do |attributes, index|
+        entity = XML::Entity.new(entity_name)
+        entity.id = guids[index]
+        entity.attributes = XML::Attributes.new(attributes)
+
+        entities << entity
+      end
+      xml_response = post(organization_endpoint, update_multiple_request(entities))
+
+      return Response::ExecuteMultipleResult.new(xml_response)
+    end
+
     def delete(entity_name, guid)
       request = delete_request(entity_name, guid)
 
       xml_response = post(organization_endpoint, request)
       Response::DeleteResponse.new(xml_response)
+    end
+
+    def delete_multiple(entity_name, guids)
+      entities = []
+      guids.each do |guid|
+        entity = XML::EntityReference.new(entity_name, guid)
+        entity.logical_name = entity_name
+
+        entities << entity
+      end
+      request = delete_multiple_request(entities)
+      xml_response = post(organization_endpoint, request)
+
+      return Response::ExecuteMultipleResult.new(xml_response)
+    end
+
+    def bulk_delete(entity_name, emailToRecipientGuid, criteria=[], wait=false)
+
+      query = XML::Query.new(entity_name)
+      query.criteria = XML::Criteria.new(criteria)
+
+      request = bulk_delete_request(query, emailToRecipientGuid)
+      xml_response = post(organization_endpoint, request)
+
+      response = Response::ExecuteResult.new(xml_response)
+      jobId = response['JobId']
+      if wait && !jobId.nil?
+        while true
+          jobStatus = check_job_status(jobId)
+          if jobStatus != "Waiting For Resources" && jobStatus != "Waiting" && jobStatus != "In Progress"
+            break
+          end
+          sleep(2) # wait x seconds and check again
+        end
+
+        if jobStatus != 'Succeeded'
+          response['errorMessage'] = "The job has not completed with success. The response returned a status of #{jobStatus}. Please check your query/parameters and try again."
+        end
+      end
+      response
     end
 
     def execute(action, parameters={}, response_class=nil)
@@ -357,6 +427,13 @@ module DynamicsCRM
         @formatter.compact = true # This is the magic line that does what you need!
       end
       @formatter
+    end
+
+    def check_job_status(job_id)
+      jobStatusResult = self.retrieve_multiple('asyncoperation', [["asyncoperationid", "Equal", job_id]], ["statuscode"])
+      jobStatus = jobStatusResult.entities[0].formatted_values['statuscode'] if jobStatusResult.entities.count > 0
+
+      jobStatus
     end
 
   end

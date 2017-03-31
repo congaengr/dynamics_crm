@@ -13,8 +13,10 @@ module DynamicsCRM
         end
         # REXL::Element
         @code = fault_xml.get_text("//[local-name() = 'Code']/[local-name() = 'Value']")
+        @code = fault_xml.get_text("//[local-name() = 'ErrorCode']") if @code.nil? || @code.empty?
         @subcode = fault_xml.get_text("//[local-name() = 'Code']/[local-name() = 'Subcode']/[local-name() = 'Value']")
         @reason = fault_xml.get_text("//[local-name() = 'Reason']/[local-name() = 'Text']")
+        @reason = fault_xml.get_text("//[local-name() = 'Message']") if @reason.nil? || @reason.empty?
 
         @detail = {}
         detail_fragment = fault_xml.get_elements("//[local-name() = 'Detail']").first
