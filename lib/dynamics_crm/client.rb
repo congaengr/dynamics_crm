@@ -13,7 +13,6 @@ require 'openssl'
 require 'open-uri'
 
 module DynamicsCRM
-
   class Client
     extend Forwardable
     include XML::MessageBuilder
@@ -25,10 +24,12 @@ module DynamicsCRM
 
     REGION = {
       "crm9.dynamics.com" => "urn:crmgcc:dynamics.com",
+      "crm8.dynamics.com" => "urn:crmind:dynamics.com",
       "crm7.dynamics.com" => "urn:crmjpn:dynamics.com",
       "crm6.dynamics.com" => "urn:crmoce:dynamics.com",
       "crm5.dynamics.com" => "urn:crmapac:dynamics.com",
       "crm4.dynamics.com" => "urn:crmemea:dynamics.com",
+      "crm3.dynamics.com" => "urn:crmcan:dynamics.com",
       "crm2.dynamics.com" => "urn:crmsam:dynamics.com",
       "crm.dynamics.com"  => "urn:crmna:dynamics.com",
     }
@@ -358,7 +359,5 @@ module DynamicsCRM
       end
       @formatter
     end
-
   end
-
 end

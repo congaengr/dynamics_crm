@@ -434,19 +434,30 @@ describe DynamicsCRM::Client do
     end
   end
 
-  describe "#determine_region" do
-    context "Client receives only hostname" do
-      it "return the correct region" do
+  describe '#determine_region' do
+    context 'Client receives only hostname' do
+      it 'North America region' do
+        client = DynamicsCRM::Client.new(hostname: 'xunda.crm.dynamics.com')
+        expect(client.region).to eq('urn:crmna:dynamics.com')
+      end
+      it 'South America region' do
         client = DynamicsCRM::Client.new(hostname: 'xunda.api.crm2.dynamics.com')
         expect(client.region).to eq('urn:crmsam:dynamics.com')
       end
+      it 'Canada region' do
+        client = DynamicsCRM::Client.new(organization_name: 'xunda.crm3.dynamics.com')
+        expect(client.region).to eq('urn:crmcan:dynamics.com')
+      end
+      it 'India region' do
+        client = DynamicsCRM::Client.new(organization_name: 'xunda.crm8.dynamics.com')
+        expect(client.region).to eq('urn:crmind:dynamics.com')
+      end
     end
-    context "Client receives only organization_name" do
-      it "return the correct region" do
+    context 'Client receives only organization_name' do
+      it 'return the correct region' do
         client = DynamicsCRM::Client.new(organization_name: 'xunda')
         expect(client.region).to eq('urn:crmna:dynamics.com')
       end
     end
   end
-
 end
