@@ -1,3 +1,7 @@
+## 0.9.1 (April 24, 2017)
+* Entity metadata should return actual attributes if present #61
+* Support for crm3 and crm8 regions. #62
+
 ## 0.9.0 (March 13, 2017)
 * Adds Filters support to Query Criteria #60
 * Improve GUID attribute regex.
