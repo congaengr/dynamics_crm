@@ -452,6 +452,10 @@ describe DynamicsCRM::Client do
         client = DynamicsCRM::Client.new(organization_name: 'xunda.crm8.dynamics.com')
         expect(client.region).to eq('urn:crmind:dynamics.com')
       end
+      it 'Great Britain region' do
+        client = DynamicsCRM::Client.new(organization_name: 'xunda.crm11.dynamics.com')
+        expect(client.region).to eq('urn:crmgbr:dynamics.com')
+      end
     end
     context 'Client receives only organization_name' do
       it 'return the correct region' do
