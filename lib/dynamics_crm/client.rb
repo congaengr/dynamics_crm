@@ -23,15 +23,16 @@ module DynamicsCRM
     OCP_LOGIN_URL = 'https://login.microsoftonline.com/RST2.srf'
 
     REGION = {
-      "crm9.dynamics.com" => "urn:crmgcc:dynamics.com",
-      "crm8.dynamics.com" => "urn:crmind:dynamics.com",
-      "crm7.dynamics.com" => "urn:crmjpn:dynamics.com",
-      "crm6.dynamics.com" => "urn:crmoce:dynamics.com",
-      "crm5.dynamics.com" => "urn:crmapac:dynamics.com",
-      "crm4.dynamics.com" => "urn:crmemea:dynamics.com",
-      "crm3.dynamics.com" => "urn:crmcan:dynamics.com",
-      "crm2.dynamics.com" => "urn:crmsam:dynamics.com",
-      "crm.dynamics.com"  => "urn:crmna:dynamics.com",
+      "crm11.dynamics.com" => "urn:crmgbr:dynamics.com",
+      "crm9.dynamics.com"  => "urn:crmgcc:dynamics.com",
+      "crm8.dynamics.com"  => "urn:crmind:dynamics.com",
+      "crm7.dynamics.com"  => "urn:crmjpn:dynamics.com",
+      "crm6.dynamics.com"  => "urn:crmoce:dynamics.com",
+      "crm5.dynamics.com"  => "urn:crmapac:dynamics.com",
+      "crm4.dynamics.com"  => "urn:crmemea:dynamics.com",
+      "crm3.dynamics.com"  => "urn:crmcan:dynamics.com",
+      "crm2.dynamics.com"  => "urn:crmsam:dynamics.com",
+      "crm.dynamics.com"   => "urn:crmna:dynamics.com",
     }
 
     # Initializes Client instance.
@@ -316,7 +317,7 @@ module DynamicsCRM
     end
 
     def determine_region
-      hostname.match(/(crm\d?\.dynamics.com)/)
+      hostname.match(/(crm(\d+)?\.dynamics.com)/)
       REGION[$1]
     end
 
