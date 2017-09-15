@@ -42,7 +42,7 @@ module DynamicsCRM
       raise RuntimeError.new("organization_name or hostname is required") if config[:organization_name].nil? && config[:hostname].nil?
 
       @organization_name = config[:organization_name]
-      @hostname = config[:hostname] || "#{@organization_name}.api.crm.dynamics.com"
+      @hostname = config[:hostname] || "crm.#{@organization_name}.co.uk"
       @organization_endpoint = "https://#{@hostname}/XRMServices/2011/Organization.svc"
       REGION.default = @organization_endpoint
       @caller_id = config[:caller_id]
