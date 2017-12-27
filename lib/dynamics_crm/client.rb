@@ -328,6 +328,7 @@ module DynamicsCRM
       http = Net::HTTP.new uri.host, uri.port
       http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+      http.read_timeout = timeout
 
       req = Net::HTTP::Post.new(uri.request_uri,
         'Connection' => 'Keep-Alive',
