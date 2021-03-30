@@ -49,7 +49,7 @@ require 'bigdecimal'
 require 'base64'
 require "rexml/document"
 require 'net/https'
-require 'mimemagic'
+require 'marcel'
 require 'securerandom'
 require 'date'
 require 'cgi'

@@ -200,6 +200,14 @@ module DynamicsCRM
       Response::DisassociateResponse.new(xml_response)
     end
 
+    def mimetype(path)
+      type = Marcel::MimeType.for Pathname.new(path)
+      # MimeMagic used to return nil for unknown file types, so we will too
+      return nil if type == 'application/octet-stream'
+
+      type
+    end
+
     def create_attachment(entity_name, entity_id, options={})
       raise "options must contain a document entry" unless options[:document]
 
@@ -219,10 +227,10 @@ module DynamicsCRM
 
       if file.respond_to?(:base_uri)
         file_name ||= File.basename(file.base_uri.path)
-        mime_type = MimeMagic.by_path(file.base_uri.path)
+        mime_type = mimetype(file.base_uri.path)
       elsif file.respond_to?(:path)
         file_name ||= File.basename(file.path)
-        mime_type = MimeMagic.by_path(file.path)
+        mime_type = mimetype(file.path)
       else
         raise "file must be a valid File object, file path or URL"
       end
