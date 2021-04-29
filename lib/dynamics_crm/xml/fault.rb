@@ -12,9 +12,9 @@ module DynamicsCRM
           fault_xml = fault_xml.first
         end
         # REXL::Element
-        @code = fault_xml.get_text("//*[local-name() = 'Code']/[local-name() = 'Value']")
-        @subcode = fault_xml.get_text("//*[local-name() = 'Code']/[local-name() = 'Subcode']/[local-name() = 'Value']")
-        @reason = fault_xml.get_text("//*[local-name() = 'Reason']/[local-name() = 'Text']")
+        @code = fault_xml.get_text("//*[local-name() = 'Code']/*[local-name() = 'Value']")
+        @subcode = fault_xml.get_text("//*[local-name() = 'Code']/*[local-name() = 'Subcode']/*[local-name() = 'Value']")
+        @reason = fault_xml.get_text("//*[local-name() = 'Reason']/*[local-name() = 'Text']")
 
         @detail = {}
         detail_fragment = fault_xml.get_elements("//*[local-name() = 'Detail']").first

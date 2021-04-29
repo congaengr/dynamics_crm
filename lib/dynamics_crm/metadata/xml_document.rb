@@ -14,7 +14,7 @@ module DynamicsCRM
         return value if @document.nil?
 
         camel_name = method.to_s
-        element = @document.get_elements("./[local-name() = '#{camel_name}']").first
+        element = @document.get_elements("./*[local-name() = '#{camel_name}']").first
 
         if element && element.children.size == 1 && element.children.first.is_a?(REXML::Text)
           value = element.text
