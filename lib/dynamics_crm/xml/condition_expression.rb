@@ -18,7 +18,7 @@ module DynamicsCRM
         return type unless type.nil?
 
         type = @values.first.class.to_s.downcase
-        if type == 'fixnum'
+        if ["fixnum", "integer"].include?(type)
           type = 'int'
         elsif %w(trueclass falseclass).include?(type)
           type = 'boolean'

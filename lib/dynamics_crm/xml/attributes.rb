@@ -13,6 +13,8 @@ module DynamicsCRM
         case value
           when ::Array
             type = "ArrayOfEntity"
+          when ::Integer
+            type = "int"
           when ::Fixnum
             type = "int"
           when ::BigDecimal, ::Float
