@@ -1,3 +1,6 @@
+## 0.9.2 (April 24, 2017)
+* Support for Ruby v2.4 `Integer` class
+
 ## 0.9.1 (April 24, 2017)
 * Entity metadata should return actual attributes if present #61
 * Support for crm3 and crm8 regions. #62
@@ -67,4 +70,3 @@
 ## 0.1.0 (March 23, 2014)
 
 *   Initial Release.
-
