@@ -1,4 +1,4 @@
-## 0.9.2 (April 24, 2017)
+## 0.9.2 (August 31, 2021)
 * Support for Ruby v2.4 `Integer` class
 
 ## 0.9.1 (April 24, 2017)
