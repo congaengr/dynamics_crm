@@ -15,7 +15,7 @@ module DynamicsCRM
 
       def get_type(value)
           type = value.class.to_s.downcase
-          type = "int" if type == "fixnum"
+          type = "int" if ["fixnum", "integer"].include?(type)
           type = "boolean" if ["trueclass", "falseclass"].include?(type)
           type
       end
