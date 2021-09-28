@@ -8,8 +8,18 @@ module DynamicsCRM
 
       # have a bit of flexiblity in the create time to handle when system clocks are out of sync
       def get_current_time
-        # 5.minutes = 5 * 60
-        (Time.now - (5 * 60)).utc.strftime '%Y-%m-%dT%H:%M:%SZ'
+        if(DynamicsCRM.config.timestamps_use_utc_plus_hour)
+          get_current_time_plus_hour
+        elsif(DynamicsCRM.config.timestamps_use_utc_minus_hour)
+          get_current_time_minus_hour
+        else
+          # 5.minutes = 5 * 60
+          (Time.now - (5 * 60)).utc.strftime '%Y-%m-%dT%H:%M:%SZ'
+        end
+      end
+
+      def get_current_time_minus_hour
+        (Time.now.utc - (60*60)).strftime '%Y-%m-%dT%H:%M:%SZ'
       end
 
       def get_current_time_plus_hour
