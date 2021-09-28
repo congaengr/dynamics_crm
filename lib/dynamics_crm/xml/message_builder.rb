@@ -293,7 +293,7 @@ module DynamicsCRM
         end
       end
 
-      def execute_request(action, parameters={})
+      def execute_request(action, parameters={}, include_action=true)
 
         # Default namespace is /crm/2011/Contracts
         ns_alias = "b"
@@ -302,10 +302,15 @@ module DynamicsCRM
           ns_alias = 'a'
         end
 
+        action_tag = '<request xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts">'
+        if include_action
+          action_tag = %Q{<request i:type="#{ns_alias}:#{action}Request" xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:b="http://schemas.microsoft.com/crm/2011/Contracts">}
+        end
+
         parameters = XML::Parameters.new(parameters)
         build_envelope('Execute') do
           %Q{<Execute xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-            <request i:type="#{ns_alias}:#{action}Request" xmlns:a="http://schemas.microsoft.com/xrm/2011/Contracts" xmlns:b="http://schemas.microsoft.com/crm/2011/Contracts">
+             #{action_tag}
              #{parameters.to_xml}
              <a:RequestId i:nil="true" />
              <a:RequestName>#{action}</a:RequestName>
