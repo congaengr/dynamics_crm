@@ -5,6 +5,7 @@ describe DynamicsCRM::Metadata::EntityMetadata do
   describe 'initialization' do
     subject {
       doc = REXML::Document.new(fixture("retrieve_all_entities"))
+      doc = doc.root
       entity = doc.get_elements("//d:EntityMetadata").first
       DynamicsCRM::Metadata::EntityMetadata.new(entity)
     }
@@ -24,6 +25,7 @@ describe DynamicsCRM::Metadata::EntityMetadata do
   context 'relationships' do
     subject {
       doc = REXML::Document.new(fixture("retrieve_entity_relationships_response"))
+      doc = doc.root
       entity = doc.get_elements("//b:KeyValuePairOfstringanyType/c:value").first
       DynamicsCRM::Metadata::EntityMetadata.new(entity)
     }

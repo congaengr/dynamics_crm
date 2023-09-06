@@ -6,8 +6,9 @@ module DynamicsCRM
 
       def initialize(xml)
         @document = REXML::Document.new(xml)
+        @document = @document.root
 
-        fault_xml = @document.get_elements("//[local-name() = 'Fault']")
+        fault_xml = @document.get_elements("//*[local_name() = 'Fault']")
         raise XML::Fault.new(fault_xml) if fault_xml.any?
 
         @result_response = @document.get_elements("//#{response_element}").first

@@ -7,7 +7,8 @@ describe DynamicsCRM::XML::Fault do
     context "receiver fault" do
       subject {
         document = REXML::Document.new(fixture('receiver_fault'))
-        fault = document.get_elements("//[local-name() = 'Fault']")
+        document = document.root
+        fault = document.get_elements("//*[local_name() = 'Fault']")
         DynamicsCRM::XML::Fault.new(fault)
       }
 
@@ -23,7 +24,8 @@ describe DynamicsCRM::XML::Fault do
 
       subject {
         document = REXML::Document.new(fixture('sender_fault'))
-        fault = document.get_elements("//[local-name() = 'Fault']")
+        document = document.root
+        fault = document.get_elements("//*[local_name() = 'Fault']")
         DynamicsCRM::XML::Fault.new(fault)
       }
 

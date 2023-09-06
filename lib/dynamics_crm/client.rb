@@ -76,10 +76,11 @@ module DynamicsCRM
       end
 
       soap_response = post(login_url, auth_request)
-
       document = REXML::Document.new(soap_response)
       # Check for Fault
-      fault_xml = document.get_elements("//[local-name() = 'Fault']")
+      document = document.root
+      
+      fault_xml = document.get_elements("//*[local_name()='Fault']")
       raise XML::Fault.new(fault_xml) if fault_xml.any?
 
       if on_premise?
@@ -103,7 +104,7 @@ module DynamicsCRM
           @security_token0 = cipher_values[0].text
           @security_token1 = cipher_values[1].text
           # Use local-name() to ignore namespace.
-          @key_identifier = document.get_elements("//[local-name() = 'KeyIdentifier']").first.text
+          @key_identifier = document.get_elements("//*[local_name()='KeyIdentifier']").first.text
         else
           raise RuntimeError.new(soap_response)
         end
